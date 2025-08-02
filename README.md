@@ -1,6 +1,6 @@
 # OptimalWeave
 Introduction
-OptimalWeave is a precision-engineered ESO addon designed to optimize your combat rhythm by intelligently managing ability queuing during the Global Cooldown (GCD). Unlike traditional weaving helpers, it offers granular control over your rotation, adapts to latency, and includes class-specific optimizations for skills like Grim Focus and Fatecarver.
+OptimalWeave is a ESO (Elder Scrolls Online) addon designed to optimize your combat rhythm by intelligently managing ability queuing during the Global Cooldown (GCD). Unlike traditional weaving helpers, it offers granular control over your rotation, adapts to latency, and includes class-specific optimizations for skills like Grim Focus and Fatecarver.
 
 
 Features
