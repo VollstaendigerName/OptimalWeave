@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.3.5
+-- Version:           1.4.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -150,7 +150,7 @@ function OW.BuildMenu(OWSV, defaults)
                     --         valueMode = 0
                     --     end
                         
-                    function(value)
+                    function(value) -- Tmp fix, fix later
                         if value == 3 then
                             valueMode = 3
                         elseif value == 2 then
@@ -228,6 +228,19 @@ function OW.BuildMenu(OWSV, defaults)
             name = COLOR.ACCENT..OW.L("OW_MENU_ADVANCED_HEADER"),
             controls = {
                 CreateSectionHeader(OW.L("OW_MENU_ADVANCED_HEADER")),
+                CreateCheckbox(
+                    "OW_MENU_RESETONDODGE_LABEL",
+                    "OW_MENU_RESETONDODGE_TOOLTIP",
+                    function() return OWSV.resetOnDodge end,
+                    function(value) OWSV.resetOnDodge = value end
+                ),
+
+                CreateCheckbox(
+                    "OW_MENU_RESETONBARSWAP_LABEL",
+                    "OW_MENU_RESETONBARSWAP_TOOLTIP",
+                    function() return OWSV.resetOnBarswap end,
+                    function(value) OWSV.resetOnBarswap = value end
+                ),
                 
                 -- Channel Buffer Settings
                 CreateSlider(
@@ -346,6 +359,62 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.cruxStacks end,
                     function(value) OWSV.cruxStacks = value end,
                     function() return not OWSV.useCruxStacks end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- guild
+                CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_SUBCLASS_GUILDS"),
+                    width = "full"
+                },
+                -- Mages guild
+                CreateCheckbox(
+                    "OW_MENU_LIGHT_ALL_MORPHS",
+                    "OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP",
+                    function() return OWSV.lightMorphs[30920] and OWSV.lightMorphs[40478] and OWSV.lightMorphs[40483] end,
+                    function(value) 
+                        OWSV.lightMorphs[30920] = value
+                        OWSV.lightMorphs[40478] = value
+                        OWSV.lightMorphs[40483] = value
+                    end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- Fighter guild
+                CreateCheckbox(
+                    "OW_MENU_HUNTER_ALL_MORPHS",
+                    "OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP",
+                    function() return OWSV.hunterMorphs[35762] and OWSV.hunterMorphs[40195] and OWSV.hunterMorphs[40194] end,
+                    function(value) 
+                        OWSV.hunterMorphs[35762] = value
+                        OWSV.hunterMorphs[40195] = value
+                        OWSV.hunterMorphs[40194] = value
+                    end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+                
+                -- Deactivate Hunter and light block in PvP
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS",
+                    "OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP",
+                    function() return OWSV.deactivateInPvP end,
+                    function(value) 
+                        OWSV.deactivateHunterLightInPvP = value
+                    end
                 ),
             }
         },

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.3.1
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -82,6 +82,10 @@ ZO_CreateStringId("OW_MENU_MIN_GCD", "Umbral Mínimo GCD (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Duración mínima del GCD para detectar (0-20 ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Tiempo Base de Cola (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Ventana predeterminada de cola (100-2000 ms)")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Reiniciar al cambiar de arma")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Reinicia el GCD al cambiar de arma")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reiniciar al esquivar")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Reinicia el GCD al realizar una esquivada")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -97,8 +101,8 @@ ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "Valor fijo para conexiones i
 -- == (SUB)CLASS SETTINGS ======================================================
 -- =============================================================================
 
--- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Configuraciones específicas de clase")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Configuraciones específicas de clase y gremio")
+
 ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Enfoque Sombrío")
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "Stacks necesarios")
@@ -109,6 +113,17 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Enfoque I
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Activar stacks personalizados")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Activado:|r Usa la configuración de stacks \n|cAAAAAADesactivado:|r Bloquea siempre el Enfoque Sombrío y la Determinación Despiadada hasta 10 stacks, y bloquea siempre el Enfoque Incansable\n")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Desactivar en PvP")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Desactiva el bloqueo de habilidades de Cazador/Luz en áreas PvP")
+
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gremios")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquear habilidades del Gremio de Combatientes")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades del Gremio de Combatientes (Cazador experto, Cazador camuflado, etc.)")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquear habilidades de luz del Gremio de Magos")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades de luz del Gremio de Magos (Luz mágica, Luz interior, etc.)")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

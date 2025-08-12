@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.3.5
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.3.5",
+    version = "1.4.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -121,17 +121,16 @@ defaults = {
 
     -- Mages guild
     lightMorphs = {
-                         -- Magelight
-        [40478] = false -- Inner light
-                         -- Radiant Magelight
+        [30920] = true, -- Magelight
+        [40478] = true, -- Inner light
+        [40483] = true -- Radiant Magelight
     },
 
     -- Fighters guild
     hunterMorphs = {
-                         -- Expert Hunter
-        [61927] = false -- Camouflaged Hunter
-                         -- Evil Hunter
-
+        [35762] = true, -- Expert Hunter
+        [40195] = true, -- Camouflaged Hunter
+        [40194] = true -- Evil Hunter
     },
 
     dawnbreakerMorphs = {
@@ -149,7 +148,11 @@ defaults = {
 
     disableTank = true,
     disableHeal = true,
-    originalMode = 0 
+    originalMode = 0, 
+
+    resetOnDodge = true,
+    resetOnBarswap = true,
+    deactivateHunterLightInPvP = true,
 }
 
 local LFG_ROLE_TANK = 2
@@ -182,20 +185,24 @@ end
 -- =============================================================================
 -- == ROLE VALIDATION SUBSYSTEM ================================================
 -- =============================================================================
-
 function CheckRoleOverride()
-    role = GetSelectedLFGRole()
-    if not (OWSV.disableTank and role == LFG_ROLE_TANK) and 
-       not (OWSV.disableHeal and role == LFG_ROLE_HEAL) and
-       (OWSV.originalMode == 0) then
-        OWSV.originalMode = OWSV.Mode
-    elseif (OWSV.disableTank and role == LFG_ROLE_TANK) or 
-       (OWSV.disableHeal and role == LFG_ROLE_HEAL) then
+    local role = GetSelectedLFGRole()
 
+    if (role == LFG_ROLE_TANK and OWSV.disableTank) or
+       (role == LFG_ROLE_HEAL and OWSV.disableHeal) then
+        -- Just note when we were in DD and not yet saved
+        if OWSV.mode ~= 3 and OWSV.originalMode == 0 then
+            OWSV.originalMode = OWSV.mode
+        end
+        -- Tank oder Healer → Mode auf "None"
         OWSV.mode = 3
+
     else
-        OWSV.mode = 1 --OWSV.originalMode
-    end    
+        -- DD or disabled restriction -> restore saved mode
+        if OWSV.originalMode ~= 0 then
+            OWSV.mode = OWSV.originalMode
+        end
+    end
 end
 
 -- =============================================================================
@@ -303,7 +310,7 @@ local function checkCruxStacks(id)
     -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
     for buffIndex = 1, GetNumBuffs('player') do
         local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
-
+        --d("Buff"..abilityId )
         if OWSV.cruxId == abilityId then
             --d("Check Crux stacks block in OWSV.CruxId == abilityId")
            if stackCount >= OWSV.cruxStacks then
@@ -365,6 +372,29 @@ end
 local GCD_STAGE = 0  -- Current state machine position
 local CHANNEL = 0    -- Channel expiration timestamp
 local LAST_ABILITY = 0  -- Last used ability ID tracker
+
+-- =============================================================================
+-- == RESET GCD ================================================================
+-- =============================================================================
+--[[
+    Resets the GCD Stage and channel and last ability
+--]]
+
+local function ResetGCD()
+    if OWSV.resetOnDodge then
+        GCD_STAGE = 0
+        CHANNEL = 0
+        LAST_ABILITY = 0
+        --d("Reset")
+    end
+
+    if OWSV.resetOnBarswap then    
+        GCD_STAGE = 0
+        CHANNEL = 0
+        LAST_ABILITY = 0
+        --d("Reset")
+    end    
+end
 
 -- =============================================================================
 -- == STUN HANDLING SYSTEM =====================================================
@@ -461,6 +491,8 @@ local function CanUseActionSlots()
     local slot = GetActionSlot()
     local id = GetSlotBoundId(slot)
     local isGround = CheckGroundAbility(id)
+    local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+    --d("Buff"..abilityId )
     --d("id "..id)
     -- Hard block exit
     if ignore and not OWSV.blockGroundAbilities then
@@ -479,6 +511,16 @@ local function CanUseActionSlots()
        -- d("Check Crux stacks block in  CanUseActionSlots")
         return true
     end 
+
+    -- Light Morphs & Hunter Morphs block in non-PvP areas
+   if OWSV.deactivateHunterLightInPvP or not IsPlayerInAvAWorld() then
+        -- Mages Guild Light morphs block
+        if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
+            -- d("Light/Hunter block")
+            ResetGCD()
+            return true
+        end
+    end
 
     -- Special case blocking
     if (ignore and not isGround) or IsBlockedAbilityID(id) then
@@ -576,6 +618,17 @@ end
 local function Initialize()
     -- Load persistent settings
     OWSV = ZO_SavedVars:NewAccountWide('OptimalWeaveSV', 1, nil, defaults)
+
+    -- Reset tracking
+	if OWSV.resetOnBarswap then
+		EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCD) -- changed bar
+	end
+
+	if OWSV.resetOnDodge then
+		EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCD)
+		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549)
+	end
 
     -- Combat state tracking
     EM:RegisterForEvent(NAME, EVENT_UNIT_ATTRIBUTE_VISUAL_ADDED, OnPlayerStunned)

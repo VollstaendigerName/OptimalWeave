@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.3.1
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -82,6 +82,10 @@ ZO_CreateStringId("OW_MENU_MIN_GCD", "Min GCD Threshold (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Minimum GCD duration to recognize (0-20ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Base Queue Time (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Default input queue window (100-2000ms)")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Reset on bar swap")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Resets the GCD on bar swap")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reset on dodge roll")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Resets the GCD on Dodge roll")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -98,7 +102,7 @@ ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "Fixed latency value (0-200ms
 -- =============================================================================
 
 -- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Class-specific Settings")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Class and Guild Specific Settings")
 ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Grim Focus")
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "Required Stacks")
@@ -110,6 +114,17 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Relentles
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Enable Custom Stacks")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Enabled:|r Uses custom stack setting \n" ..
                   "|cAAAAAADisabled:|r Always blocks Grim Focus and Merciless Resolve up to 10 stacks, and always blocks Relentless Focus\n")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Disable in PvP")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Disables Hunter/Light ability blocking in PvP areas")
+
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilds")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Block Fighter's Guild Abilities")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Fighter's Guild abilities (Expert Hunter, Camouflaged Hunter etc.)")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Block Mage's Guild Light Abilities")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Mage's Guild light abilities (Magelight, Inner Light etc.)")                  
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

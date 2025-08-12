@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.3.1
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -82,6 +82,10 @@ ZO_CreateStringId("OW_MENU_MIN_GCD", "最小GCD阈值（毫秒）")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "识别最小GCD时长（0-20毫秒）")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "基础队列时间（毫秒）")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "默认输入队列窗口（100-2000毫秒）")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "武器切换时重置")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "武器切换时重置全局冷却")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "翻滚时重置")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "翻滚时重置全局冷却")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION ====================================================
@@ -97,8 +101,8 @@ ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "不稳定连接时使用固�
 -- == (SUB)CLASS SETTINGS ======================================================
 -- =============================================================================
 
--- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "职业专属设置")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "职业和公会专属设置")
+
 ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "严峻焦点")
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "所需堆叠数")
@@ -109,6 +113,17 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• 不懈焦
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "启用自定义堆叠数")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700启用：|r 使用自定义堆叠设置 \n|cAAAAAA停用：|r 始终阻断严峻焦点和无情决心至10层堆叠，并始终阻断不懈焦点\n")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "在PvP中禁用")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "在PvP区域禁用猎人/光明技能封锁")
+
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "公会")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "阻止战士公会技能")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "阻止所有战士公会技能的变形（专家猎人、伪装猎人等）")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "阻止法师公会光明技能")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "阻止所有法师公会光明技能的变形（魔光、内心之光等）")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "奥术师命运雕刻者")

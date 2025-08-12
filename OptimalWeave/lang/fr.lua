@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.3.1
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -82,6 +82,10 @@ ZO_CreateStringId("OW_MENU_MIN_GCD", "Seuil Minimal GCD (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Durée minimale GCD à détecter (0-20 ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Temps de Base de File (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Fenêtre de file par défaut (100-2000 ms)")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Réinitialiser au changement d'arme")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Réinitialise le GCD lors du changement d'arme")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Réinitialiser au roulade")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Réinitialise le GCD lors d'une roulade d'esquive")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -98,8 +102,8 @@ ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "Valeur fixe pour connexions 
 -- == (SUB)CLASS SETTINGS ======================================================
 -- =============================================================================
 
--- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Paramètres spécifiques à la classe")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Paramètres spécifiques à la classe et à la guilde")
+
 ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Focalisation Sombre")
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "Empilements requis")
@@ -110,6 +114,17 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Focalisat
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Activer les empilements personnalisés")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Activé :|r Utilise la configuration des empilements \n|cAAAAAADésactivé :|r Bloque toujours la focalisation sombre et la détermination impitoyable jusqu'à 10 empilements, et bloque toujours la focalisation implacable\n")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Désactiver en JcJ")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Désactive le blocage des compétences Chasseur/Lumière dans les zones JcJ")
+
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilde")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquer les compétences de la Guilde des Guerriers")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de la Guilde des Guerriers (Chasseur expert, Chasseur camouflé etc.)")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquer les compétences de lumière de la Guilde des Mages")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de lumière de la Guilde des Mages (Lumière magique, Lumière intérieure etc.)")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

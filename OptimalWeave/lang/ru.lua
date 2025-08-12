@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.3.1
+    Version:            1.4.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -82,6 +82,10 @@ ZO_CreateStringId("OW_MENU_MIN_GCD", "Минимальный GCD (мс)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Минимальная длительность GCD (0-20мс)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Базовое Время Очереди (мс)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Окно очереди по умолчанию (100-2000мс)")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Сброс при смене оружия")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Сбрасывает GCD при смене оружия")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Сброс при уклонении")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Сбрасывает GCD при выполнении переката")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION ====================================================
@@ -97,8 +101,8 @@ ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "Фиксированное �
 -- == (SUB)CLASS SETTINGS ======================================================
 -- =============================================================================
 
--- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Настройки, специфичные для класса")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Настройки классов и гильдий")
+
 ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Мрачный Фокус")
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "Необходимые стаки")
@@ -109,6 +113,17 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Неут�
 
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Активировать пользовательские стаки")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Включено:|r Использует настройку стака \n|cAAAAAAОтключено:|r Всегда блокирует Мрачный Фокус и Безжалостную Решимость до 10 стаков, а также всегда блокирует Неутомимый Фокус\n")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Отключить в PvP")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Отключает блокировку способностей Охотника/Света в PvP-зонах")
+
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Гильдии")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Блокировать способности Гильдии Бойцов")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Блокирует все морфы способностей Гильдии Бойцов (Эксперт охоты, Маскировочная охота и т.д.)")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Блокировать световые способности Гильдии Магов")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Блокирует все морфы световых способностей Гильдии Магов (Магический свет, Внутренний свет и т.д.)")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")
