@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -115,16 +115,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Focalisat
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Activer les empilements personnalisés")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Activé :|r Utilise la configuration des empilements \n|cAAAAAADésactivé :|r Bloque toujours la focalisation sombre et la détermination impitoyable jusqu'à 10 empilements, et bloque toujours la focalisation implacable\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilde")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquer les compétences de chasseur de la Guilde des guerriers")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de chasseur de la Guilde des guerriers (Expertise de la chasse, Chasseur camouflé & Chasse aux maléfices)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquer les compétences de lumière de la Guilde des mages")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de lumière (Lumière magique, Lumière intérieure & Lumière magique rayonnante)")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Désactiver en JcJ")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Désactive le blocage des compétences Chasseur/Lumière dans les zones JcJ")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilde")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquer les compétences de la Guilde des Guerriers")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de la Guilde des Guerriers (Chasseur expert, Chasseur camouflé etc.)")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquer les compétences de lumière de la Guilde des Mages")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloque tous les morphs des compétences de lumière de la Guilde des Mages (Lumière magique, Lumière intérieure etc.)")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Fouet en Fusion")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Bloquer la compétence Fouet en Fusion")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Bloque la compétence Fouet en Fusion pour éviter de perdre les trois charges")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -114,16 +114,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• 不懈焦
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "启用自定义堆叠数")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700启用：|r 使用自定义堆叠设置 \n|cAAAAAA停用：|r 始终阻断严峻焦点和无情决心至10层堆叠，并始终阻断不懈焦点\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "公会")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "屏蔽战士公会猎人技能")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "屏蔽战士公会猎人技能的所有变体（专家猎人、伪装猎人 & 邪恶猎人）")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "屏蔽法师公会光之技能")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "屏蔽光之技能的所有变体（法师之光、心灵之光 & 炽热法师之光）")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "在PvP中禁用")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "在PvP区域禁用猎人/光明技能封锁")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "公会")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "阻止战士公会技能")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "阻止所有战士公会技能的变形（专家猎人、伪装猎人等）")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "阻止法师公会光明技能")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "阻止所有法师公会光明技能的变形（魔光、内心之光等）")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "熔岩长鞭")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "屏蔽熔岩长鞭技能")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "屏蔽熔岩长鞭技能以防止失去三层效果")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "奥术师命运雕刻者")

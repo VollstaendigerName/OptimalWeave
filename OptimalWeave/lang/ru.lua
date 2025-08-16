@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -114,16 +114,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Неут�
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Активировать пользовательские стаки")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Включено:|r Использует настройку стака \n|cAAAAAAОтключено:|r Всегда блокирует Мрачный Фокус и Безжалостную Решимость до 10 стаков, а также всегда блокирует Неутомимый Фокус\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Гильдии")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Блокировать навыки охотника Гильдии воинов")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Блокирует все морфы навыков охотника Гильдии воинов (Опытный охотник, Замаскированный охотник & Свирепый охотник)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Блокировать световые навыки Гильдии магов")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Блокирует все морфы световых навыков (Волшебный свет, Внутренний свет & Сияющий волшебный свет)")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Отключить в PvP")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Отключает блокировку способностей Охотника/Света в PvP-зонах")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Гильдии")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Блокировать способности Гильдии Бойцов")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Блокирует все морфы способностей Гильдии Бойцов (Эксперт охоты, Маскировочная охота и т.д.)")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Блокировать световые способности Гильдии Магов")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Блокирует все морфы световых способностей Гильдии Магов (Магический свет, Внутренний свет и т.д.)")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Лавовый Хлыст")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Блокировать навык Лавовый Хлыст")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Блокирует навык Лавовый Хлыст, чтобы не потерять три стака")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

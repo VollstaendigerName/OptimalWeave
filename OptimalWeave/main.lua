@@ -1,10 +1,10 @@
 -- =============================================================================
--- === OptimalWeave Core Logic (main.lua) - Version 1.3.1                    ===
+-- === OptimalWeave Core Logic (main.lua)                                    ===
 -- =============================================================================
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.4.0",
+    version = "1.4.1",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -140,6 +140,10 @@ defaults = {
 
     },
 
+    MoltenWhip = {
+        [20805] = false -- Molten Whip
+    },
+
     channelBufferNormal = 50,       -- Default: 50ms
     channelBufferChanneled = 200,   -- Default: 200ms
     gcdTrackingSlot = 3,            -- Default: Slot 3
@@ -158,7 +162,14 @@ defaults = {
 local LFG_ROLE_TANK = 2
 local LFG_ROLE_HEAL = 4
 local LFG_ROLE_DPS = 1
-  
+
+-- =============================================================================
+-- == SIMPLE TEST FUNC FOR REGISTERATION =======================================
+-- =============================================================================
+
+local function TestFuncDebug()
+    d("TEST OKAY")
+end    
 
 -- =============================================================================
 -- == ABILITY VALIDATION SUBSYSTEM =============================================
@@ -381,19 +392,12 @@ local LAST_ABILITY = 0  -- Last used ability ID tracker
 --]]
 
 local function ResetGCD()
-    if OWSV.resetOnDodge then
+    if OWSV.resetOnDodge or OWSV.resetOnBarswap  then
         GCD_STAGE = 0
         CHANNEL = 0
         LAST_ABILITY = 0
-        --d("Reset")
-    end
-
-    if OWSV.resetOnBarswap then    
-        GCD_STAGE = 0
-        CHANNEL = 0
-        LAST_ABILITY = 0
-        --d("Reset")
-    end    
+        -- d("Reset")
+    end   
 end
 
 -- =============================================================================
@@ -415,26 +419,12 @@ end
 -- @param unitTag: Affected unit ("player")
 -- @param isStunned: New stun state
 --------------------------------------------------------------------------------
-local function OnPlayerStunned(eventCode, unitTag, isStunned)
+local function OnPlayerStunned()
     -- Validate player stun event
-    if unitTag == 'player' and isStunned then
+        --d("Stunned/Silenced etc.")
         GCD_STAGE = 0    -- Reset state machine
         CHANNEL = 0      -- Cancel active channels
         LAST_ABILITY = 0 -- Clear ability memory
-    end
-end
-
---------------------------------------------------------------------------------
--- Stun Recovery Handler
--- @param eventCode: ESO event ID
--- @param unitTag: Affected unit ("player")
--- @param isStunned: New stun state
---------------------------------------------------------------------------------
-local function OnStunEnded(eventCode, unitTag, isStunned)
-    -- Detect stun removal
-    if unitTag == 'player' and not isStunned then
-        GCD_STAGE = 0  -- Full state reset
-    end
 end
 
 -- =============================================================================
@@ -517,9 +507,14 @@ local function CanUseActionSlots()
         -- Mages Guild Light morphs block
         if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
             -- d("Light/Hunter block")
-            ResetGCD()
+            --ResetGCD()
             return true
         end
+    end
+
+    if OWSV.MoltenWhip[id] then
+        -- d("MoltenWhip block")
+        return true
     end
 
     -- Special case blocking
@@ -630,11 +625,32 @@ local function Initialize()
 		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549)
 	end
 
+    EM:RegisterForEvent(NAME, EVENT_PLAYER_SWIMMING, ResetGCD)
+    EM:RegisterForEvent(NAME, EVENT_PLAYER_DEAD, ResetGCD)
+
     -- Combat state tracking
-    EM:RegisterForEvent(NAME, EVENT_UNIT_ATTRIBUTE_VISUAL_ADDED, OnPlayerStunned)
-    EM:RegisterForEvent(NAME, EVENT_UNIT_ATTRIBUTE_VISUAL_REMOVED, OnStunEnded)
+    EM:RegisterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_INTERRUPT)
+    EM:AddFilterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_STUNNED)
+    EM:AddFilterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_FEARED)
+    EM:AddFilterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_SILENCED)
+    EM:AddFilterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_KNOCKBACK)
+    EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
     EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
-    
+
     -- Action system integration
     EM:RegisterForEvent(NAME, EVENT_ACTION_SLOT_ABILITY_USED, AbilityUsed)
     ZO_PreHook("ZO_ActionBar_CanUseActionSlots", CanUseActionSlots)

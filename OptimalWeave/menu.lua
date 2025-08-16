@@ -1,10 +1,10 @@
 --------------------------------------------------------------------------------
--- OptimalWeave menu.lua - Version 1.3.1
+-- OptimalWeave menu.lua 
 -- =============================================================================
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.4.0
+-- Version:           1.4.1
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -361,10 +361,24 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.useCruxStacks end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
+
+                -- Dragonknight Molten Whip
+                CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_SUBCLASS_MOLTENWHIP"),
+                    width = "full"
                 },
+
+                -- Molten Whip
+                CreateCheckbox(
+                    "OW_MENU_MOLTENWHIP_BLOCK",
+                    "OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP",
+                    function() return OWSV.MoltenWhip[20805] end,
+                    function(value) 
+                        OWSV.MoltenWhip[20805] = value
+                    end
+                ),
 
                 -- guild
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),

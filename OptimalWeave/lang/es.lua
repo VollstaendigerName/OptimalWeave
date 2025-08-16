@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -114,16 +114,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Enfoque I
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Activar stacks personalizados")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Activado:|r Usa la configuración de stacks \n|cAAAAAADesactivado:|r Bloquea siempre el Enfoque Sombrío y la Determinación Despiadada hasta 10 stacks, y bloquea siempre el Enfoque Incansable\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gremios")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquear habilidades de cazador del Gremio de Guerreros")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades de cazador del Gremio de Guerreros (Cazador experto, Cazador camuflado & Cazador del mal)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquear habilidades de luz del Gremio de Magos")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades de luz (Luz mágica, Luz interior & Luz mágica radiante)")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Desactivar en PvP")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Desactiva el bloqueo de habilidades de Cazador/Luz en áreas PvP")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gremios")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquear habilidades del Gremio de Combatientes")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades del Gremio de Combatientes (Cazador experto, Cazador camuflado, etc.)")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquear habilidades de luz del Gremio de Magos")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloquea todos los morphs de habilidades de luz del Gremio de Magos (Luz mágica, Luz interior, etc.)")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Latigazo Fulminante")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Bloquear habilidad Latigazo Fulminante")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Bloquea la habilidad Latigazo Fulminante para evitar perder las tres acumulaciones")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

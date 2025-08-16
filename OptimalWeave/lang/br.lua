@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -113,16 +113,21 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Foco Inca
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Ativar stacks personalizados")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Ativado:|r Usa configuração de stacks \n|cAAAAAADesativado:|r Bloqueia sempre até 10 stacks\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guildas")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquear Habilidades de Caçador da Guilda dos Guerreiros")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloqueia todos os morphs das habilidades de caçador da Guilda dos Guerreiros (Caçador Perito, Caçador Camuflado & Caçador do Mal)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquear Habilidades de Luz da Guilda dos Magos")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloqueia todos os morphs das habilidades de luz (Luz Mágica, Luz Interior & Luz Mágica Radiante)")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Desativar em PvP")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Desativa bloqueio de habilidades Caçador/Luz em PvP")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guildas")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
 
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Bloquear habilidades Guilda dos Guerreiros")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Bloqueia todos os morphs de habilidades da Guilda dos Guerreiros")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Bloquear habilidades luz Guilda dos Magos")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Bloqueia todos os morphs de habilidades luz da Guilda dos Magos")
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Chicote Derretido")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Bloquear habilidade Chicote Derretido")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Bloqueia a habilidade Chicote Derretido para evitar perder as três cargas")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

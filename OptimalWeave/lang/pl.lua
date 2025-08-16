@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -113,16 +113,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Nieustann
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Włącz niestandardowe stosy")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Włączone:|r Używa ustawień stosów \n|cAAAAAAWyłączone:|r Zawsze blokuje do 10 stosów\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gildie")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Blokuj umiejętności myśliwego Gildii Wojowników")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blokuje wszystkie morfy umiejętności myśliwego Gildii Wojowników (Ekspert Łowców, Zamaskowany Łowca & Zły Łowca)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Blokuj umiejętności światła Gildii Magów")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blokuje wszystkie morfy umiejętności światła (Czarne światło, Wewnętrzne światło & Promieniste czarne światło)")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Wyłącz w PvP")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Wyłącza blokowanie umiejętności Łowcy/Światła w PvP")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gildie")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Blokuj umiejętności Gildii Wojowników")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blokuje wszystkie morfy umiejętności Gildii Wojowników")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Blokuj umiejętności światła Gildii Magów")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blokuje wszystkie morfy umiejętności światła Gildii Magów")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Rozpalany Bicz")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Blokuj umiejętność Rozpalany Bicz")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Blokuje umiejętność Rozpalany Bicz, aby nie stracić trzech ładunków")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arkanista Fatecarver")

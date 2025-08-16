@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -115,16 +115,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Enable Custom Sta
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Enabled:|r Uses custom stack setting \n" ..
                   "|cAAAAAADisabled:|r Always blocks Grim Focus and Merciless Resolve up to 10 stacks, and always blocks Relentless Focus\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilds")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Block Fighter's Guild Hunter Skills")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Fighter's Guild hunter skills (Expert Hunter, Camouflaged Hunter & Evil Hunter)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Block Mage's Guild Light Skills")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Light skills (Magelight, Inner Light & Radiant Magelight)")   
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Disable in PvP")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Disables Hunter/Light ability blocking in PvP areas")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Guilds")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Block Fighter's Guild Abilities")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Fighter's Guild abilities (Expert Hunter, Camouflaged Hunter etc.)")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Block Mage's Guild Light Abilities")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blocks all morphs of Mage's Guild light abilities (Magelight, Inner Light etc.)")                  
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Molten Whip")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Block Molten Whip Skill")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Blocks the Molten Whip skill to prevent losing the three stacks")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -113,16 +113,20 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• レント
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "カスタムスタックを有効化")
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700有効:|r スタック設定を使用 \n|cAAAAAA無効:|r 10スタックまで常時ブロック\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "ギルド")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "戦士ギルドのハンタースキルをブロック")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "戦士ギルドのハンタースキル（エキスパートハンター、カモフラージドハンター、イビルハンター）の全モーフをブロック")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "魔術師ギルドの光スキルをブロック")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "光スキル（メイジライト、インナーライト、レディアントメイジライト）の全モーフをブロック")
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "PvPで無効")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "PvPエリアでハンター/ライトスキルブロックを無効化")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "ギルド")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "戦士ギルドスキルをブロック")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "戦士ギルドスキルの全モーフをブロック")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "魔術師ギルド光スキルをブロック")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "魔術師ギルド光スキルの全モーフをブロック")
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "モルテンホイップ")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "モルテンホイップスキルをブロック")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "3スタックを失わないようにモルテンホイップスキルをブロックします")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "アルカニスト フェイトカーバー")

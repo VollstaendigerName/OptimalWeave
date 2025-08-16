@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.4.0
+    Version:            1.4.1
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -118,16 +118,22 @@ ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Benutzerdefiniert
 ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Aktiviert:|r Verwendet Stack-Einstellung \n"..
                   "|cAAAAAADeaktiviert:|r Grimmiger Fokus und Gnadenlose Entschlossenheit immer bis 10 Stacks blockieren, Unermüdlicher Fokus immer blockieren\n")
 
+-- == BLOCK GUILDS SETTINGS ===================================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gilden")
+
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Kriegergilden-Jägerfähigkeiten blockieren")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blockiert alle Morphs der Kriegergilden-Jägerfähigkeiten (Expertenjäger, Getarnter Jäger & Jäger des Bösen)")
+
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Magiergilden-Lichtfähigkeiten blockieren")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blockiert alle Morphs der Licht-Fähigkeiten (Magielicht, Inneres Licht & Strahlendes Magierlicht.)")      
+
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "In PvP deaktivieren")
 ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Deaktiviert die Blockierung von Jäger/Licht-Fähigkeiten in PvP-Gebieten")
 
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Gilden")
-
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Kriegergilden-Fähigkeiten blockieren")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Blockiert alle Morphs der Kriegergilden-Fähigkeiten (Expertenjäger, Tarnjäger etc.)")
-
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Magiergilden-Lichtfähigkeiten blockieren")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Blockiert alle Morphs der Licht-Fähigkeiten (Magielicht, Inneres Licht etc.)")                  
+-- == BLOCK MOLTEN WHIP SETTINGS ===============================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Geschmolzene Peitsche")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Geschmolzene Peitsche Fähigkeit blockieren")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Blockiert die Fähigkeit Geschmolzene Peitsche, um die drei Stacks nicht zu verlieren.")      
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Schicksalsschnitzer")

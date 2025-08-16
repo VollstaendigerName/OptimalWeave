@@ -9,7 +9,7 @@
                         MUST load after all language files in manifest.
     Dependencies:       lang/*.lua files
     Author:             Orollas & VollständigerName
-    Version:            1.3.5
+    Version:            1.4.1
 --]]
 -- =============================================================================
 
