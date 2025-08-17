@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.4.1
+    Version:            1.4.2
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.4.1",
+    version = "1.4.2",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -467,10 +467,6 @@ end
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
 local function CanUseActionSlots()
-
-    if OWSV.mode == 3 then 
-        return false 
-    end
     
     -- Global block conditions
     local ignore = (OWSV.block and IsBlockActive()) or 
@@ -503,10 +499,10 @@ local function CanUseActionSlots()
     end 
 
     -- Light Morphs & Hunter Morphs block in non-PvP areas
-   if OWSV.deactivateHunterLightInPvP or not IsPlayerInAvAWorld() then
+   if not (OWSV.deactivateHunterLightInPvP and IsPlayerInAvAWorld()) then
         -- Mages Guild Light morphs block
         if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
-            -- d("Light/Hunter block")
+            --d("Light/Hunter block")
             --ResetGCD()
             return true
         end

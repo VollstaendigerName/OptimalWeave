@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.4.1
+    Version:            1.4.2
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================

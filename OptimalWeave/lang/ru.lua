@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.4.1
+    Version:            1.4.2
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================

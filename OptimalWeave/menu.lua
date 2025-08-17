@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.4.1
+-- Version:           1.4.2
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -425,7 +425,7 @@ function OW.BuildMenu(OWSV, defaults)
                 CreateCheckbox(
                     "OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS",
                     "OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP",
-                    function() return OWSV.deactivateInPvP end,
+                    function() return OWSV.deactivateHunterLightInPvP end,
                     function(value) 
                         OWSV.deactivateHunterLightInPvP = value
                     end
