@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -114,6 +114,9 @@ defaults = {
         [193331] = false  -- Pragmatic Fatecarver Stam
 
     },
+
+    deactivateArcaBeamBlockAtHpUnder = 20, -- limit value of HP
+    checkHpForArcaBeam = true, -- Check HP before beam
 
     cruxId = 184220,    
     useCruxStacks = false,
@@ -319,21 +322,29 @@ local function checkCruxStacks(id)
     local active = true 
     -- d("Check Crux stacks block in checkCruxStacks(")
     -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
-    for buffIndex = 1, GetNumBuffs('player') do
-        local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
-        --d("Buff"..abilityId )
-        if OWSV.cruxId == abilityId then
-            --d("Check Crux stacks block in OWSV.CruxId == abilityId")
-           if stackCount >= OWSV.cruxStacks then
-                active = false
-                --d("active = false")
-                break
-            else 
-                active = true
-                --d("active = true")
-                break
+    local currentHealth, maxHealth, effHealth = GetUnitPower("player", COMBAT_MECHANIC_FLAGS_HEALTH)
+    local pecentHealth = currentHealth / effHealth * 100
+    --d(string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
+    if OWSV.checkHpForArcaBeam and pecentHealth <= OWSV.deactivateArcaBeamBlockAtHpUnder then
+        active = false
+        --d("active = false")
+    else    
+        for buffIndex = 1, GetNumBuffs('player') do
+            local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+            --d("Buff"..abilityId )
+            if OWSV.cruxId == abilityId then
+                --d("Check Crux stacks block in OWSV.CruxId == abilityId")
+                if stackCount >= OWSV.cruxStacks then
+                    active = false
+                    --d("active = false")
+                    break
+                else 
+                    active = true
+                    --d("active = true")
+                    break
+                end
             end
-        end
+        end    
     end
     return active
 end
@@ -388,43 +399,44 @@ local LAST_ABILITY = 0  -- Last used ability ID tracker
 -- == RESET GCD ================================================================
 -- =============================================================================
 --[[
-    Resets the GCD Stage and channel and last ability
---]]
-
-local function ResetGCD()
-    if OWSV.resetOnDodge or OWSV.resetOnBarswap  then
-        GCD_STAGE = 0
-        CHANNEL = 0
-        LAST_ABILITY = 0
-        -- d("Reset")
-    end   
-end
-
--- =============================================================================
--- == STUN HANDLING SYSTEM =====================================================
--- =============================================================================
---[[
-    Function: OnPlayerStunned
-    Purpose: Reset state on crowd control
-    Trigger: EVENT_UNIT_ATTRIBUTE_VISUAL_ADDED
+    Function: ResetGCDOnDodge / ResetGCDOnBarswap / ResetGCD / OnPlayerStunned
+    Purpose: Reset state 
     Features:
     - Full state reset on stun
     - Channel cancellation
     - Memory clearing
 --]]
 
---------------------------------------------------------------------------------
--- Stun Event Handler
--- @param eventCode: ESO event ID
--- @param unitTag: Affected unit ("player")
--- @param isStunned: New stun state
---------------------------------------------------------------------------------
+local function ResetGCDOnDodge()
+    if OWSV.resetOnDodge  then
+        GCD_STAGE = 0
+        CHANNEL = 0
+        LAST_ABILITY = 0
+        -- d("Reset because of Dodge")
+    end   
+end
+
+local function ResetGCDOnBarswap()
+    if OWSV.resetOnBarswap  then
+        GCD_STAGE = 0
+        CHANNEL = 0
+        LAST_ABILITY = 0
+        -- d("Reset because of Barswap")
+    end   
+end
+
+local function ResetGCD()
+    GCD_STAGE = 0
+    CHANNEL = 0
+    LAST_ABILITY = 0
+    -- d("Reset because everything else")
+end
+
 local function OnPlayerStunned()
-    -- Validate player stun event
-        --d("Stunned/Silenced etc.")
-        GCD_STAGE = 0    -- Reset state machine
-        CHANNEL = 0      -- Cancel active channels
-        LAST_ABILITY = 0 -- Clear ability memory
+    GCD_STAGE = 0    -- Reset state machine
+    CHANNEL = 0      -- Cancel active channels
+    LAST_ABILITY = 0 -- Clear ability memory
+    --d("Stunned/Silenced etc.")
 end
 
 -- =============================================================================
@@ -478,6 +490,7 @@ local function CanUseActionSlots()
     local id = GetSlotBoundId(slot)
     local isGround = CheckGroundAbility(id)
     local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+    
     --d("Buff"..abilityId )
     --d("id "..id)
     -- Hard block exit
@@ -612,11 +625,11 @@ local function Initialize()
 
     -- Reset tracking
 	if OWSV.resetOnBarswap then
-		EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCD) -- changed bar
+		EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) -- changed bar
 	end
 
 	if OWSV.resetOnDodge then
-		EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCD)
+		EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCDOnDodge)
 		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549)
 	end

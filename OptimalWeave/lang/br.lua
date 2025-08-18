@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -135,6 +135,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "Bloquear lançamento Fatecar
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "Bloqueia lançamento até condições serem atendidas.")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "Stacks Crux necessários")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Stacks Crux mínimos para lançar (recomendado: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Limite de HP (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Desativa o bloqueio do Fatecarver quando HP estiver abaixo deste valor")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Verificar HP para Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Desativa o bloqueio do Fatecarver quando sua saúde está baixa")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

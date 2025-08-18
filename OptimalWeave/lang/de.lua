@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -141,6 +141,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "Schicksalsschnitzer blockier
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "Verhindert das Wirken von Schicksalsschnitzer, bis Bedingungen erfüllt sind.")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "Benötigte Crux-Stacks")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Minimale Anzahl an Crux-Stacks, bevor Schicksalsschnitzer gewirkt werden kann (Empfohlen: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "HP-Grenzwert (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Schicksalsschnitzer-Blockierung deaktivieren, wenn HP unter diesem Wert liegt")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "HP-Prüfung für Schicksalsschnitzer aktivieren")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Deaktiviert die Blockierung von Schicksalsschnitzer bei niedriger Gesundheit")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

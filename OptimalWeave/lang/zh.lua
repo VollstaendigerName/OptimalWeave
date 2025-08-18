@@ -135,6 +135,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "阻止命运雕刻者施放"
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "满足条件前阻止施放命运雕刻者")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "需要核心堆叠")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "施放命运雕刻者所需的核心堆叠数（推荐：3）")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "生命值阈值 (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "当生命值低于此值时，停止阻止命运刻蚀者")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "为命运刻蚀者启用生命值检查")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "生命值过低时停止阻止命运刻蚀者")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

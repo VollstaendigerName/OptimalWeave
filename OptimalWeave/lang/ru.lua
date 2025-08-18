@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -135,6 +135,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "Блокировать Fatec
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "Блокирует применение Fatecarver до выполнения условий.")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "Необходимые стаки Crux")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Минимальные стаки Crux для применения Fatecarver (Рекомендуется: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Порог HP (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Отключить блокировку Fatecarver при HP ниже этого значения")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Включить проверку HP для Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Отключает блокировку Fatecarver при низком здоровье")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

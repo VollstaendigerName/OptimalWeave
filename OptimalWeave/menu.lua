@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.4.2
+-- Version:           1.4.3
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -359,6 +359,36 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.cruxStacks end,
                     function(value) OWSV.cruxStacks = value end,
                     function() return not OWSV.useCruxStacks end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- Deactivate under certain HP toggle
+                CreateCheckbox(
+                    "OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE",
+                    "OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP",
+                    function() return OWSV.checkHpForArcaBeam end,
+                    function(value) 
+                        OWSV.checkHpForArcaBeam = value
+                    end
+                ),
+                
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+                
+                -- Deactivate under certain HP Slider
+                CreateSlider(
+                    "OW_MENU_CHECK_HP_FOR_BEAM",
+                    "OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP",
+                    0, 100, -- Min:0, Max:100 % HP
+                    function() return OWSV.deactivateArcaBeamBlockAtHpUnder end,
+                    function(value) OWSV.deactivateArcaBeamBlockAtHpUnder = value end,
+                    function() return not OWSV.checkHpForArcaBeam end
                 ),
 
 

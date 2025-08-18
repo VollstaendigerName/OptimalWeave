@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -136,6 +136,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "Block Fatecarver Casting")
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "Prevent casting Fatecarver until conditions are met.")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "Required Crux Stacks")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Minimum Crux stacks before Fatecarver can be cast (Recommended: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "HP Threshold (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Disable Fatecarver blocking when HP is below this value")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Enable HP check for Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Disables Fatecarver blocking when your health is low")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

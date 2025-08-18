@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.4.3
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -134,6 +134,10 @@ ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "フェイトカーバー発�
 ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "条件満了まで発動をブロック")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS", "必要クラックススタック")
 ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "発動に必要な最小クラックス数 (推奨: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "HPしきい値 (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "HPがこの値を下回るとフェイトカーバーのブロックを無効化")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "フェイトカーバーのHPチェックを有効化")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "HPが低い場合にフェイトカーバーのブロックを無効化")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
