@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -138,6 +138,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "HPしきい値 (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "HPがこの値を下回るとフェイトカーバーのブロックを無効化")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "フェイトカーバーのHPチェックを有効化")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "HPが低い場合にフェイトカーバーのブロックを無効化")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "テンタキュラルドレッド")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "テンタキュラルドレッドをブロック")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "条件が満たされるまでテンタキュラルドレッドスキルをブロックします")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

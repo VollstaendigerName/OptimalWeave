@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.4.3
+-- Version:           1.5.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -23,8 +23,18 @@ local OW = OptimalWeave
 local LAM = LibAddonMenu2
 
 -- =============================================================================
--- == COLOR SCHEMA =============================================================
+-- == COLOR SCHEMA DEFINITION ==================================================
 -- =============================================================================
+--[[
+    Purpose: Centralized color management for UI consistency
+    Color Codes:
+    - PRIMARY: Main text (Light Gray |cD4D4D4)
+    - SECONDARY: Secondary text (Medium Gray |cA6A6A6)
+    - ACCENT: Gold accent (Gold |c948159)
+    - WARNING: Error/alert text (Red |cFF5555)
+    - DISABLED: Disabled state (Dark Gray |c666666)
+    - BORDER: UI borders (Very Dark Gray |c3C3C3C)
+--]]
 local COLOR = {
     PRIMARY    = "|cD4D4D4",   -- Main text
     SECONDARY  = "|cA6A6A6",   -- Secondary text
@@ -37,7 +47,24 @@ local COLOR = {
 -- =============================================================================
 -- == UI COMPONENT FACTORIES ===================================================
 -- =============================================================================
+--[[
+    Purpose: Reusable component generators for menu consistency
+    Features:
+    - Standardized styling across all controls
+    - Automatic color application
+    - Localization integration
+    - Dynamic enable/disable states
+--]]
 
+--------------------------------------------------------------------------------
+-- Checkbox Control Factory
+-- @param nameKey: Localization key for display name
+-- @param tooltipKey: Localization key for tooltip text
+-- @param OWgetFunc: Function to retrieve current value
+-- @param OWsetFunc: Function to set new value
+-- @param disabledFunc: Optional function to determine disabled state
+-- @return: Fully configured checkbox table
+--------------------------------------------------------------------------------
 local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disabledFunc)
     return {
         type = "checkbox",
@@ -55,6 +82,15 @@ local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disable
     }
 end
 
+--------------------------------------------------------------------------------
+-- Dropdown Control Factory
+-- @param nameKey: Localization key for display name
+-- @param tooltipKey: Localization key for tooltip text
+-- @param choicesKeys: Table of localization keys for dropdown options
+-- @param OWgetFunc: Function to retrieve current value
+-- @param OWsetFunc: Function to set new value
+-- @return: Fully configured dropdown table
+--------------------------------------------------------------------------------
 local function CreateDropdown(nameKey, tooltipKey, choicesKeys, OWgetFunc, OWsetFunc)
     local choices = {}
     for _, key in ipairs(choicesKeys) do
@@ -74,6 +110,17 @@ local function CreateDropdown(nameKey, tooltipKey, choicesKeys, OWgetFunc, OWset
     }
 end
 
+--------------------------------------------------------------------------------
+-- Slider Control Factory
+-- @param nameKey: Localization key for display name
+-- @param tooltipKey: Localization key for tooltip text
+-- @param min: Minimum slider value
+-- @param max: Maximum slider value
+-- @param OWgetFunc: Function to retrieve current value
+-- @param OWsetFunc: Function to set new value
+-- @param disabledFunc: Optional function to determine disabled state
+-- @return: Fully configured slider table
+--------------------------------------------------------------------------------
 local function CreateSlider(nameKey, tooltipKey, min, max, OWgetFunc, OWsetFunc, disabledFunc)
     return {
         type = "slider",
@@ -91,9 +138,21 @@ local function CreateSlider(nameKey, tooltipKey, min, max, OWgetFunc, OWsetFunc,
 end
 
 -- =============================================================================
--- == MENU STRUCTURE ===========================================================
+-- == MENU STRUCTURE COMPONENTS ================================================
 -- =============================================================================
+--[[
+    Purpose: Visual organization elements for menu layout
+    Features:
+    - Consistent section headers
+    - Themed dividers
+    - Proper spacing and alignment
+--]]
 
+--------------------------------------------------------------------------------
+-- Section Header Generator
+-- @param text: Display text for section header
+-- @return: Divider and description control pair
+--------------------------------------------------------------------------------
 local function CreateSectionHeader(text)
     return {
         type = "divider",
@@ -105,6 +164,28 @@ local function CreateSectionHeader(text)
     }
 end
 
+-- =============================================================================
+-- == MAIN MENU CONSTRUCTION ===================================================
+-- =============================================================================
+--[[
+    Function: OW.BuildMenu
+    Purpose: Construct complete configuration interface
+    Process Flow:
+    1. Create main panel definition
+    2. Register panel with LibAddonMenu
+    3. Build hierarchical options structure
+    4. Register all control elements
+    
+    Architecture:
+    - Flat information section
+    - Core mechanics submenu
+    - Activation conditions submenu
+    - Advanced controls submenu
+    - Subclass-specific settings submenu
+    - Performance settings submenu
+    - Legal disclaimer
+--]]
+-- Main panel definition
 function OW.BuildMenu(OWSV, defaults)
     local panel = {
         type = "panel",
@@ -117,8 +198,10 @@ function OW.BuildMenu(OWSV, defaults)
         -- registerForDefaults = true
     }
 
+    -- Register main panel with LibAddonMenu
     LAM:RegisterAddonPanel(OW.name.."Menu", panel)
 
+    -- Complete menu structure definition
     local options = {
         -- Information Section (flat, no submenu)
         {
@@ -128,7 +211,7 @@ function OW.BuildMenu(OWSV, defaults)
             width = "full"
         },
 
-        -- Core Mechanics
+        -- Core Mechanics Submenu
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_MODE_HEADER"),
@@ -177,7 +260,7 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-        -- Activation Conditions
+        -- Activation Conditions Submenu
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_CONDITIONS_HEADER"),
@@ -222,7 +305,7 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-        -- Advanced Controls
+        -- Advanced Controls Submenu
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_ADVANCED_HEADER"),
@@ -276,7 +359,7 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-         -- (Sub)class Settings
+         -- (Sub)Class Settings Submenu
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_SUBCLASS_HEADER"),
@@ -346,7 +429,7 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.arcaBeamSkillIds[193397] = value -- Base
                         OWSV.arcaBeamSkillIds[193398] = value -- Exhausting Fatecarver
                         OWSV.arcaBeamSkillIds[193331] = value -- Pragmatic Fatecarver
-                        OWSV.useCruxStacks = value
+                        OWSV.usecruxStacks = value
                         --d(tostring(value))
                     end
                 ),
@@ -358,7 +441,7 @@ function OW.BuildMenu(OWSV, defaults)
                     1, 3, -- Min:1, Max:3 Stacks
                     function() return OWSV.cruxStacks end,
                     function(value) OWSV.cruxStacks = value end,
-                    function() return not OWSV.useCruxStacks end
+                    function() return not OWSV.usecruxStacks end
                 ),
 
                 {   
@@ -390,6 +473,41 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.deactivateArcaBeamBlockAtHpUnder = value end,
                     function() return not OWSV.checkHpForArcaBeam end
                 ),
+
+                -- Arcanist Tentacular Dread
+                CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_SUBCLASS_TENTACULAR"),
+                    width = "full"
+                },
+                
+                -- Tentacular
+                CreateCheckbox(
+                    "OW_MENU_TENTACULAR",
+                    "OW_MENU_TENTACULAR_TOOLTIP",
+                    function() return OWSV.tentacularDread[185823] end,
+                    function(value) 
+                        OWSV.tentacularDread[185823] = value -- Tentacular Dread
+                        OWSV.usecruxStacksTentacular = value
+                        --d(tostring(value))
+                    end
+                ),
+
+                -- Crux Stack Slider
+                CreateSlider(
+                    "OW_MENU_CRUX_STACKS",
+                    "OW_MENU_CRUX_STACKS_TOOLTIP",
+                    1, 3, -- Min:1, Max:3 Stacks
+                    function() return OWSV.cruxStacksTentacular end,
+                    function(value) OWSV.cruxStacksTentacular = value end,
+                    function() return not OWSV.usecruxStacksTentacular end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
 
 
                 -- Dragonknight Molten Whip

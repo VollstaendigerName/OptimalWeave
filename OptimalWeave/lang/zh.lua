@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.4.2
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -139,6 +139,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "生命值阈值 (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "当生命值低于此值时，停止阻止命运刻蚀者")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "为命运刻蚀者启用生命值检查")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "生命值过低时停止阻止命运刻蚀者")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "触须恐惧")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "阻止触须恐惧")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "满足条件前阻止触须恐惧技能")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

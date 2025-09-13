@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.4.2",
+    version = "1.5.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -115,12 +115,18 @@ defaults = {
 
     },
 
+    tentacularDread = {
+        [185823] = false -- Tentacular Dread
+    },
+
     deactivateArcaBeamBlockAtHpUnder = 20, -- limit value of HP
     checkHpForArcaBeam = true, -- Check HP before beam
 
     cruxId = 184220,    
-    useCruxStacks = false,
+    usecruxStacks = false,
     cruxStacks = 3,
+    usecruxStacksTentacular = false,
+    cruxStacksTentacular = 3,
 
     -- Mages guild
     lightMorphs = {
@@ -295,7 +301,7 @@ end
 -- == CHECK CRUX STACK STATUS ==================================================
 -- =============================================================================
 --[[
-Function: checkCruxStacks
+Function: checkcruxStacks
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
       an ability should remain active or be blocked. Specifically, if the number of
@@ -318,9 +324,9 @@ Function: checkCruxStacks
 -- Input Validation Master Function
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
-local function checkCruxStacks(id)
+local function checkcruxStacks(id)
     local active = true 
-    -- d("Check Crux stacks block in checkCruxStacks(")
+    -- d("Check Crux stacks block in checkcruxStacks(")
     -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
     local currentHealth, maxHealth, effHealth = GetUnitPower("player", COMBAT_MECHANIC_FLAGS_HEALTH)
     local pecentHealth = currentHealth / effHealth * 100
@@ -348,6 +354,58 @@ local function checkCruxStacks(id)
     end
     return active
 end
+
+-- =============================================================================
+-- == CHECK CRUX STACK STATUS FOR TENTACULAR DREAD =============================
+-- =============================================================================
+--[[
+Function: checkcruxStacksTentacular
+    Purpose:
+      Evaluates the current Crux buff status on the player to determine whether
+      an ability should remain active or be blocked. Specifically, if the number of
+      Crux stacks reaches or exceeds the specified threshold (OWSV.cruxStacks),
+      the ability is blocked (active = false).
+
+    Process Flow:
+      1. Iterate through all active buffs on the player.
+      2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
+         with the configured OWSV.CruxId.
+      3. Check the stack count of the identified Crux buff:
+            - If the stack count is equal to or greater than the defined threshold (OWSV.cruxStacks),
+              set 'active' to false (i.e., block the ability) and exit the loop.
+            - Otherwise, set 'active' to true and exit the loop.
+      4. Return the final status, where 'true' indicates the ability is allowed and 'false'
+         indicates it is blocked.
+--]]
+
+--------------------------------------------------------------------------------
+-- Input Validation Master Function
+-- @return: Boolean input permission
+--------------------------------------------------------------------------------
+local function checkcruxStacksTentacular(id)
+    local active = true 
+    -- d("Check Crux stacks block in checkcruxStacks(")
+    -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
+    
+    for buffIndex = 1, GetNumBuffs('player') do
+        local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+        --d("Buff"..abilityId )
+        if OWSV.cruxId == abilityId then
+            --d("Check Crux stacks block in OWSV.CruxId == abilityId")
+            if stackCount >= OWSV.cruxStacksTentacular then
+                active = false
+                --d("active = false")
+                break
+            else 
+                active = true
+                --d("active = true")
+                break
+            end
+        end    
+    end
+    return active
+end
+
 
 -- =============================================================================
 -- == GROUND ABILITY DETECTION SYSTEM ==========================================
@@ -439,6 +497,15 @@ local function OnPlayerStunned()
     --d("Stunned/Silenced etc.")
 end
 
+local function CastCanceled() -- Check if 
+    if IsBlockActive() then
+        --d("Block")
+        GCD_STAGE = 0    -- Reset state machine
+        CHANNEL = 0      -- Cancel active channels
+        LAST_ABILITY = 0 -- Clear ability memory
+    end
+end    
+
 -- =============================================================================
 -- == ACTION SLOT PROCESSING ===================================================
 -- =============================================================================
@@ -504,15 +571,23 @@ local function CanUseActionSlots()
         return true
     end 
 
+    -- Arca Beam
     -- d(OWSV.arcaBeamSkillIds[id] )
     -- Check Crux stacks
-    if OWSV.arcaBeamSkillIds[id] and OWSV.useCruxStacks and checkCruxStacks(id) then
+    if OWSV.arcaBeamSkillIds[id] and OWSV.usecruxStacks and checkcruxStacks(id) then
        -- d("Check Crux stacks block in  CanUseActionSlots")
         return true
     end 
 
+    -- Tentacular Dread
+    if OWSV.tentacularDread[id] and OWSV.usecruxStacksTentacular and checkcruxStacksTentacular(id) then
+        -- d("Check Crux stacks block in  CanUseActionSlots")
+        return true
+    end 
+
+    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() -- Helper variable
     -- Light Morphs & Hunter Morphs block in non-PvP areas
-   if not (OWSV.deactivateHunterLightInPvP and IsPlayerInAvAWorld()) then
+    if not (OWSV.deactivateHunterLightInPvP and inPvPWorld) then
         -- Mages Guild Light morphs block
         if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
             --d("Light/Hunter block")
@@ -578,6 +653,7 @@ local function AbilityUsed(_, slot)
     if OWSV.mode == 3 then 
         return
     end
+
     -- Light Attack handling
     if slot == 1 then
         GCD_STAGE = 3  -- Set LA queued state
@@ -636,6 +712,7 @@ local function Initialize()
 
     EM:RegisterForEvent(NAME, EVENT_PLAYER_SWIMMING, ResetGCD)
     EM:RegisterForEvent(NAME, EVENT_PLAYER_DEAD, ResetGCD)
+    EM:RegisterForEvent(NAME .."BLOCK", EVENT_COMBAT_EVENT, CastCanceled)
 
     -- Combat state tracking
     EM:RegisterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, OnPlayerStunned)
@@ -657,6 +734,18 @@ local function Initialize()
     EM:RegisterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_KNOCKBACK)
     EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_OFFBALANCE)
+    EM:AddFilterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_CHARMED)
+    EM:AddFilterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, ResetGCD)
+    EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_SPRINTING)
+    EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
 

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -145,6 +145,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "HP-Grenzwert (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Schicksalsschnitzer-Blockierung deaktivieren, wenn HP unter diesem Wert liegt")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "HP-Prüfung für Schicksalsschnitzer aktivieren")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Deaktiviert die Blockierung von Schicksalsschnitzer bei niedriger Gesundheit")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentakelschrecken")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Tentakelschrecken blockieren")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blockiert die Fähigkeit Tentakelschrecken, bis Bedingungen erfüllt sind.")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

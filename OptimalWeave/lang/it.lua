@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -139,6 +139,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Soglia HP (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Disabilita blocco Fatecarver quando HP è inferiore a questo valore")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Abilita controllo HP per Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Disabilita blocco Fatecarver quando la salute è bassa")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Blocca Tentacular Dread")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blocca l'abilità Tentacular Dread fino al soddisfacimento delle condizioni.")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

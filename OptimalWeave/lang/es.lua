@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -139,6 +139,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Umbral de HP (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Desactiva el bloqueo de Fatecarver cuando HP está por debajo de este valor")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Activar verificación de HP para Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Desactiva el bloqueo de Fatecarver cuando tu salud es baja")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Pavor tentacular")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Bloquear Pavor tentacular")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Bloque la habilidad Pavor tentacular hasta que se cumplan las condiciones.")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

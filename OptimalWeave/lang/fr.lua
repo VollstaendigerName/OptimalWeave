@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -140,6 +140,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Seuil de PV (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Désactiver le blocage de Fatecarver lorsque les PV sont inférieurs à cette valeur")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Activer la vérification des PV pour Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Désactive le blocage de Fatecarver lorsque votre santé est faible")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Effroi tentaculaire")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Bloquer Effroi tentaculaire")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Bloque la compétence Effroi tentaculaire jusqu'à ce que les conditions soient remplies.")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

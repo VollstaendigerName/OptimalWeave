@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.4.3
+    Version:            1.5.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -139,6 +139,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Порог HP (%)")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Отключить блокировку Fatecarver при HP ниже этого значения")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Включить проверку HP для Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Отключает блокировку Fatecarver при низком здоровье")
+
+-- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Ужасное щупальце")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Блокировать Ужасное щупальце")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Блокирует способность Ужасное щупальце до выполнения условий.")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
