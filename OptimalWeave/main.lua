@@ -123,7 +123,7 @@ defaults = {
     checkHpForArcaBeam = true, -- Check HP before beam
 
     cruxId = 184220,    
-    usecruxStacks = false,
+    useCruxStacks = false,
     cruxStacks = 3,
     usecruxStacksTentacular = false,
     cruxStacksTentacular = 3,
@@ -301,7 +301,7 @@ end
 -- == CHECK CRUX STACK STATUS ==================================================
 -- =============================================================================
 --[[
-Function: checkcruxStacks
+Function: checkCruxStacks
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
       an ability should remain active or be blocked. Specifically, if the number of
@@ -324,9 +324,9 @@ Function: checkcruxStacks
 -- Input Validation Master Function
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
-local function checkcruxStacks(id)
+local function checkCruxStacks(id)
     local active = true 
-    -- d("Check Crux stacks block in checkcruxStacks(")
+    -- d("Check Crux stacks block in checkCruxStacks(")
     -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
     local currentHealth, maxHealth, effHealth = GetUnitPower("player", COMBAT_MECHANIC_FLAGS_HEALTH)
     local pecentHealth = currentHealth / effHealth * 100
@@ -359,7 +359,7 @@ end
 -- == CHECK CRUX STACK STATUS FOR TENTACULAR DREAD =============================
 -- =============================================================================
 --[[
-Function: checkcruxStacksTentacular
+Function: checkCruxStacksTentacular
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
       an ability should remain active or be blocked. Specifically, if the number of
@@ -574,7 +574,7 @@ local function CanUseActionSlots()
     -- Arca Beam
     -- d(OWSV.arcaBeamSkillIds[id] )
     -- Check Crux stacks
-    if OWSV.arcaBeamSkillIds[id] and OWSV.usecruxStacks and checkcruxStacks(id) then
+    if OWSV.arcaBeamSkillIds[id] and OWSV.useCruxStacks and checkCruxStacks(id) then
        -- d("Check Crux stacks block in  CanUseActionSlots")
         return true
     end 

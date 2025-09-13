@@ -429,7 +429,7 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.arcaBeamSkillIds[193397] = value -- Base
                         OWSV.arcaBeamSkillIds[193398] = value -- Exhausting Fatecarver
                         OWSV.arcaBeamSkillIds[193331] = value -- Pragmatic Fatecarver
-                        OWSV.usecruxStacks = value
+                        OWSV.useCruxStacks = value
                         --d(tostring(value))
                     end
                 ),
@@ -441,7 +441,7 @@ function OW.BuildMenu(OWSV, defaults)
                     1, 3, -- Min:1, Max:3 Stacks
                     function() return OWSV.cruxStacks end,
                     function(value) OWSV.cruxStacks = value end,
-                    function() return not OWSV.usecruxStacks end
+                    function() return not OWSV.useCruxStacks end
                 ),
 
                 {   
