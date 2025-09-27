@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.5.0",
+    version = "1.5.1",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -143,9 +143,9 @@ defaults = {
     },
 
     dawnbreakerMorphs = {
-                         -- Dawnbreaker
-        [40161] = false -- Flawless Dawnbreaker
-                         -- Dawnbreaker of Smiting
+        [35713] = false  -- Dawnbreaker
+        [40161] = false  -- Flawless Dawnbreaker
+        [40158] = false  -- Dawnbreaker of Smiting
 
     },
 
