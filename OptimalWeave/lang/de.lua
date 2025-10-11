@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.5.0
+    Version:            1.6.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -60,6 +60,11 @@ ZO_CreateStringId("OW_MENU_DISABLE_TANK", "Deaktivieren als Tank")
 ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "Automatisch abschalten wenn Tank-Rolle aktiv")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "Deaktivieren als Heiler")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "Automatisch abschalten wenn Heiler-Rolle aktiv")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "Funktionen auf der zweiten Leiste deaktivieren")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Deaktiviert die meisten Funktionen des Addons auf der zweiten Waffenleiste.")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Weave-Assistent auf der zweiten Leiste deaktivieren")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Deaktiviert den Weave-Assistenten (GCD-Management) auf der zweiten Waffenleiste.")
 
 -- =============================================================================
 -- == BLOCK ID SETTINGS ============================================================
@@ -146,6 +151,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Schicksalsschnitzer-Bloc
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "HP-Prüfung für Schicksalsschnitzer aktivieren")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Deaktiviert die Blockierung von Schicksalsschnitzer bei niedriger Gesundheit")
 
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Ausdauer-Grenzwert (%)")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Deaktiviert Fatecarver-Blockierung bei niedriger Ausdauer")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Ausdauer-Prüfung für Fatecarver aktivieren")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Deaktiviert Fatecarver-Blockierung bei niedriger Ausdauer")
+
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentakelschrecken")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Tentakelschrecken blockieren")
@@ -153,6 +163,71 @@ ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blockiert die Fähigkeit Tentak
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
+
+
+-- =============================================================================
+-- == WEAPON SETTINGS ==========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "Deaktivierung nach Waffentyp")
+
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "Weave-Assistent bei Waffentyp deaktivieren")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "Deaktiviert nur den Weave-Assistenten (GCD-Management) für die ausgewählten Waffentypen")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "Funktionen bei Waffentyp deaktivieren")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "Deaktiviert die meisten Addon-Funktionen für die ausgewählten Waffentypen")
+
+-- Einhandwaffen
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "Axt")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "Deaktivieren, wenn eine Axt ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "Hammer")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "Deaktivieren, wenn ein Hammer ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "Schwert")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "Deaktivieren, wenn ein Schwert ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "Dolch")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "Deaktivieren, wenn ein Dolch ausgerüstet ist")
+
+-- Zweihandwaffen
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "Zweihandschwert")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "Deaktivieren, wenn ein Zweihandschwert ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "Zweihandaxt")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "Deaktivieren, wenn eine Zweihandaxt ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "Zweihandhammer")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "Deaktivieren, wenn ein Zweihandhammer ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "Bogen")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "Deaktivieren, wenn ein Bogen ausgerüstet ist")
+
+-- Stäbe
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "Flammstab")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "Deaktivieren, wenn ein Flammstab ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "Froststab")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "Deaktivieren, wenn ein Froststab ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "Blitzstab")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "Deaktivieren, wenn ein Blitzstab ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "Heilstab")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "Deaktivieren, wenn ein Heilstab ausgerüstet ist")
+
+-- Andere Waffen
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "Schild")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "Deaktivieren, wenn ein Schild ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "Rune")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "Deaktivieren, wenn eine Rune ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "Keine Waffe")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Deaktivieren, wenn keine Waffe ausgerüstet ist")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Reservierte Waffe")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Deaktivieren, wenn ein reservierter Waffentyp ausgerüstet ist")
 
 -- =============================================================================
 -- === END OF GERMAN LOCALIZATION ==============================================

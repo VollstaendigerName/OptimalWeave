@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.5.0
+    Version:            1.6.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.5.1",
+    version = "1.6.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -122,6 +122,9 @@ defaults = {
     deactivateArcaBeamBlockAtHpUnder = 20, -- limit value of HP
     checkHpForArcaBeam = true, -- Check HP before beam
 
+    deactivateArcaBeamBlockAtStamUnder = 20, -- limit value of Stam
+    checkStamForArcaBeam = true, -- Check Stam before beam
+
     cruxId = 184220,    
     useCruxStacks = false,
     cruxStacks = 3,
@@ -143,8 +146,8 @@ defaults = {
     },
 
     dawnbreakerMorphs = {
-        [35713] = false  -- Dawnbreaker
-        [40161] = false  -- Flawless Dawnbreaker
+        [35713] = false, -- Dawnbreaker
+        [40161] = false, -- Flawless Dawnbreaker
         [40158] = false  -- Dawnbreaker of Smiting
 
     },
@@ -166,11 +169,57 @@ defaults = {
     resetOnDodge = true,
     resetOnBarswap = true,
     deactivateHunterLightInPvP = true,
+
+    deactivateOnBackbar = {
+        features = false, -- Deactivating other features on Backbar
+        weaveAssist = false  -- Deactivate weave Assist on Backbar
+    },
+
+    deactivateOnWeaponType = {
+        none = false, -- Int. = 0
+        axe = false,  -- Int. = 1
+        hammer = false,  -- Int. = 2
+        sword = false,  -- Int. = 3
+        twoHandedSword = false,  -- Int. = 4
+        twoHandedAxe = false,  -- Int. = 5
+        twoHandedHammer = false,  -- Int. = 6
+        reservedWeapon = false, -- Int. 7
+        bow = false,  -- Int. = 8
+        healingStaff = false,  -- Int. = 9
+        rune = false,  -- Int. = 10
+        dagger = false,  -- Int. = 11
+        fireStaff = false,  -- Int. = 12
+        frostStaff = false,  -- Int. = 13
+        shield = false,  -- Int. = 14
+        lightningStaff = false -- Int. 15
+    },
+
+    deactivateOnWeapon = {
+        features = false, -- Deactivating other features 
+        weaveAssist = false  -- Deactivate weave Assist
+    },
 }
 
 local LFG_ROLE_TANK = 2
 local LFG_ROLE_HEAL = 4
 local LFG_ROLE_DPS = 1
+local weaponTypeToKey = {
+    [WEAPONTYPE_NONE] = "none",
+    [WEAPONTYPE_AXE] = "axe",
+    [WEAPONTYPE_HAMMER] = "hammer",
+    [WEAPONTYPE_SWORD] = "sword",
+    [WEAPONTYPE_TWO_HANDED_SWORD] = "twoHandedSword",
+    [WEAPONTYPE_TWO_HANDED_AXE] = "twoHandedAxe",
+    [WEAPONTYPE_TWO_HANDED_HAMMER] = "twoHandedHammer",
+    [WEAPONTYPE_BOW] = "bow",
+    [WEAPONTYPE_HEALING_STAFF] = "healingStaff",
+    [WEAPONTYPE_RUNE] = "rune",
+    [WEAPONTYPE_DAGGER] = "dagger",
+    [WEAPONTYPE_FIRE_STAFF] = "fireStaff",
+    [WEAPONTYPE_FROST_STAFF] = "frostStaff",
+    [WEAPONTYPE_SHIELD] = "shield",
+    [WEAPONTYPE_LIGHTNING_STAFF] = "lightningStaff"
+}
 
 -- =============================================================================
 -- == SIMPLE TEST FUNC FOR REGISTERATION =======================================
@@ -179,6 +228,33 @@ local LFG_ROLE_DPS = 1
 local function TestFuncDebug()
     d("TEST OKAY")
 end    
+
+-- =============================================================================
+-- == DEACTIVATE BASED ON WEAPON ===============================================
+-- =============================================================================
+
+function deactivateBasedOnWeapon()
+    local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
+    local slots
+    
+    if ActiveWeaponPair == 1 then
+        -- Main Hand
+        slots = {EQUIP_SLOT_MAIN_HAND, EQUIP_SLOT_OFF_HAND}
+    else
+        -- Backbar
+        slots = {EQUIP_SLOT_BACKUP_MAIN, EQUIP_SLOT_BACKUP_OFF}
+    end
+    
+    for _, slot in ipairs(slots) do
+        local weaponType = GetItemWeaponType(BAG_WORN, slot)
+        local key = weaponTypeToKey[weaponType]
+        if key and OWSV.deactivateOnWeaponType[key] then
+            return true
+        end
+    end
+    
+    return false
+end
 
 -- =============================================================================
 -- == ABILITY VALIDATION SUBSYSTEM =============================================
@@ -214,7 +290,7 @@ function CheckRoleOverride()
         if OWSV.mode ~= 3 and OWSV.originalMode == 0 then
             OWSV.originalMode = OWSV.mode
         end
-        -- Tank oder Healer → Mode auf "None"
+        -- Tank or Healer on Mode set to None
         OWSV.mode = 3
 
     else
@@ -328,10 +404,15 @@ local function checkCruxStacks(id)
     local active = true 
     -- d("Check Crux stacks block in checkCruxStacks(")
     -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
-    local currentHealth, maxHealth, effHealth = GetUnitPower("player", COMBAT_MECHANIC_FLAGS_HEALTH)
+    local currentHealth, maxHealth, effHealth = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_HEALTH)
     local pecentHealth = currentHealth / effHealth * 100
     --d(string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
-    if OWSV.checkHpForArcaBeam and pecentHealth <= OWSV.deactivateArcaBeamBlockAtHpUnder then
+
+    local currentStam, maxStam, effStam = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_STAMINA)
+    local pecentStam = currentStam / effStam * 100
+    --d(string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, pecentStam))
+
+    if (OWSV.checkHpForArcaBeam and pecentHealth <= OWSV.deactivateArcaBeamBlockAtHpUnder) or (OWSV.checkStamForArcaBeam and pecentStam <= OWSV.deactivateArcaBeamBlockAtStamUnder) then
         active = false
         --d("active = false")
     else    
@@ -546,7 +627,7 @@ end
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
 local function CanUseActionSlots()
-    
+
     -- Global block conditions
     local ignore = (OWSV.block and IsBlockActive()) or 
                    (OWSV.combat and not IsUnitInCombat('player')) or 
@@ -565,9 +646,17 @@ local function CanUseActionSlots()
         return false
     end
 
+    -- disable on backbar
+    local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
+    --d("ActiveWeaponPair"..ActiveWeaponPair)
+    if (OWSV.deactivateOnBackbar.features  and (ActiveWeaponPair == 2)) or (OWSV.deactivateOnWeapon.features  and deactivateBasedOnWeapon()) then
+        --d("disable features")
+        return false
+    end
+
     -- Grim Focus block
     if (OWSV.grimFocusSkillIds[id] or OWSV.useGrimFocusStacks) and checkGrimFocus(id) then
-        --d("Grim Focus block in  CanUseActionSlots")
+        -- d("Grim Focus block in  CanUseActionSlots")
         return true
     end 
 
@@ -590,8 +679,8 @@ local function CanUseActionSlots()
     if not (OWSV.deactivateHunterLightInPvP and inPvPWorld) then
         -- Mages Guild Light morphs block
         if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
-            --d("Light/Hunter block")
-            --ResetGCD()
+            -- d("Light/Hunter block")
+            -- ResetGCD()
             return true
         end
     end
@@ -651,6 +740,12 @@ end
 --------------------------------------------------------------------------------
 local function AbilityUsed(_, slot)
     if OWSV.mode == 3 then 
+        return
+    end
+
+    local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
+    if (OWSV.deactivateOnBackbar.weaveAssist and (ActiveWeaponPair == 2)) or (OWSV.deactivateOnWeapon.weaveAssist and deactivateBasedOnWeapon()) then
+        --d("disable Weave Assist ")
         return
     end
 

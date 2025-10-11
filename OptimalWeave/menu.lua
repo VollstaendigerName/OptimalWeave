@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.5.0
+-- Version:           1.6.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -284,6 +284,12 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.block end,
                     function(value) OWSV.block = value end
                 ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
                 CreateCheckbox(
                     "OW_MENU_DISABLE_TANK",
                     "OW_MENU_DISABLE_TANK_TOOLTIP",
@@ -300,6 +306,28 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) 
                         OWSV.disableHeal = value
                         CheckRoleOverride()
+                    end
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_FEATURES_ON_BACKBAR",
+                    "OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP",
+                    function() return OWSV.deactivateOnBackbar.features end,
+                    function(value) 
+                        OWSV.deactivateOnBackbar.features = value
+                    end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR",
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP",
+                    function() return OWSV.deactivateOnBackbar.weaveAssist end,
+                    function(value) 
+                        OWSV.deactivateOnBackbar.weaveAssist = value
                     end
                 ),
             }
@@ -474,6 +502,37 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.checkHpForArcaBeam end
                 ),
 
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- Deactivate under certain Stam toggle
+                CreateCheckbox(
+                    "OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE",
+                    "OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP",
+                    function() return OWSV.checkStamForArcaBeam end,
+                    function(value) 
+                        OWSV.checkStamForArcaBeam = value
+                    end
+                ),
+                
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+                
+                -- Deactivate under certain HP Slider
+                CreateSlider(
+                    "OW_MENU_CHECK_STAMINA_FOR_BEAM",
+                    "OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP",
+                    0, 100, -- Min:0, Max:100 % Stam
+                    function() return OWSV.deactivateArcaBeamBlockAtStamUnder end,
+                    function(value) OWSV.deactivateArcaBeamBlockAtStamUnder = value end,
+                    function() return not OWSV.checkStamForArcaBeam end
+                ),
+
+
                 -- Arcanist Tentacular Dread
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
                 {
@@ -503,12 +562,6 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.cruxStacksTentacular = value end,
                     function() return not OWSV.usecruxStacksTentacular end
                 ),
-
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
-
 
                 -- Dragonknight Molten Whip
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
@@ -578,6 +631,160 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.deactivateHunterLightInPvP = value
                     end
                 ),
+            }
+        },
+
+        -- Weapon Type Deactivation Submenu
+        {
+            type = "submenu",
+            name = COLOR.ACCENT..OW.L("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER"),
+            controls = {
+                CreateSectionHeader(OW.L("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER")),
+
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_FEATURES_ON_WEAPON",
+                    "OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP",
+                    function() return OWSV.deactivateOnWeapon.features end,
+                    function(value) 
+                        OWSV.deactivateOnWeapon.features = value
+                    end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON",
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP",
+                    function() return OWSV.deactivateOnWeapon.weaveAssist end,
+                    function(value) 
+                        OWSV.deactivateOnWeapon.weaveAssist = value
+                    end
+                ),
+                
+                { type = "divider", alpha = 1 },
+
+                -- One-handed weapons
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_AXE",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.axe end,
+                    function(value) OWSV.deactivateOnWeaponType.axe = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.hammer end,
+                    function(value) OWSV.deactivateOnWeaponType.hammer = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_SWORD",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.sword end,
+                    function(value) OWSV.deactivateOnWeaponType.sword = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.dagger end,
+                    function(value) OWSV.deactivateOnWeaponType.dagger = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                
+                { type = "divider", alpha = 0.3 },
+                
+                -- Two-handed weapons
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.twoHandedSword end,
+                    function(value) OWSV.deactivateOnWeaponType.twoHandedSword = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.twoHandedAxe end,
+                    function(value) OWSV.deactivateOnWeaponType.twoHandedAxe = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.twoHandedHammer end,
+                    function(value) OWSV.deactivateOnWeaponType.twoHandedHammer = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_BOW",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.bow end,
+                    function(value) OWSV.deactivateOnWeaponType.bow = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                
+                { type = "divider", alpha = 0.3 },
+                
+                -- Staves
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.fireStaff end,
+                    function(value) OWSV.deactivateOnWeaponType.fireStaff = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.frostStaff end,
+                    function(value) OWSV.deactivateOnWeaponType.frostStaff = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.lightningStaff end,
+                    function(value) OWSV.deactivateOnWeaponType.lightningStaff = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.healingStaff end,
+                    function(value) OWSV.deactivateOnWeaponType.healingStaff = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                
+                { type = "divider", alpha = 0.3 },
+                
+                -- Other weapons
+                CreateCheckbox(
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD",
+                    "OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP",
+                    function() return OWSV.deactivateOnWeaponType.shield end,
+                    function(value) OWSV.deactivateOnWeaponType.shield = value end,
+                    function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                ),
+                -- CreateCheckbox(
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_RUNE",
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP",
+                --     function() return OWSV.deactivateOnWeaponType.rune end,
+                --     function(value) OWSV.deactivateOnWeaponType.rune = value end,
+                --     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                -- ),
+                -- CreateCheckbox(
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_NONE",
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP",
+                --     function() return OWSV.deactivateOnWeaponType.none end,
+                --     function(value) OWSV.deactivateOnWeaponType.none = value end,
+                --     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                -- ),
+                -- CreateCheckbox(
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED",
+                --     "OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP",
+                --     function() return OWSV.deactivateOnWeaponType.reservedWeapon end,
+                --     function(value) OWSV.deactivateOnWeaponType.reservedWeapon = value end,
+                --     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
+                -- )
             }
         },
     

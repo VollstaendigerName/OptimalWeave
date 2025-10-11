@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.5.0
+    Version:            1.6.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -58,6 +58,11 @@ ZO_CreateStringId("OW_MENU_DISABLE_TANK", "Вимкнути як Танк")
 ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "Автоматично вимикається в ролі Танка")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "Вимкнути як Лікар")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "Автоматично вимикається в ролі Лікаря")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "Вимкнути функції на другій панелі")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Вимкає більшість функцій аддону на другій панелі зброї.")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Вимкнути асистента плетіння на другій панелі")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Вимкає асистента плетіння (керування GCD) на другій панелі зброї.")
 
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
@@ -140,6 +145,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Вимкає блоку�
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Активувати перевірку HP для Різьблення долі")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Вимкає блокування Різьблення долі при низькому здоров'ї")
 
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Поріг Витривалості (%)")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Вимкнути блокування Fatecarver при низькій витривалості")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Увімкнути перевірку Витривалості для Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Вимкає блокування Fatecarver при низькій витривалості")
+
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Щупальцевий жах")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Блокувати Щупальцевий жах")
@@ -147,6 +157,70 @@ ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Блокує навичку Щ�
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "В розробці")
+
+-- =============================================================================
+-- == WEAPON SETTINGS ==========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "Вимкнення за типом зброї")
+
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "Вимкнути асистент плетіння для типу зброї")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "Вимкає лише асистент плетіння (керування GCD) для вибраних типів зброї")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "Вимкнути функції для типу зброї")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "Вимкає більшість функцій аддону для вибраних типів зброї")
+
+-- Одноручна зброя
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "Сокира")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "Вимкнути при екіпіруванні сокири")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "Молот")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "Вимкнути при екіпіруванні молота")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "Меч")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "Вимкнути при екіпіруванні меча")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "Кинджал")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "Вимкнути при екіпіруванні кинджала")
+
+-- Дворучна зброя
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "Дворучний меч")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "Вимкнути при екіпіруванні дворучного меча")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "Дворучна сокира")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "Вимкнути при екіпіруванні дворучної сокири")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "Дворучний молот")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "Вимкнути при екіпіруванні дворучного молота")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "Лук")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "Вимкнути при екіпіруванні лука")
+
+-- Жезли
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "Вогняний жезл")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "Вимкнути при екіпіруванні вогняного жезла")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "Крижаний жезл")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "Вимкнути при екіпіруванні крижаного жезла")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "Жезл блискавки")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "Вимкнути при екіпіруванні жезла блискавки")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "Цілющий жезл")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "Вимкнути при екіпіруванні цілющего жезла")
+
+-- Інша зброя
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "Щит")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "Вимкнути при екіпіруванні щита")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "Руна")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "Вимкнути при екіпіруванні руни")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "Без зброї")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Вимкнути при відсутності зброї")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Резервна зброя")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Вимкнути при екіпіруванні резервного типу зброї")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================

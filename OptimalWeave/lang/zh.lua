@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.5.0
+    Version:            1.6.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -58,6 +58,11 @@ ZO_CreateStringId("OW_MENU_DISABLE_TANK", "禁用作为坦克")
 ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "坦克角色时自动禁用")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "禁用作为治疗")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "治疗角色时自动禁用")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "在副栏上禁用功能")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "在副栏上禁用大部分插件功能。")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "在副栏上禁用轻击辅助")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "在副栏上禁用轻击辅助（GCD 管理）。")
 
 -- =============================================================================
 -- == BLOCK ID SETTINGS =======================================================
@@ -140,6 +145,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "当生命值低于此值
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "为命运刻蚀者启用生命值检查")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "生命值过低时停止阻止命运刻蚀者")
 
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "耐力阈值 (%)")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "耐力过低时停止阻止命运刻蚀者")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "为命运刻蚀者启用耐力检查")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "耐力过低时停止阻止命运刻蚀者")
+
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "触须恐惧")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "阻止触须恐惧")
@@ -147,6 +157,70 @@ ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "满足条件前阻止触须恐�
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
+
+-- =============================================================================
+-- == WEAPON SETTINGS ==========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "根据武器类型禁用")
+
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "在武器类型上禁用轻击辅助")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "仅对选定的武器类型禁用轻击辅助（GCD 管理）")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "在武器类型上禁用功能")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "对选定的武器类型禁用大部分插件功能")
+
+-- 单手武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "斧")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "装备斧时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "锤")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "装备锤时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "剑")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "装备剑时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "匕首")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "装备匕首时禁用")
+
+-- 双手武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "双手剑")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "装备双手剑时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "双手斧")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "装备双手斧时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "双手锤")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "装备双手锤时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "弓")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "装备弓时禁用")
+
+-- 法杖
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "火焰法杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "装备火焰法杖时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "冰霜法杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "装备冰霜法杖时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "闪电法杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "装备闪电法杖时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "治疗法杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "装备治疗法杖时禁用")
+
+-- 其他武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "盾牌")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "装备盾牌时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "符文")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "装备符文时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "无武器")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "未装备武器时禁用")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "保留武器")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "装备保留武器类型时禁用")
 
 -- =============================================================================
 -- === END OF CHINESE LOCALIZATION ============================================

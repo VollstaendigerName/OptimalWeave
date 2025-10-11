@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.5.0
+    Version:            1.6.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -58,6 +58,11 @@ ZO_CreateStringId("OW_MENU_DISABLE_TANK", "タンク時無効")
 ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "タンクロール時に自動無効")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "ヒーラー時無効")
 ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "ヒーラーロール時に自動無効")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "バックバーで機能を無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "バックバーでアドオンのほとんどの機能を無効化します。")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "バックバーでウィーブアシストを無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "バックバーでウィーブアシスト（GCD管理）を無効化します。")
 
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
@@ -139,6 +144,11 @@ ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "HPがこの値を下回�
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "フェイトカーバーのHPチェックを有効化")
 ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "HPが低い場合にフェイトカーバーのブロックを無効化")
 
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "スタミナしきい値 (%)")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "スタミナが低い場合にフェイトカーバーのブロックを無効化")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "フェイトカーバーのスタミナチェックを有効化")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "スタミナが低い場合にフェイトカーバーのブロックを無効化")
+
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "テンタキュラルドレッド")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "テンタキュラルドレッドをブロック")
@@ -146,6 +156,70 @@ ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "条件が満たされるまで�
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
+
+-- =============================================================================
+-- == WEAPON SETTINGS ==========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "武器タイプに基づく無効化")
+
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "武器タイプでウィーブアシストを無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "選択した武器タイプでウィーブアシスト（GCD管理）のみを無効化します")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "武器タイプで機能を無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "選択した武器タイプでアドオンのほとんどの機能を無効化します")
+
+-- 片手武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "斧")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "斧装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "ハンマー")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "ハンマー装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "剣")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "剣装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "ダガー")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "ダガー装備時に無効化")
+
+-- 両手武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "両手剣")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "両手剣装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "両手斧")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "両手斧装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "両手ハンマー")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "両手ハンマー装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "弓")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "弓装備時に無効化")
+
+-- 杖
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "炎の杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "炎の杖装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "氷の杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "氷の杖装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "雷の杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "雷の杖装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "癒しの杖")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "癒しの杖装備時に無効化")
+
+-- その他の武器
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "盾")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "盾装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "ルーン")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "ルーン装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "武器なし")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "武器未装備時に無効化")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "予約済み武器")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "予約済み武器タイプ装備時に無効化")
 
 -- =============================================================================
 -- === END OF JAPANESE LOCALIZATION ===========================================
