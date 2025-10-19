@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -153,6 +153,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "スタミナ
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "テンタキュラルドレッド")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "テンタキュラルドレッドをブロック")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "条件が満たされるまでテンタキュラルドレッドスキルをブロックします")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "エグゼキュートチェック")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "エグゼキュートチェックを有効にする")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "エグゼキュートチェック機能を有効または無効にします")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "エグゼキュートしきい値 (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "ターゲットの体力パーセンテージがこの値を下回るとエグゼキュート呪文が許可されます")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "エグゼキュート呪文")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "光輝の破壊, 光輝の栄光, 光輝の抑圧")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "ターゲットがエグゼキュート範囲に達するまで光輝の破壊モーフをブロックします")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "アサシンズブレイド, 貫刺, キラーズブレイド")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "ターゲットがエグゼキュート範囲に達するまでアサシンズブレイドモーフをブロックします")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

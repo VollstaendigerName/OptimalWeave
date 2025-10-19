@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -154,6 +154,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Отключ
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Ужасное щупальце")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Блокировать Ужасное щупальце")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Блокирует способность Ужасное щупальце до выполнения условий.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Проверка добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Включить проверку добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Включает или отключает функцию проверки добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Порог добивания (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Процент здоровья цели, ниже которого разрешены заклинания добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Заклинания добивания")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Сияющее разрушение, Сияющая слава, Сияющее угнетение")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Блокирует морфы Сияющего разрушения, пока цель не достигнет порога добивания")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Клинок ассасина, Пронзание, Клинок убийцы")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Блокирует морфы Клинка ассасина, пока цель не достигнет порога добивания")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

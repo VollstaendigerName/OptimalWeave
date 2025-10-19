@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -154,6 +154,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Вимкає
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Щупальцевий жах")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Блокувати Щупальцевий жах")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Блокує навичку Щупальцевий жах до виконання умов.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Перевірка добивання")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Увімкнути перевірку добивання")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Увімкнути або вимкнути функцію перевірки добивання")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Поріг добивання (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Відсоток здоров'я цілі, нижче якого дозволені заклинання добивання")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Заклинання добивання")
+
+-- Grouped Execute Spells
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Сяйливе Руйнування, Сяйлива Слава, Сяйливе Потучення")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Блокує морфи Сяйливого Руйнування, поки ціль не досягне межі добивання")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Клинок Вбивці, Проколоти, Клинок Вбивці")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Блокує морфи Клинка Вбивці, поки ціль не досягне межі добивання")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "В розробці")

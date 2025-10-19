@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.6.0",
+    version = "1.7.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -79,7 +79,6 @@ defaults = {
     checkTarget = true,              -- Target requirement
     neverBlockedAbilityIDs = {},
 
-
     -- Nightblade
     grimFocusSkillIds = {
         [61919] = false, -- Merciless
@@ -98,7 +97,7 @@ defaults = {
 
     deathStrokeMorphs = {
                          -- Death Stroke
-        [36514] = false -- Soul Harvest
+        [36514] = false  -- Soul Harvest
                          -- Incapacitating Strike
     },
     
@@ -119,6 +118,10 @@ defaults = {
         [185823] = false -- Tentacular Dread
     },
 
+    cephaliarchsFlail = {
+        [183006] = false -- Cephaliarch's Flail
+    },
+
     deactivateArcaBeamBlockAtHpUnder = 20, -- limit value of HP
     checkHpForArcaBeam = true, -- Check HP before beam
 
@@ -135,7 +138,7 @@ defaults = {
     lightMorphs = {
         [30920] = true, -- Magelight
         [40478] = true, -- Inner light
-        [40483] = true -- Radiant Magelight
+        [40483] = true  -- Radiant Magelight
     },
 
     -- Fighters guild
@@ -149,7 +152,18 @@ defaults = {
         [35713] = false, -- Dawnbreaker
         [40161] = false, -- Flawless Dawnbreaker
         [40158] = false  -- Dawnbreaker of Smiting
+    },
 
+    useExecuteCheck = false,          -- Enable/disable Execute Check
+    executeThreshold = 30,            -- Percentage threshold value for execute
+
+    executeCheckSpells = {
+        [63029] = false, -- Radiant Destruction
+        [63044] = false, -- Radiant Glory
+        [63046] = false, -- Radiant Oppression
+        [34851] = false, -- Impale
+        [34843] = false, -- Killer's Blade
+        [33386] = false, -- Assassin's Blade
     },
 
     MoltenWhip = {
@@ -222,12 +236,31 @@ local weaponTypeToKey = {
 }
 
 -- =============================================================================
--- == SIMPLE TEST FUNC FOR REGISTERATION =======================================
+-- == DEBUG SYSTEM =============================================================
 -- =============================================================================
+--[[
+    Debug Modes:
+    - "block": GCD blocking decisions
+    - "condition": Ability condition checks  
+    - "info": General state information
+--]]
 
-local function TestFuncDebug()
-    d("TEST OKAY")
-end    
+local DEBUG_MODES = {
+    block = false,      -- GCD blocking decisions
+    condition = false,  -- Ability condition checks
+    info = false        -- General state information
+}
+
+--------------------------------------------------------------------------------
+-- Debug Print Function
+-- @param mode: Debug category ("block", "condition", "info")
+-- @param ...: Messages to print
+--------------------------------------------------------------------------------
+local function DebugPrint(mode, ...)
+    if DEBUG_MODES[mode] then
+        d(...)
+    end
+end
 
 -- =============================================================================
 -- == DEACTIVATE BASED ON WEAPON ===============================================
@@ -254,6 +287,64 @@ function deactivateBasedOnWeapon()
     end
     
     return false
+end
+
+-- =============================================================================
+-- == EXECUTE CHECK SYSTEM =====================================================
+-- =============================================================================
+--[[
+Function: checkExecuteReady
+    Purpose:
+      Evaluates the current target health to determine whether
+      an ability should remain active or be blocked. Specifically, if the target health
+      is below the specified threshold (OWSV.executeThreshold),
+      the ability is allowed (active = true).
+
+    Process Flow:
+      1. Check if target exists and is not dead
+      2. Get current and maximum health of target
+      3. Calculate health percentage
+      4. Check if health percentage is below threshold
+      5. Return true if ability should be allowed, false if blocked
+--]]
+
+--------------------------------------------------------------------------------
+-- Execute Check Function
+-- @param id: Ability ID being checked
+-- @return: Boolean indicating if ability should be allowed
+--------------------------------------------------------------------------------
+local function checkExecuteReady(id)
+    local active = false  -- Default: block the ability
+    
+    -- Check if target exists and is not dead
+    if not DoesUnitExist('reticleover') or IsUnitDead('reticleover') then
+        DebugPrint("condition", "Execute Check: Target does not exist or is dead")
+        return active
+    end
+    
+    -- Get current and maximum health values of target
+    local currentHealth, maxHealth = GetUnitPower('reticleover', POWERTYPE_HEALTH)
+    DebugPrint("condition", string.format("Execute Check: Target Health - Current: %d, Maximum: %d", currentHealth, maxHealth))
+    
+    -- Validate health values to avoid division by zero
+    if currentHealth == 0 or maxHealth == 0 then
+        DebugPrint("condition", "Execute Check: Invalid health values")
+        return active
+    end
+    
+    -- Calculate health percentage
+    local percentHP = (currentHealth / maxHealth) * 100
+    DebugPrint("condition", string.format("Execute Check: Health Percentage: %.1f%%, Threshold: %.1f%%", percentHP, OWSV.executeThreshold))
+    
+    -- Check if health is below execute threshold
+    if percentHP <= OWSV.executeThreshold then
+        active = true  -- Allow ability in execute phase
+        DebugPrint("condition", "Execute Check: EXECUTE PHASE ACTIVE - Ability allowed")
+    else
+        DebugPrint("condition", "Execute Check: Target not in execute phase - Ability blocked")
+    end
+    
+    return active
 end
 
 -- =============================================================================
@@ -402,32 +493,32 @@ Function: checkCruxStacks
 --------------------------------------------------------------------------------
 local function checkCruxStacks(id)
     local active = true 
-    -- d("Check Crux stacks block in checkCruxStacks(")
-    -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
+    DebugPrint("condition", "Check Crux stacks block in checkCruxStacks(")
+    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
     local currentHealth, maxHealth, effHealth = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_HEALTH)
     local pecentHealth = currentHealth / effHealth * 100
-    --d(string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
+    DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
 
     local currentStam, maxStam, effStam = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_STAMINA)
     local pecentStam = currentStam / effStam * 100
-    --d(string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, pecentStam))
+    DebugPrint("info", string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, pecentStam))
 
     if (OWSV.checkHpForArcaBeam and pecentHealth <= OWSV.deactivateArcaBeamBlockAtHpUnder) or (OWSV.checkStamForArcaBeam and pecentStam <= OWSV.deactivateArcaBeamBlockAtStamUnder) then
         active = false
-        --d("active = false")
+        DebugPrint("condition", "active = false")
     else    
         for buffIndex = 1, GetNumBuffs('player') do
             local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
-            --d("Buff"..abilityId )
+            DebugPrint("condition", "Buff"..abilityId)
             if OWSV.cruxId == abilityId then
-                --d("Check Crux stacks block in OWSV.CruxId == abilityId")
+                DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
                 if stackCount >= OWSV.cruxStacks then
                     active = false
-                    --d("active = false")
+                    DebugPrint("condition", "active = false")
                     break
                 else 
                     active = true
-                    --d("active = true")
+                    DebugPrint("condition", "active = true")
                     break
                 end
             end
@@ -465,21 +556,21 @@ Function: checkCruxStacksTentacular
 --------------------------------------------------------------------------------
 local function checkcruxStacksTentacular(id)
     local active = true 
-    -- d("Check Crux stacks block in checkcruxStacks(")
-    -- d("OWSV.CruxId ".. tostring(OWSV.CruxId))
+    DebugPrint("condition", "Check Crux stacks block in checkcruxStacks(")
+    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
         local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
-        --d("Buff"..abilityId )
+        DebugPrint("condition", "Buff"..abilityId)
         if OWSV.cruxId == abilityId then
-            --d("Check Crux stacks block in OWSV.CruxId == abilityId")
+            DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
             if stackCount >= OWSV.cruxStacksTentacular then
                 active = false
-                --d("active = false")
+                DebugPrint("condition", "active = false")
                 break
             else 
                 active = true
-                --d("active = true")
+                DebugPrint("condition", "active = true")
                 break
             end
         end    
@@ -551,7 +642,7 @@ local function ResetGCDOnDodge()
         GCD_STAGE = 0
         CHANNEL = 0
         LAST_ABILITY = 0
-        -- d("Reset because of Dodge")
+        DebugPrint("block", "Reset because of Dodge")
     end   
 end
 
@@ -560,7 +651,7 @@ local function ResetGCDOnBarswap()
         GCD_STAGE = 0
         CHANNEL = 0
         LAST_ABILITY = 0
-        -- d("Reset because of Barswap")
+        DebugPrint("block", "Reset because of Barswap")
     end   
 end
 
@@ -568,19 +659,19 @@ local function ResetGCD()
     GCD_STAGE = 0
     CHANNEL = 0
     LAST_ABILITY = 0
-    -- d("Reset because everything else")
+    DebugPrint("block", "Reset because everything else")
 end
 
 local function OnPlayerStunned()
     GCD_STAGE = 0    -- Reset state machine
     CHANNEL = 0      -- Cancel active channels
     LAST_ABILITY = 0 -- Clear ability memory
-    --d("Stunned/Silenced etc.")
+    DebugPrint("block", "Stunned/Silenced etc.")
 end
 
 local function CastCanceled() -- Check if 
     if IsBlockActive() then
-        --d("Block")
+        DebugPrint("block", "Block")
         GCD_STAGE = 0    -- Reset state machine
         CHANNEL = 0      -- Cancel active channels
         LAST_ABILITY = 0 -- Clear ability memory
@@ -639,8 +730,8 @@ local function CanUseActionSlots()
     local isGround = CheckGroundAbility(id)
     local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
     
-    --d("Buff"..abilityId )
-    --d("id "..id)
+    DebugPrint("info", "Buff"..abilityId)
+    DebugPrint("info", "id "..id)
     -- Hard block exit
     if ignore and not OWSV.blockGroundAbilities then
         return false
@@ -650,13 +741,13 @@ local function CanUseActionSlots()
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     --d("ActiveWeaponPair"..ActiveWeaponPair)
     if (OWSV.deactivateOnBackbar.features  and (ActiveWeaponPair == 2)) or (OWSV.deactivateOnWeapon.features  and deactivateBasedOnWeapon()) then
-        --d("disable features")
+        DebugPrint("block", "disable features")
         return false
     end
 
     -- Grim Focus block
     if (OWSV.grimFocusSkillIds[id] or OWSV.useGrimFocusStacks) and checkGrimFocus(id) then
-        -- d("Grim Focus block in  CanUseActionSlots")
+        DebugPrint("condition", "Grim Focus block in CanUseActionSlots")
         return true
     end 
 
@@ -664,29 +755,41 @@ local function CanUseActionSlots()
     -- d(OWSV.arcaBeamSkillIds[id] )
     -- Check Crux stacks
     if OWSV.arcaBeamSkillIds[id] and OWSV.useCruxStacks and checkCruxStacks(id) then
-       -- d("Check Crux stacks block in  CanUseActionSlots")
+        DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
         return true
     end 
 
     -- Tentacular Dread
     if OWSV.tentacularDread[id] and OWSV.usecruxStacksTentacular and checkcruxStacksTentacular(id) then
-        -- d("Check Crux stacks block in  CanUseActionSlots")
+        DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
         return true
     end 
+
+    -- Execute Check: Block spell until execute phase is reached
+    if OWSV.useExecuteCheck and OWSV.executeCheckSpells[id] then
+        DebugPrint("condition", string.format("Execute Check: Checking spell ID %d", id))
+        if checkExecuteReady(id) then
+            DebugPrint("condition", "Execute Check: Spell blocked by Execute Check")
+            return false
+        else
+            DebugPrint("condition", "Execute Check: Spell permitted by Execute Check")
+            return true
+        end
+    end
 
     local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() -- Helper variable
     -- Light Morphs & Hunter Morphs block in non-PvP areas
     if not (OWSV.deactivateHunterLightInPvP and inPvPWorld) then
         -- Mages Guild Light morphs block
         if OWSV.lightMorphs[id] or OWSV.hunterMorphs[id] then
-            -- d("Light/Hunter block")
+            DebugPrint("condition", "Light/Hunter block")
             -- ResetGCD()
             return true
         end
     end
 
     if OWSV.MoltenWhip[id] then
-        -- d("MoltenWhip block")
+        DebugPrint("condition", "MoltenWhip block")
         return true
     end
 
@@ -745,7 +848,7 @@ local function AbilityUsed(_, slot)
 
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     if (OWSV.deactivateOnBackbar.weaveAssist and (ActiveWeaponPair == 2)) or (OWSV.deactivateOnWeapon.weaveAssist and deactivateBasedOnWeapon()) then
-        --d("disable Weave Assist ")
+        DebugPrint("block", "disable Weave Assist")
         return
     end
 

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -153,6 +153,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Wyłącza bl
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Blokuj Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blokuje umiejętność Tentacular Dread do spełnienia warunków.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Sprawdzanie Egzekucji")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Włącz sprawdzanie egzekucji")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Włącza lub wyłącza funkcję sprawdzania egzekucji")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Próg Egzekucji (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Procent zdrowia celu, poniżej którego dozwolone są zaklęcia egzekucji")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Zaklęcia Egzekucji")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Radiacyjne Zniszczenie, Radiacyjna Chwała, Radiacyjne Uciśnienie")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blokuje morfy Radiacyjnego Zniszczenia, aż cel znajdzie się w zasięgu egzekucji")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Ostrze Asasyna, Przebić, Ostrze Zabójcy")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blokuje morfy Ostrza Asasyna, aż cel znajdzie się w zasięgu egzekucji")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

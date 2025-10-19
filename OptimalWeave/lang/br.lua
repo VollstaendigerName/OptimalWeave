@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -154,6 +154,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Desativa o b
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Bloquear Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Bloqueia a habilidade Tentacular Dread até que condições sejam atendidas.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Verificação de Execução")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Ativar verificação de execução")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Ativa ou desativa a função de verificação de execução")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Limite de Execução (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Porcentagem de saúde do alvo abaixo da qual as magias de execução são permitidas")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Magias de Execução")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Destruição Radiante, Glória Radiante, Opressão Radiante")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Bloqueia os morphs de Destruição Radiante até que o alvo esteja no alcance de execução")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Lâmina do Assassino, Empalar, Lâmina do Assassino")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Bloqueia os morphs de Lâmina do Assassino até que o alvo esteja no alcance de execução")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

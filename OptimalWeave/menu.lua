@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.6.0
+-- Version:           1.7.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -580,6 +580,70 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.MoltenWhip[20805] = value
                     end
                 ),
+
+                { type = "divider", alpha = 0.3 },
+
+                -- Execute Check 
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_EXECUTE_HEADER"),
+                    width = "full"
+                },
+                
+                -- Enable/Disable Execute Check
+                CreateCheckbox(
+                    "OW_MENU_EXECUTE_ENABLE",
+                    "OW_MENU_EXECUTE_ENABLE_TOOLTIP",
+                    function() return OWSV.useExecuteCheck end,
+                    function(value) OWSV.useExecuteCheck = value end
+                ),
+                
+                -- Execute Threshold Slider
+                CreateSlider(
+                    "OW_MENU_EXECUTE_THRESHOLD",
+                    "OW_MENU_EXECUTE_THRESHOLD_TOOLTIP",
+                    0, 100, -- 0-100%
+                    function() return OWSV.executeThreshold end,
+                    function(value) OWSV.executeThreshold = value end,
+                    function() return not OWSV.useExecuteCheck end
+                ),
+                
+                { type = "divider", alpha = 0.3 },
+                
+                -- Execute Spells Header
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_EXECUTE_SPELLS_HEADER"),
+                    width = "full"
+                },
+                
+                -- Radiant Destruction and Morphs 
+                CreateCheckbox(
+                    "OW_MENU_EXECUTE_SPELL_RADIANTMORPHS",
+                    "OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP",
+                    function() return OWSV.executeCheckSpells[63029] end,
+                    function(value) 
+                        OWSV.executeCheckSpells[63029] = value
+                        OWSV.executeCheckSpells[63044] = value
+                        OWSV.executeCheckSpells[63046] = value
+                    end,
+                    function() return not OWSV.useExecuteCheck end
+                ),
+                
+                -- Assassin's Blade and Morphs
+                CreateCheckbox(
+                    "OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS",
+                    "OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP",
+                    function() return OWSV.executeCheckSpells[33386] end,
+                    function(value) 
+                        OWSV.executeCheckSpells[33386] = value
+                        OWSV.executeCheckSpells[34851] = value
+                        OWSV.executeCheckSpells[34843] = value
+                    end,
+                    function() return not OWSV.useExecuteCheck end
+                ),
+
+                { type = "divider", alpha = 0.3 },
 
                 -- guild
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),

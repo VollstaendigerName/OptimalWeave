@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.5.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -154,6 +154,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Disabilita i
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Blocca Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blocca l'abilità Tentacular Dread fino al soddisfacimento delle condizioni.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Controllo Esecuzione")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Abilita controllo esecuzione")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Abilita o disabilita la funzione di controllo esecuzione")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Soglia Esecuzione (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Percentuale di salute del bersaglio al di sotto della quale sono consentiti gli incantesimi di esecuzione")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Incantesimi di Esecuzione")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Distruzione Radiosa, Gloria Radiosa, Oppressione Radiosa")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blocca i morph di Distruzione Radiosa finché il bersaglio non è nell'intervallo di esecuzione")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Lama dell'Assassino, Incidere, Lama del Killer")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blocca i morph di Lama dell'Assassino finché il bersaglio non è nell'intervallo di esecuzione")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

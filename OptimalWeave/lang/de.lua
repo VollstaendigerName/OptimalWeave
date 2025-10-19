@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -160,6 +160,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Deaktiviert 
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentakelschrecken")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Tentakelschrecken blockieren")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blockiert die Fähigkeit Tentakelschrecken, bis Bedingungen erfüllt sind.")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Execute-Check")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Execute-Check aktivieren")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Aktiviert oder deaktiviert die Execute-Check-Funktion")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Execute-Grenzwert (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Ziel-Gesundheitsprozentsatz, unterhalb dessen Execute-Zauber erlaubt sind")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Execute-Zauber")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Strahlende Zerstörung, Strahlender Ruhm, Strahlende Unterdrückung")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blockiert Strahlende Zerstörung-Morphs, bis das Ziel im Execute-Bereich ist")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Assassinenklinge, Pfählen, Mörderklinge")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blockiert Assassinenklinge-Morphs, bis das Ziel im Execute-Bereich ist")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -155,6 +155,22 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Disables Fat
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "Block Tentacular Dread")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Blocks the Tentacular Dread skill until conditions are met.")
+
+
+-- == Execute Check Settings ================================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Execute Check")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Enable Execute Check")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Enable or disable the execute check feature")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Execute Threshold (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Target health percentage below which execute spells are allowed")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Execute Spells")
+
+-- == Grouped Execute Spells ================================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Radiant Destruction, Radiant Glory, Radiant Oppression")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Block Radiant Destruction morphs until target is in execute range")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Assassin's Blade, Impale, Killer's Blade")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Block Assassin's Blade morphs until target is in execute range")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")

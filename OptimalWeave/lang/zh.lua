@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.6.0
+    Version:            1.7.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -154,6 +154,21 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "耐力过低
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "触须恐惧")
 ZO_CreateStringId("OW_MENU_TENTACULAR", "阻止触须恐惧")
 ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "满足条件前阻止触须恐惧技能")
+
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "处决检查")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "启用处决检查")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "启用或禁用处决检查功能")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "处决阈值 (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "目标生命值百分比，低于此值时允许使用处决技能")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "处决技能")
+
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "辉煌毁灭, 辉煌荣耀, 辉煌压迫")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "在目标达到处决范围前阻止辉煌毁灭变形技能")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "刺客之刃, 穿刺击, 杀手之刃")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "在目标达到处决范围前阻止刺客之刃变形技能")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
