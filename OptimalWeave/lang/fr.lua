@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.7.0
+    Version:            1.8.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -64,6 +64,12 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Désactive la 
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Désactiver l'assistant de tissage sur la barre secondaire")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Désactive l'assistant de tissage (gestion GCD) sur la barre secondaire.")
 
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "Désactivation en JcJ")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "Désactiver les fonctions en JcJ")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "Désactive la plupart des fonctions de l'addon dans les zones JcJ")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "Désactiver l'assistant de tissage en JcJ")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "Désactive l'assistant de tissage (gestion du GCD) dans les zones JcJ")
+
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
 -- =============================================================================
@@ -91,6 +97,8 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Réinitialiser au changement 
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Réinitialise le GCD lors du changement d'arme")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Réinitialiser au roulade")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Réinitialise le GCD lors d'une roulade d'esquive")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Dégainer automatiquement")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Dégainer automatiquement les armes en combat")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -150,6 +158,11 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Seuil d'Endurance (%)")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Désactiver le blocage de Fatecarver lorsque l'endurance est faible")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Activer la vérification d'endurance pour Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Désactive le blocage de Fatecarver lorsque votre endurance est faible")
+
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "Fléau de céphaliarque")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "Bloquer Fléau de céphaliarque")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "Bloque Fléau de céphaliarque lorsque vous avez 3 piles de Crux")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Effroi tentaculaire")

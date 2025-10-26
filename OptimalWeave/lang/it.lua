@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.7.0
+    Version:            1.8.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -64,6 +64,12 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Disattiva la m
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Disattiva assistente weaving sulla barra secondaria")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Disattiva l'assistente weaving (gestione GCD) sulla barra secondaria.")
 
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "Disattivazione in PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "Disattiva funzioni in PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "Disattiva la maggior parte delle funzioni dell'addon nelle aree PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "Disattiva assistente tessitura in PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "Disattiva l'assistente tessitura (gestione GCD) nelle aree PvP")
+
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
 -- =============================================================================
@@ -91,6 +97,8 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Reset cambio arma")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Resetta GCD al cambio arma")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reset schivata")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Resetta GCD durante la schivata")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Sguainare automaticamente")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Sguaina automaticamente le armi in combattimento")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -149,6 +157,11 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Soglia Vigore (%)")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Disabilita il blocco di Fatecarver quando il Vigore è basso")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Abilita controllo Vigore per Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Disabilita il blocco di Fatecarver quando il vigore è basso")
+
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "Flagello del Cefaliarco")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "Blocca Flagello del Cefaliarco")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "Blocca il Flagello del Cefaliarco quando hai 3 accumuli di Crux")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")

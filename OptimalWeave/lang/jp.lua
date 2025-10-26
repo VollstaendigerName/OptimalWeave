@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.7.0
+    Version:            1.8.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -64,6 +64,12 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "バックバ�
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "バックバーでウィーブアシストを無効化")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "バックバーでウィーブアシスト（GCD管理）を無効化します。")
 
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "PvP無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "PvPで機能を無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "PvPエリアでアドオンのほとんどの機能を無効化します")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "PvPでウィーブアシストを無効化")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "PvPエリアでウィーブアシスト（GCD管理）を無効化します")
+
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
 -- =============================================================================
@@ -91,6 +97,8 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "武器切り替え時リセ�
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "武器切り替え時にGCDをリセット")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "回避時リセット")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "回避時にGCDをリセット")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "武器自動抜刀")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "戦闘中に武器を自動的に抜く")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -148,6 +156,11 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "スタミナしきい値 (%
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "スタミナが低い場合にフェイトカーバーのブロックを無効化")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "フェイトカーバーのスタミナチェックを有効化")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "スタミナが低い場合にフェイトカーバーのブロックを無効化")
+
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "セファリアークのフレイル")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "セファリアークのフレイルをブロック")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "クルックススタックが3の時、セファリアークのフレイルをブロックします")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "テンタキュラルドレッド")

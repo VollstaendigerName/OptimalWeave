@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.7.0
+-- Version:           1.8.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -330,6 +330,24 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.deactivateOnBackbar.weaveAssist = value
                     end
                 ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_FEATURES_IN_PVP",
+                    "OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP",
+                    function() return OWSV.deactivateInPvP.features end,
+                    function(value) OWSV.deactivateInPvP.features = value end
+                ),
+                CreateCheckbox(
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP",
+                    "OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP",
+                    function() return OWSV.deactivateInPvP.weaveAssist end,
+                    function(value) OWSV.deactivateInPvP.weaveAssist = value end
+                ),
             }
         },
 
@@ -383,6 +401,19 @@ function OW.BuildMenu(OWSV, defaults)
                     100, 2000, -- 100-2000ms (Default 1050)
                     function() return OWSV.baseQueueTime end,
                     function(value) OWSV.baseQueueTime = value end
+                ),
+
+                 {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- Automatic Weapon Equipping
+                CreateCheckbox(
+                    "OW_MENU_AUTO_EQUIP_WEAPONS_LABEL",
+                    "OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP",
+                    function() return OWSV.autoEquipWeapons end,
+                    function(value) OWSV.autoEquipWeapons = value end
                 )
             }
         },
@@ -532,6 +563,24 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.checkStamForArcaBeam end
                 ),
 
+                -- Arcanist Cephaliarch's Flail
+                CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
+                {
+                    type = "header",
+                    name = COLOR.PRIMARY..OW.L("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL"),
+                    width = "full"
+                },
+
+                -- Cephaliarch's Flail
+                CreateCheckbox(
+                    "OW_MENU_CEPHALIARCHSFLAIL",
+                    "OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP",
+                    function() return OWSV.cephaliarchsFlail[183006] end,
+                    function(value) 
+                        OWSV.cephaliarchsFlail[183006] = value
+                        OWSV.useCruxStacksCephaliarch = value
+                    end
+                ),
 
                 -- Arcanist Tentacular Dread
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),

@@ -64,6 +64,12 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "在副栏上�
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "在副栏上禁用轻击辅助")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "在副栏上禁用轻击辅助（GCD 管理）。")
 
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "PvP 停用")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "在 PvP 中停用功能")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "在 PvP 区域停用大部分插件功能")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "在 PvP 中停用编织辅助")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "在 PvP 区域停用编织辅助（GCD 管理）")
+
 -- =============================================================================
 -- == BLOCK ID SETTINGS =======================================================
 -- =============================================================================
@@ -91,6 +97,8 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "武器切换时重置")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "武器切换时重置全局冷却")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "翻滚时重置")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "翻滚时重置全局冷却")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "自动拔武器")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "在战斗中自动拔出武器")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION ====================================================
@@ -149,6 +157,11 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "耐力阈值 (%)")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "耐力过低时停止阻止命运刻蚀者")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "为命运刻蚀者启用耐力检查")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "耐力过低时停止阻止命运刻蚀者")
+
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "首脑连枷")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "阻挡首脑连枷")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "当有3层克鲁克斯时阻挡首脑连枷")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "触须恐惧")

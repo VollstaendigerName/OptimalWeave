@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.7.0
+    Version:            1.8.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -64,6 +64,12 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Вимкає �
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Вимкнути асистента плетіння на другій панелі")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Вимкає асистента плетіння (керування GCD) на другій панелі зброї.")
 
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "Вимкнення в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "Вимкнути функції в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "Вимкнути більшість функцій аддона в PvP-зонах")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "Вимкнути помічник плетіння в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "Вимкнути помічник плетіння (управління GCD) в PvP-зонах")
+
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
 -- =============================================================================
@@ -91,6 +97,8 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Скидати при змі�
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Скидає GCD при зміні зброї")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Скидати при ухиленні")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Скидає GCD при виконанні ухилення")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Автоматично діставати зброю")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Автоматично діставати зброю в бою")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -149,6 +157,11 @@ ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Поріг Витривал
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Вимкнути блокування Fatecarver при низькій витривалості")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Увімкнути перевірку Витривалості для Fatecarver")
 ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Вимкає блокування Fatecarver при низькій витривалості")
+
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================   
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "Біч цефаліарха")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "Блокувати Біч цефаліарха")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "Блокує Біч цефаліарха, коли у вас є 3 стаки Крукса")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Щупальцевий жах")

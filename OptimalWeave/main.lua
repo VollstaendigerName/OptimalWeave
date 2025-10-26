@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.7.0
+    Version:            1.8.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.7.0",
+    version = "1.8.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -121,6 +121,7 @@ defaults = {
     cephaliarchsFlail = {
         [183006] = false -- Cephaliarch's Flail
     },
+    useCruxStacksCephaliarch = false,  -- Cephaliarch's Flail Crux Check
 
     deactivateArcaBeamBlockAtHpUnder = 20, -- limit value of HP
     checkHpForArcaBeam = true, -- Check HP before beam
@@ -212,6 +213,13 @@ defaults = {
         features = false, -- Deactivating other features 
         weaveAssist = false  -- Deactivate weave Assist
     },
+
+    deactivateInPvP = {
+        features = false, -- Deactivating other features in PVP
+        weaveAssist = false  -- Deactivate weave Assist in PVP
+    },
+
+    autoEquipWeapons = false, -- Enable/disable automatic weapon activation
 }
 
 local LFG_ROLE_TANK = 2
@@ -263,9 +271,51 @@ local function DebugPrint(mode, ...)
 end
 
 -- =============================================================================
+-- == AUTOMATIC WEAPON EQUIPPING ===============================================
+-- =============================================================================
+--[[
+    Function: EquipWeaponsStateChange
+    Purpose: Automatically unsheathe weapons when leaving various UI states
+    Events: Combat, crafting, chatting, shopping, etc.
+--]]
+
+local function EquipWeaponsStateChange()
+    if not OWSV.autoEquipWeapons then return end
+    
+    if ArePlayerWeaponsSheathed() then
+        DebugPrint("info", "Draw weapon")
+        TogglePlayerWield()
+    end
+end
+
+-- =============================================================================
 -- == DEACTIVATE BASED ON WEAPON ===============================================
 -- =============================================================================
+--[[
+Function: deactivateBasedOnWeapon
+    Purpose:
+      Determines whether addon features should be deactivated based on the currently
+      equipped weapon types. Checks both main hand and off-hand weapons (or backup
+      weapons) against the user's configured weapon type blocklist.
 
+    Process Flow:
+      1. Identify active weapon pair (main bar or backbar)
+      2. Select corresponding equipment slots for checking
+      3. Iterate through each weapon slot in the active pair
+      4. Retrieve weapon type and map to configuration key
+      5. Check if weapon type is in user's deactivation list
+      6. Return true if any weapon matches deactivation criteria
+
+    Weapon Handling:
+      - Main Bar: EQUIP_SLOT_MAIN_HAND, EQUIP_SLOT_OFF_HAND
+      - Backbar: EQUIP_SLOT_BACKUP_MAIN, EQUIP_SLOT_BACKUP_OFF
+      - Uses weaponTypeToKey mapping table for configuration lookup
+--]]
+
+--------------------------------------------------------------------------------
+-- Weapon-Based Deactivation Check
+-- @return: Boolean indicating if features should be deactivated for current weapons
+--------------------------------------------------------------------------------
 function deactivateBasedOnWeapon()
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     local slots
@@ -372,6 +422,30 @@ end
 -- =============================================================================
 -- == ROLE VALIDATION SUBSYSTEM ================================================
 -- =============================================================================
+--[[
+Function: CheckRoleOverride
+    Purpose:
+      Manages automatic mode switching based on the player's selected role.
+      Disables the addon for Tank and Healer roles when configured, while
+      preserving the original mode for DPS roles.
+
+    Process Flow:
+      1. Retrieve the player's currently selected LFG role
+      2. Check if role is Tank/Healer with corresponding disable setting active:
+            - If conditions met, save current mode and set addon to disabled (mode 3)
+      3. For DPS roles or when restrictions are inactive:
+            - Restore the previously saved mode if available
+      4. Maintains state tracking to seamlessly transition between role changes
+
+    State Management:
+      - originalMode: Stores the previous mode when switching to Tank/Healer
+      - mode: Current operational mode (1=Hard, 2=Soft, 3=Disabled)
+--]]
+
+--------------------------------------------------------------------------------
+-- Role-Based Mode Management
+-- @return: None (modifies OWSV state directly)
+--------------------------------------------------------------------------------
 function CheckRoleOverride()
     local role = GetSelectedLFGRole()
 
@@ -524,6 +598,57 @@ local function checkCruxStacks(id)
             end
         end    
     end
+    return active
+end
+
+-- =============================================================================
+-- == CHECK CRUX STACK STATUS FOR CEPHALIARCH'S FLAIL ==========================
+-- =============================================================================
+--[[
+Function: checkCruxStacksCephaliarch
+    Purpose:
+      Evaluates the current Crux buff status on the player to determine whether
+      Cephaliarch's Flail should be allowed or blocked. Specifically, if the number of
+      Crux stacks reaches or exceeds 3, the ability is allowed (active = true).
+
+    Process Flow:
+      1. Iterate through all active buffs on the player.
+      2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
+         with the configured OWSV.CruxId.
+      3. Check the stack count of the identified Crux buff:
+            - If the stack count is equal to or greater than 3,
+              set 'active' to true (i.e., allow the ability) and exit the loop.
+            - Otherwise, set 'active' to false and exit the loop.
+      4. Return the final status, where 'true' indicates the ability is allowed and 'false'
+         indicates it is blocked.
+--]]
+
+--------------------------------------------------------------------------------
+-- Crux Stack Validation for Cephaliarch's Flail
+-- @param id: Ability ID being checked
+-- @return: Boolean indicating if ability should be allowed
+--------------------------------------------------------------------------------
+local function checkCruxStacksCephaliarch(id)
+    local active = false 
+    DebugPrint("condition", "Check Crux stacks block in checkCruxStacksCephaliarch")
+    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
+    
+    for buffIndex = 1, GetNumBuffs('player') do
+        local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+        DebugPrint("condition", "Buff "..abilityId)
+        if OWSV.cruxId == abilityId then
+            DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
+            if stackCount >= 3 then  -- Always block at 3 stacks
+                active = true
+                DebugPrint("condition", "active = true due to 3+ Crux stacks")
+                break
+            else 
+                active = false
+                DebugPrint("condition", "active = false - less than 3 Crux stacks")
+                break
+            end
+        end
+    end    
     return active
 end
 
@@ -737,6 +862,13 @@ local function CanUseActionSlots()
         return false
     end
 
+    -- PvP Deactivation Check
+    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
+    if OWSV.deactivateInPvP.features and inPvPWorld then
+        DebugPrint("block", "disable features in PvP")
+        return false
+    end
+
     -- disable on backbar
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     --d("ActiveWeaponPair"..ActiveWeaponPair)
@@ -759,6 +891,12 @@ local function CanUseActionSlots()
         return true
     end 
 
+    -- Cephaliarch's Flail
+    if OWSV.cephaliarchsFlail[id] and OWSV.useCruxStacksCephaliarch and checkCruxStacksCephaliarch(id) then
+        DebugPrint("condition", "Cephaliarch's Flail block in CanUseActionSlots")
+        return true
+    end
+
     -- Tentacular Dread
     if OWSV.tentacularDread[id] and OWSV.usecruxStacksTentacular and checkcruxStacksTentacular(id) then
         DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
@@ -777,7 +915,7 @@ local function CanUseActionSlots()
         end
     end
 
-    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() -- Helper variable
+    --local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() -- Helper variable
     -- Light Morphs & Hunter Morphs block in non-PvP areas
     if not (OWSV.deactivateHunterLightInPvP and inPvPWorld) then
         -- Mages Guild Light morphs block
@@ -843,6 +981,13 @@ end
 --------------------------------------------------------------------------------
 local function AbilityUsed(_, slot)
     if OWSV.mode == 3 then 
+        return
+    end
+
+    -- PvP Deactivation Check
+    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
+    if OWSV.deactivateInPvP.weaveAssist and inPvPWorld then
+        DebugPrint("block", "disable Weave Assist in PvP")
         return
     end
 
@@ -946,6 +1091,17 @@ local function Initialize()
     EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
+
+    EM:RegisterForEvent(NAME .. "_EquipCombat", EVENT_PLAYER_COMBAT_STATE, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipBook", EVENT_HIDE_BOOK, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipCrafting", EVENT_END_CRAFTING_STATION_INTERACT, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipChat", EVENT_CHATTER_END, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipStore", EVENT_CLOSE_STORE, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipAlive", EVENT_PLAYER_ALIVE, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipLoot", EVENT_LOOT_CLOSED, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipActivated", EVENT_PLAYER_ACTIVATED, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipSwimming", EVENT_PLAYER_NOT_SWIMMING, EquipWeaponsStateChange)
+    EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
 
     -- Action system integration
     EM:RegisterForEvent(NAME, EVENT_ACTION_SLOT_ABILITY_USED, AbilityUsed)
