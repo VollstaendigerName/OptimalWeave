@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.8.0
+    Version:            1.8.1
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.8.0",
+    version = "1.8.1",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -282,7 +282,7 @@ end
 local function EquipWeaponsStateChange()
     if not OWSV.autoEquipWeapons then return end
     
-    if ArePlayerWeaponsSheathed() then
+    if ArePlayerWeaponsSheathed() and (IsPlayerInRaid() or IsUnitInDungeon('player') or IsUnitInCombat('player'))  then
         DebugPrint("info", "Draw weapon")
         TogglePlayerWield()
     end
@@ -1092,16 +1092,18 @@ local function Initialize()
 
     EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
 
-    EM:RegisterForEvent(NAME .. "_EquipCombat", EVENT_PLAYER_COMBAT_STATE, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipBook", EVENT_HIDE_BOOK, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipCrafting", EVENT_END_CRAFTING_STATION_INTERACT, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipChat", EVENT_CHATTER_END, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipStore", EVENT_CLOSE_STORE, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipAlive", EVENT_PLAYER_ALIVE, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipLoot", EVENT_LOOT_CLOSED, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipActivated", EVENT_PLAYER_ACTIVATED, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipSwimming", EVENT_PLAYER_NOT_SWIMMING, EquipWeaponsStateChange)
-    EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
+    if OWSV.autoEquipWeapons then
+        EM:RegisterForEvent(NAME .. "_EquipCombat", EVENT_PLAYER_COMBAT_STATE, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipBook", EVENT_HIDE_BOOK, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipCrafting", EVENT_END_CRAFTING_STATION_INTERACT, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipChat", EVENT_CHATTER_END, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipStore", EVENT_CLOSE_STORE, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipAlive", EVENT_PLAYER_ALIVE, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipLoot", EVENT_LOOT_CLOSED, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipActivated", EVENT_PLAYER_ACTIVATED, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipSwimming", EVENT_PLAYER_NOT_SWIMMING, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
+    end    
 
     -- Action system integration
     EM:RegisterForEvent(NAME, EVENT_ACTION_SLOT_ABILITY_USED, AbilityUsed)
