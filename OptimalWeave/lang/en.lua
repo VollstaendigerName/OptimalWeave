@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -88,7 +88,7 @@ ZO_CreateStringId("OW_MENU_CHANNEL_NORMAL_TOOLTIP", "Safety margin for instant a
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "Channeled Buffer (ms)")
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "Buffer for channeled skills (0-400ms)")
 ZO_CreateStringId("OW_MENU_GCD_SLOT", "GCD Tracking Slot")
-ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Action bar slot for GCD detection (1-8)")
+ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Action bar slot for GCD detection (3-8)")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Min GCD Threshold (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Minimum GCD duration to recognize (0-20ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Base Queue Time (ms)")
@@ -97,8 +97,14 @@ ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Reset on bar swap")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Resets the GCD on bar swap")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reset on dodge roll")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Resets the GCD on Dodge roll")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Reset time (seconds)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Resets tracking after not casting anything for this many seconds.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Auto GCD Tracking Slot")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Automatically select the best GCD tracking slot from slots 3-8")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Auto-Draw Weapon")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Automatically draw weapons when in combat")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Reset All")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Reset all settings to default values")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

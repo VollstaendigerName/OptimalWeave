@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -91,6 +91,10 @@ ZO_CreateStringId("OW_MENU_GCD_SLOT", "Slot de detecção GCD")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Slot da barra para detecção GCD (1-8)")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Limite mínimo GCD (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Duração mínima GCD para detecção (0-20ms)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Tempo de redefinição (segundos)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Redefine o rastreamento após não lançar nada por esse número de segundos.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Slot de rastreamento GCD automático")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Seleciona automaticamente o melhor slot de rastreamento GCD dos slots 3-8")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Tempo base de fila (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Janela de fila padrão (100-2000ms)")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Resetar ao trocar arma")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Resetar ao esquivar")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Reseta GCD ao esquivar")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Desembainhar automaticamente")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Desembainhar armas automaticamente em combate")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Redefinir tudo")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Redefinir todas as configurações para os valores padrão")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

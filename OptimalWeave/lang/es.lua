@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -89,6 +89,10 @@ ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "Margen Canalizado (ms)")
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "Margen para habilidades canalizadas (0-400 ms)")
 ZO_CreateStringId("OW_MENU_GCD_SLOT", "Slot de Seguimiento GCD")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Slot de la barra para detectar GCD (1-8)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Tiempo de reinicio (segundos)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Reinicia el seguimiento después de no lanzar nada durante esta cantidad de segundos.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Ranura de seguimiento GCD automática")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Selecciona automáticamente la mejor ranura de seguimiento GCD de las ranuras 3-8")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Umbral Mínimo GCD (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Duración mínima del GCD para detectar (0-20 ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Tiempo Base de Cola (ms)")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reiniciar al esquivar")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Reinicia el GCD al realizar una esquivada")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Desenvainar automáticamente")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Desenvainar armas automáticamente en combate")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Restablecer todo")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Restablecer toda la configuración a los valores predeterminados")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

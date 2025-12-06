@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.8.1
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.8.1",
+    version = "1.9.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -174,6 +174,7 @@ defaults = {
     channelBufferNormal = 50,       -- Default: 50ms
     channelBufferChanneled = 200,   -- Default: 200ms
     gcdTrackingSlot = 3,            -- Default: Slot 3
+    autoGcdTrackingSlot = false,     -- Automatic search for tracking slot
     minGcdThreshold = 10,           -- Default: 10ms
     baseQueueTime = 1050,           -- Default: 1050ms
 
@@ -220,6 +221,7 @@ defaults = {
     },
 
     autoEquipWeapons = false, -- Enable/disable automatic weapon activation
+    resetAfterSeconds = 25,
 }
 
 local LFG_ROLE_TANK = 2
@@ -268,6 +270,55 @@ local function DebugPrint(mode, ...)
     if DEBUG_MODES[mode] then
         d(...)
     end
+end
+
+-- =============================================================================
+-- == AUTOMATIC GCD TRACKING SLOT SELECTION ====================================
+-- =============================================================================
+--[[
+Function: AutoSelectGcdTrackingSlot
+    Purpose:
+      Automatically selects the best GCD tracking slot by checking slots 3-8
+      for active cooldowns. Cycles through slots until one with valid cooldown
+      data is found.
+
+    Process Flow:
+      1. Start from current slot + 1 (or 3 if at the end)
+      2. Check each slot in sequence (3-8)
+      3. If a slot has valid cooldown data (cd and duration not 0/nil), use it
+      4. If no valid slot found after full cycle, default to slot 3
+--]]
+
+local function AutoSelectGcdTrackingSlot()
+    if not OWSV.autoGcdTrackingSlot then
+        return  -- Feature not enabled
+    end
+    
+    local currentSlot = OWSV.gcdTrackingSlot
+    local newSlot = nil
+    
+    -- Go through all slots from 3 to 8, starting with the next slot.
+    for i = 1, 6 do  -- 6 Slot: 3 to 8
+        local testSlot = (currentSlot - 3 + i) % 6 + 3
+        local cd, duration, global, globalSlotType = GetSlotCooldownInfo(testSlot)
+        
+        DebugPrint("info", string.format("Testing slot %d: cd=%s, duration=%s", testSlot, tostring(cd), tostring(duration)))
+        
+        -- Check whether the slot has valid cooldown data
+        if cd and cd > 0 and duration and duration > 0 then
+            newSlot = testSlot
+            DebugPrint("info", string.format("Selected slot %d for GCD tracking", newSlot))
+            break
+        end
+    end
+    
+    -- Fallback to slot 3 if no valid slot was found
+    if not newSlot then
+        newSlot = 3
+        DebugPrint("info", "No valid slot found, defaulting to slot 3")
+    end
+    
+    OWSV.gcdTrackingSlot = newSlot
 end
 
 -- =============================================================================
@@ -749,6 +800,7 @@ end
 local GCD_STAGE = 0  -- Current state machine position
 local CHANNEL = 0    -- Channel expiration timestamp
 local LAST_ABILITY = 0  -- Last used ability ID tracker
+local timeSinceLastCast = 0  -- Time of last cast in milliseconds
 
 -- =============================================================================
 -- == RESET GCD ================================================================
@@ -767,6 +819,7 @@ local function ResetGCDOnDodge()
         GCD_STAGE = 0
         CHANNEL = 0
         LAST_ABILITY = 0
+        timeSinceLastCast = 0
         DebugPrint("block", "Reset because of Dodge")
     end   
 end
@@ -776,6 +829,7 @@ local function ResetGCDOnBarswap()
         GCD_STAGE = 0
         CHANNEL = 0
         LAST_ABILITY = 0
+        timeSinceLastCast = 0
         DebugPrint("block", "Reset because of Barswap")
     end   
 end
@@ -784,6 +838,7 @@ local function ResetGCD()
     GCD_STAGE = 0
     CHANNEL = 0
     LAST_ABILITY = 0
+    timeSinceLastCast = 0
     DebugPrint("block", "Reset because everything else")
 end
 
@@ -791,6 +846,7 @@ local function OnPlayerStunned()
     GCD_STAGE = 0    -- Reset state machine
     CHANNEL = 0      -- Cancel active channels
     LAST_ABILITY = 0 -- Clear ability memory
+    timeSinceLastCast = 0
     DebugPrint("block", "Stunned/Silenced etc.")
 end
 
@@ -800,6 +856,7 @@ local function CastCanceled() -- Check if
         GCD_STAGE = 0    -- Reset state machine
         CHANNEL = 0      -- Cancel active channels
         LAST_ABILITY = 0 -- Clear ability memory
+        timeSinceLastCast = 0
     end
 end    
 
@@ -843,6 +900,14 @@ end
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
 local function CanUseActionSlots()
+    
+    AutoSelectGcdTrackingSlot()
+
+    -- check for inactivity
+    if timeSinceLastCast > 0 and (timeSinceLastCast + (OWSV.resetAfterSeconds * 1000)) < GetGameTimeMilliseconds() then
+        ResetGCD()
+        DebugPrint("block", "Reset due to inactivity after " .. OWSV.resetAfterSeconds .. " seconds")
+    end
 
     -- Global block conditions
     local ignore = (OWSV.block and IsBlockActive()) or 
@@ -937,7 +1002,8 @@ local function CanUseActionSlots()
     end
 
     -- Latency calculations
-    local cd = GetSlotCooldownInfo(OWSV.gcdTrackingSlot)
+    local cd, duration, global, globalSlotType = GetSlotCooldownInfo(OWSV.gcdTrackingSlot)
+    DebugPrint("info", string.format(" remain %i , duration %i , global %s , globalSlotType %s", cd, duration, tostring(global), globalSlotType))
     local inputLag = OWSV.autoLag and zo_min(GetLatency() / 2 - 1, 300) or OWSV.inputLag
     local currentTime = GetGameTimeMilliseconds()
 
@@ -1002,7 +1068,9 @@ local function AbilityUsed(_, slot)
         GCD_STAGE = 3  -- Set LA queued state
     -- Skill slot handling (3-8)
     elseif slot >= 3 and slot <= 8 then
-        local cd = GetSlotCooldownInfo(OWSV.gcdTrackingSlot)
+        --local cd = GetSlotCooldownInfo(OWSV.gcdTrackingSlot)
+        local cd, duration, global, globalSlotType = GetSlotCooldownInfo(OWSV.gcdTrackingSlot)
+        DebugPrint("info", string.format(" remain %i , duration %i , global %s , globalSlotType %s", cd, duration, tostring(global), globalSlotType))
         GCD_STAGE = (cd < (OWSV.minGcdThreshold)) and 2 or 1
         
         local id = GetSlotBoundId(slot)
@@ -1020,6 +1088,7 @@ local function AbilityUsed(_, slot)
         
         LAST_ABILITY = id  -- Update ability memory
     end
+    timeSinceLastCast = GetGameTimeMilliseconds()
 end
 
 -- =============================================================================
@@ -1102,7 +1171,7 @@ local function Initialize()
         EM:RegisterForEvent(NAME .. "_EquipLoot", EVENT_LOOT_CLOSED, EquipWeaponsStateChange)
         EM:RegisterForEvent(NAME .. "_EquipActivated", EVENT_PLAYER_ACTIVATED, EquipWeaponsStateChange)
         EM:RegisterForEvent(NAME .. "_EquipSwimming", EVENT_PLAYER_NOT_SWIMMING, EquipWeaponsStateChange)
-        EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
+        --EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
     end    
 
     -- Action system integration

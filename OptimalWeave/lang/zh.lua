@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.7.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -89,6 +89,10 @@ ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "引导缓冲（毫秒）")
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "引导技能缓冲时间（0-400毫秒）")
 ZO_CreateStringId("OW_MENU_GCD_SLOT", "GCD跟踪栏位")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "用于GCD检测的动作栏位（1-8）")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "重置时间（秒）")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "在这么长时间内没有施放任何技能后重置跟踪。")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "自动GCD跟踪槽")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "自动从3-8槽中选择最佳的GCD跟踪槽")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "最小GCD阈值（毫秒）")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "识别最小GCD时长（0-20毫秒）")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "基础队列时间（毫秒）")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "翻滚时重置")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "翻滚时重置全局冷却")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "自动拔武器")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "在战斗中自动拔出武器")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "重置所有")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "将所有设置重置为默认值")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION ====================================================

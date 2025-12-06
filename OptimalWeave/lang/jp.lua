@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -89,6 +89,10 @@ ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "チャネリングバッファ (
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "チャネリングスキルのバッファ (0-400ms)")
 ZO_CreateStringId("OW_MENU_GCD_SLOT", "GCD検知スロット")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "GCD検知用アクションバースロット (1-8)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "リセット時間（秒）")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "何もキャストしていない時間がこの秒数を超えるとトラッキングをリセット")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "自動GCDトラッキングスロット")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "スロット3-8から最適なGCDトラッキングスロットを自動選択")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "最小GCD閾値 (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "検知する最小GCD時間 (0-20ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "基本キュー時間 (ms)")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "回避時リセット")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "回避時にGCDをリセット")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "武器自動抜刀")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "戦闘中に武器を自動的に抜く")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "すべてリセット")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "すべての設定をデフォルト値にリセットします")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

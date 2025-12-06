@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -91,6 +91,10 @@ ZO_CreateStringId("OW_MENU_GCD_SLOT", "Слот відстеження GCD")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Слот панелі для виявлення GCD (1-8)")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Мінімальний поріг GCD (мс)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Мінімальна тривалість GCD для виявлення (0-20 мс)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Час скидання (секунди)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Скидає відстеження, якщо нічого не застосовувалось протягом цієї кількості секунд.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Автоматичний слот відстеження GCD")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Автоматично вибирає найкращий слот для відстеження GCD зі слотів 3-8")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Базовий час черги (мс)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Типове вікно черги (100-2000 мс)")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Скидати при зміні зброї")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Скидати при ухил�
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Скидає GCD при виконанні ухилення")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Автоматично діставати зброю")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Автоматично діставати зброю в бою")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Скинути все")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Скинути всі налаштування до значень за замовчуванням")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

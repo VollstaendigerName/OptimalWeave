@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -91,6 +91,10 @@ ZO_CreateStringId("OW_MENU_GCD_SLOT", "Slot rilevamento GCD")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Slot barra azioni per GCD (1-8)")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Soglia minima GCD (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Durata minima GCD per rilevamento (0-20ms)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Tempo di reset (secondi)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Reimposta il tracciamento dopo non aver lanciato nulla per questo numero di secondi.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Slot di tracciamento GCD automatico")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Seleziona automaticamente il miglior slot di tracciamento GCD dagli slot 3-8")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Tempo base coda (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Finestra coda predefinita (100-2000ms)")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Reset cambio arma")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Reset schivata")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Resetta GCD durante la schivata")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Sguainare automaticamente")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Sguaina automaticamente le armi in combattimento")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Reimposta tutto")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Reimposta tutte le impostazioni ai valori predefiniti")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

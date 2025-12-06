@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -99,6 +99,12 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Réinitialiser au roulade")
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Réinitialise le GCD lors d'une roulade d'esquive")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Dégainer automatiquement")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Dégainer automatiquement les armes en combat")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Temps de réinitialisation (secondes)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Réinitialise le suivi après ne rien avoir lancé pendant ce nombre de secondes.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Slot de suivi GCD automatique")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Sélectionne automatiquement le meilleur slot de suivi GCD parmi les slots 3-8")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Tout réinitialiser")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Réinitialiser tous les paramètres aux valeurs par défaut")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

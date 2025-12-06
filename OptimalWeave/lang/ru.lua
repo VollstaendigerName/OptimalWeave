@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -89,6 +89,10 @@ ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "Буфер Канальных (�
 ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "Запас для канальных способностей (0-400мс)")
 ZO_CreateStringId("OW_MENU_GCD_SLOT", "Слот Отслеживания GCD")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Слот панели для GCD (1-8)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Время сброса (секунды)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Сбрасывает отслеживание, если ничего не применялось в течение этого количества секунд.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Автоматический слот отслеживания GCD")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Автоматически выбирает лучший слот для отслеживания GCD из слотов 3-8")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Минимальный GCD (мс)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Минимальная длительность GCD (0-20мс)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Базовое Время Очереди (мс)")
@@ -99,6 +103,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Сброс при уклоне�
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Сбрасывает GCD при выполнении переката")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Автоматически доставать оружие")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Автоматически доставать оружие в бою")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Сбросить всё")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Сбросить все настройки к значениям по умолчанию")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION ====================================================

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.8.0
+    Version:            1.9.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -63,7 +63,7 @@ ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "Automatisch abschalten wenn H
 
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "Funktionen auf der zweiten Leiste deaktivieren")
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Deaktiviert die meisten Funktionen des Addons auf der zweiten Waffenleiste.")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Weave-Assistent auf der zweiten Leiste deaktivieren")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Weave-Assistent auf zweiten Leiste deaktivieren")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Deaktiviert den Weave-Assistenten (GCD-Management) auf der zweiten Waffenleiste.")
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "PvP-Deaktivierung")
@@ -93,6 +93,10 @@ ZO_CreateStringId("OW_MENU_GCD_SLOT", "GCD-Tracking Slot")
 ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Aktionsleisten-Slot für GCD-Erkennung (1-8)")
 ZO_CreateStringId("OW_MENU_MIN_GCD", "Minimale GCD-Dauer (ms)")
 ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Minimale GCD-Dauer zur Erkennung (0-20ms)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Zurücksetzzeit (Sekunden)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Setzt die Verfolgung zurück, nachdem für so viele Sekunden nichts gewirkt wurde.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Automatischer GCD-Verfolgungs-Slot")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Automatische Auswahl des besten GCD-Verfolgungs-Slots aus den Slots 3-8")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Basis-Warteschlangenzeit (ms)")
 ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Standard-Input-Warteschlange (100-2000ms)")
 ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Zurücksetzen bei Waffenwechsel")
@@ -101,6 +105,8 @@ ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Zurücksetzen bei Ausweichrolle
 ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Setzt den GCD bei Ausweichrolle zurück")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Waffe automatisch ziehen")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Waffen automatisch ziehen, wenn im Kampf")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Alles zurücksetzen")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Alle Einstellungen auf Standardwerte zurücksetzen")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================

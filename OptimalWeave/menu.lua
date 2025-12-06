@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.8.0
+-- Version:           1.9.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -155,11 +155,11 @@ end
 --------------------------------------------------------------------------------
 local function CreateSectionHeader(text)
     return {
-        type = "divider",
-        alpha = 0.3
-    }, {
+    --     type = "divider",
+    --     alpha = 0.3
+    -- }, {
         type = "description",
-        text = COLOR.ACCENT..text,
+        --text = COLOR.ACCENT..text,
         fontSize = "medium"
     }
 end
@@ -403,7 +403,31 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.baseQueueTime = value end
                 ),
 
-                 {   
+                CreateCheckbox(
+                    "OW_MENU_AUTO_GCD_SLOT_LABEL",
+                    "OW_MENU_AUTO_GCD_SLOT_TOOLTIP",
+                    function() return OWSV.autoGcdTrackingSlot end,
+                    function(value) OWSV.autoGcdTrackingSlot = value end
+                ),
+
+                CreateSlider(
+                    "OW_MENU_GCD_SLOT",
+                    "OW_MENU_GCD_SLOT_TOOLTIP", 
+                    3, 8, -- GCD tracking slot (Spells between 3 to 8), Light Attack 1
+                    function() return OWSV.gcdTrackingSlot end,
+                    function(value) OWSV.gcdTrackingSlot = value end,
+                    function() return OWSV.autoGcdTrackingSlot end
+                ),
+
+                CreateSlider(
+                    "OW_MENU_RESET_TIME_LABEL",
+                    "OW_MENU_RESET_TIME_TOOLTIP", 
+                    1, 60, -- Min: 1 seconds, Max: 60 seconds
+                    function() return OWSV.resetAfterSeconds end,
+                    function(value) OWSV.resetAfterSeconds = value end
+                ),
+
+                {   
                     type = "divider",
                     alpha = 0.3
                 },
@@ -414,7 +438,34 @@ function OW.BuildMenu(OWSV, defaults)
                     "OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP",
                     function() return OWSV.autoEquipWeapons end,
                     function(value) OWSV.autoEquipWeapons = value end
-                )
+                ),
+
+                {   
+                    type = "divider",
+                    alpha = 0.3
+                },
+
+                -- Reset Settings Button
+                {
+                    type = "button",
+                    name = COLOR.WARNING..OW.L("OW_MENU_RESET_SETTINGS_LABEL"),
+                    tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESET_SETTINGS_TOOLTIP"),
+                    width = "full",
+                    func = function()
+                        -- Einfach OWSV mit defaults überschreiben
+                        for key, value in pairs(defaults) do
+                            if type(value) == "table" then
+                                OWSV[key] = {}
+                                for subkey, subvalue in pairs(value) do
+                                    OWSV[key][subkey] = subvalue
+                                end
+                            else
+                                OWSV[key] = value
+                            end
+                        end
+                    end
+                }
+
             }
         },
 
@@ -548,10 +599,10 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
                 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                -- {   
+                --     type = "divider",
+                --     alpha = 0.3
+                -- },
                 
                 -- Deactivate under certain HP Slider
                 CreateSlider(
@@ -601,11 +652,11 @@ function OW.BuildMenu(OWSV, defaults)
                         --d(tostring(value))
                     end
                 ),
-
+                
                 -- Crux Stack Slider
                 CreateSlider(
                     "OW_MENU_CRUX_STACKS",
-                    "OW_MENU_CRUX_STACKS_TOOLTIP",
+                    "OW_MENU_TENTACULAR_TOOLTIP",
                     1, 3, -- Min:1, Max:3 Stacks
                     function() return OWSV.cruxStacksTentacular end,
                     function(value) OWSV.cruxStacksTentacular = value end,
@@ -629,8 +680,6 @@ function OW.BuildMenu(OWSV, defaults)
                         OWSV.MoltenWhip[20805] = value
                     end
                 ),
-
-                { type = "divider", alpha = 0.3 },
 
                 -- Execute Check 
                 {
@@ -656,9 +705,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.executeThreshold = value end,
                     function() return not OWSV.useExecuteCheck end
                 ),
-                
-                { type = "divider", alpha = 0.3 },
-                
+                                
                 -- Execute Spells Header
                 {
                     type = "header",
@@ -691,8 +738,6 @@ function OW.BuildMenu(OWSV, defaults)
                     end,
                     function() return not OWSV.useExecuteCheck end
                 ),
-
-                { type = "divider", alpha = 0.3 },
 
                 -- guild
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
