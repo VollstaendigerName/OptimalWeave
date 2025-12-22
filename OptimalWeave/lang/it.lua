@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -189,6 +189,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blocca i morph
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Lama dell'Assassino, Incidere, Lama del Killer")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blocca i morph di Lama dell'Assassino finché il bersaglio non è nell'intervallo di esecuzione")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Ira dei Maghi, Furia dei Maghi, Furia Infinita")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Blocca i morph di Furia dei Maghi finché il bersaglio non è nell'intervallo di esecuzione")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Fendente Inverso, Colpo Inverso, Boia")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Blocca i morph di Fendente Inverso finché il bersaglio non è nell'intervallo di esecuzione")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -255,6 +261,68 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Disattiva quando
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Arma riservata")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Disattiva quando è equipaggiato un tipo di arma riservato")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+-- LISTA DI BLOCCAGGIO CONFIGURABILE DALL'UTENTE
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista di Blocco Personalizzata")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Aggiungi ID abilità per bloccarle. Puoi anche aggiungere incantesimi facendo clic con il tasto destro sullo slot della barra delle azioni (richiede ricaricamento)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Abilità")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Inserisci l'ID numerico dell'abilità (es. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Aggiungi alla Lista di Blocco")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Abilità Bloccate:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Attiva Lista di Blocco Personalizzata")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Attiva o disattiva la funzionalità della lista di blocco personalizzata")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Controlla il tuo file SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Abilita controllo salute per lista di blocco personalizzata")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Se abilitato, gli incantesimi nella lista di blocco saranno bloccati solo se la tua salute è sopra la soglia.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Soglia salute per lista di blocco personalizzata (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Gli incantesimi della lista di blocco sono bloccati solo quando la tua salute è superiore a questa percentuale.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Lista di Blocco Rilancio Personalizzata")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Aggiungi ID abilità per bloccarle dall'essere rilanciate fino a quando il tempo effetto rimanente è inferiore alla soglia. Puoi anche aggiungere incantesimi facendo clic con il tasto destro sullo slot della barra delle azioni (richiede ricaricamento).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID Abilità")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Inserisci l'ID numerico dell'abilità (es. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Aggiungi alla Lista di Blocco Rilancio")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Abilità Bloccate per Rilancio:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Attiva Lista di Blocco Rilancio Personalizzata")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Attiva o disattiva la funzionalità della lista di blocco rilancio personalizzata")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Tempo di Blocco Rilancio (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Tempo in secondi sotto il quale un'abilità nella lista di blocco rilancio può essere rilanciata (1.0 = 1 secondo)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Controlla il tuo file SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Abilita controllo salute per lista di blocco rilancio personalizzata")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Se abilitato, gli incantesimi nella lista di blocco rilancio saranno bloccati solo se la tua salute è sopra la soglia.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Soglia salute per lista di blocco rilancio personalizzata (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Gli incantesimi della lista di blocco rilancio sono bloccati solo quando la tua salute è superiore a questa percentuale.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID dell'abilità è stato aggiunto. Se non vuoi aggiungere altre abilità, per favore ricarica l'interfaccia per visualizzare i cambiamenti")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Ricarica Interfaccia")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Aggiungi altre")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Errore: Inserisci un ID abilità valido")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "L'ID dell'abilità non esiste")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "L'ID dell'abilità è già nella lista di blocco")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Alterna Modalità (Rigido/Intelligente/Disabilitato)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Alterna Lista di Blocco Personalizzata")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Alterna Lista di Blocco Rilancio Personalizzata")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alterna Disattivazione Funzioni Barra Secondaria")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alterna Disattivazione Assistente Tessitura Barra Secondaria")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alterna Controllo Esecuzione")
 
 -- =============================================================================
 -- === END OF ITALIAN LOCALIZATION ============================================

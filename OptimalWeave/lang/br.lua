@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -189,6 +189,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Bloqueia os mo
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Lâmina do Assassino, Empalar, Lâmina do Assassino")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Bloqueia os morphs de Lâmina do Assassino até que o alvo esteja no alcance de execução")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Ira dos Magos, Fúria dos Magos, Fúria Infinita")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Bloqueia os morphs de Fúria dos Magos até que o alvo esteja no alcance de execução")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Golpe Reverso, Corte Reverso, Carrasco")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Bloqueia os morphs de Golpe Reverso até que o alvo esteja no alcance de execução")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -256,6 +262,68 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Desativar quando
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Arma reservada")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Desativar quando tipo de arma reservado estiver equipado")
 
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista de Bloqueio Personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Adicione IDs de habilidades para bloqueá-las. Você também pode adicionar feitiços clicando com o botão direito no slot da barra de ação (requer recarregamento)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID da Habilidade")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Insira o ID numérico da habilidade (ex.: 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Adicionar à Lista de Bloqueio")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Habilidades Bloqueadas:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Ativar Lista de Bloqueio Personalizada")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Ativa ou desativa a funcionalidade da lista de bloqueio personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Verifique seu arquivo SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Ativar Verificação de Saúde para Lista de Bloqueio")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Quando ativado, os feitiços na lista de bloqueio só serão bloqueados se sua saúde estiver acima do limite.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Limite de Saúde para Lista de Bloqueio (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Feitiços da lista de bloqueio só são bloqueados quando sua saúde está acima desta porcentagem.")
+
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Lista de Bloqueio de Relançamento Personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Adicione IDs de habilidades para bloqueá-las de serem relançadas até que o tempo de efeito restante esteja abaixo do limite. Você também pode adicionar feitiços clicando com o botão direito no slot da barra de ação (requer recarregamento).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID da Habilidade")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Insira o ID numérico da habilidade (ex.: 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Adicionar à Lista de Bloqueio de Relançamento")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Habilidades Bloqueadas para Relançamento:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Ativar Lista de Bloqueio de Relançamento Personalizada")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Ativa ou desativa a funcionalidade da lista de bloqueio de relançamento personalizada")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Tempo de Bloqueio de Relançamento (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Tempo em segundos abaixo do qual uma habilidade na lista de bloqueio de relançamento pode ser lançada novamente (1.0 = 1 segundo)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Verifique seu arquivo SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Ativar Verificação de Saúde para Lista de Bloqueio de Relançamento")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Quando ativado, os feitiços na lista de bloqueio de relançamento só serão bloqueados se sua saúde estiver acima do limite.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Limite de Saúde para Lista de Bloqueio de Relançamento (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Feitiços da lista de bloqueio de relançamento só são bloqueados quando sua saúde está acima desta porcentagem.")
+
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID da habilidade foi adicionada. Se você não quiser adicionar mais habilidades, por favor recarregue a interface para que as mudanças sejam exibidas")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recarregar Interface")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Adicionar mais")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Erro: Por favor insira um ID de habilidade válido")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID da habilidade não existe")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID da habilidade já está na lista de bloqueio")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Alternar Modo (Rígido/Inteligente/Desativado)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Alternar Lista de Bloqueio Personalizada")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Alternar Lista de Bloqueio de Relançamento Personalizada")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alternar Desativação de Recursos da Barra Secundária")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alternar Desativação do Assistente de Tecelagem na Barra Secundária")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alternar Verificação de Execução")
 -- =============================================================================
 -- === END OF BRAZILIAN PORTUGUESE LOCALIZATION ===============================
 -- =============================================================================

@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.9.0
+-- Version:           1.11.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -21,7 +21,7 @@
 
 local OW = OptimalWeave
 local LAM = LibAddonMenu2
-
+local OWColoredName = " |c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r "
 -- =============================================================================
 -- == COLOR SCHEMA DEFINITION ==================================================
 -- =============================================================================
@@ -78,7 +78,8 @@ local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disable
             paddingBottom = 8,
             labelBeforeCheckbox = true
         },
-        disabled = disabledFunc
+        disabled = disabledFunc,
+        --requiresReload = true, 
     }
 end
 
@@ -165,6 +166,100 @@ local function CreateSectionHeader(text)
 end
 
 -- =============================================================================
+-- == CREATE RELOAD CONFIRMATION DIALOG ========================================
+-- =============================================================================
+-- Create Reload Confirmation Dialog
+-- Purpose: Registers a standardized UI dialog for requesting player confirmation
+--          before performing a UI reload after settings changes.
+-- Features:
+-- - Reusable dialog system for consistent UX
+-- - Localization support for all text elements
+-- - Queue-aware to prevent dialog stacking
+-- Architecture:
+-- - Checks if dialog already registered to avoid duplicates
+-- - Uses addon's color scheme for visual consistency
+-- - Provides clear Yes/No options with appropriate callbacks
+--------------------------------------------------------------------------------
+ZO_Dialogs_RegisterCustomDialog("OW_RELOAD_DIALOG", {
+    canQueue = true,
+    title = {
+        text = OWColoredName
+    },
+    mainText = {
+        text = COLOR.PRIMARY .. OW.L("OW_MENU_RELOAD_DIALOG_MAIN_TEXT")
+    },
+    buttons = {
+        {
+            text = COLOR.ACCENT .. OW.L("OW_MENU_RELOAD_DIALOG_BUTTON_YES"),
+            callback = function()
+                ReloadUI() 
+            end
+        },
+        {
+            text = COLOR.SECONDARY .. OW.L("OW_MENU_RELOAD_DIALOG_BUTTON_LATER"),
+            callback = function()
+            end
+        }
+    }
+})
+
+-- =============================================================================
+-- == CREATE ERROR CONFIRMATION DIALOG =========================================
+-- =============================================================================
+
+
+ZO_Dialogs_RegisterCustomDialog("OW_INVALID_ID_DIALOG", {
+    canQueue = true,
+    title = {
+        text = OWColoredName
+    },
+    mainText = {
+        text = COLOR.WARNING .. OW.L("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT")
+    },
+    buttons = {
+        {
+            text = COLOR.ACCENT .. OW.L("OW_MENU_DIALOG_BUTTON_OK"),
+            callback = function()
+            end
+        }
+    }
+})
+
+ZO_Dialogs_RegisterCustomDialog("OW_ID_NOT_EXIST_DIALOG", {
+    canQueue = true,
+    title = {
+        text = OWColoredName
+    },
+    mainText = {
+        text = COLOR.WARNING .. OW.L("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT")
+    },
+    buttons = {
+        {
+            text = COLOR.ACCENT .. OW.L("OW_MENU_DIALOG_BUTTON_OK"),
+            callback = function()
+            end
+        }
+    }
+})
+
+ZO_Dialogs_RegisterCustomDialog("OW_ID_IS_IN_SV_DIALOG", {
+    canQueue = true,
+    title = {
+        text = OWColoredName
+    },
+    mainText = {
+        text = COLOR.WARNING .. OW.L("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT")
+    },
+    buttons = {
+        {
+            text = COLOR.ACCENT .. OW.L("OW_MENU_DIALOG_BUTTON_OK"),
+            callback = function()
+            end
+        }
+    }
+})
+
+-- =============================================================================
 -- == MAIN MENU CONSTRUCTION ===================================================
 -- =============================================================================
 --[[
@@ -195,8 +290,94 @@ function OW.BuildMenu(OWSV, defaults)
         version = COLOR.PRIMARY..OW.version,
         website = OW.L("OW_MENU_WEBSITE"),
         registerForRefresh = true,
-        -- registerForDefaults = true
+        --registerForDefaults = true,
+        slashCommand = "/optimalweave",
     }
+
+    -- =============================================================================
+    -- == BLOCK LIST MENU ==========================================================
+    -- =============================================================================
+    --[[
+        Function: AddSpellToBlockList
+        Purpose: Adds a spell to the block list.
+        Features:
+        - Checks whether spell exists
+        - Prevents duplicates.
+        - Saves directly to OWSV.customBlockList.
+    --]]
+    local function AddSpellToBlockList()
+        local spellId = tonumber(_G["OW_TEMP_SPELL_ID"])
+        
+        -- Check whether a valid ID has been entered
+        if not spellId or spellId <= 1000 or spellId >= 500000 then
+            ZO_Dialogs_ShowDialog("OW_INVALID_ID_DIALOG")
+            return
+        end
+        
+        -- Check if Spell exists 
+        local AbilityName = GetAbilityName(spellId)
+        if AbilityName == nil or AbilityName == "" then
+            ZO_Dialogs_ShowDialog("OW_ID_NOT_EXIST_DIALOG")
+            --d(OWColoredName.."Error: Spell-ID " .. spellId .. " does not exist")
+            return
+        end
+        
+        -- Prevent duplicates
+        if OWSV.customBlockList[spellId] ~= nil then
+            ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
+            --d(OWColoredName.."Note: Spell ID  " ..  spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " is already in the block list")
+            return
+        end
+        
+        -- Add Spell to block list
+        OWSV.customBlockList[spellId] = false  -- Default: not blocked
+        _G["OW_TEMP_SPELL_ID"] = ""  -- Clear input field
+        ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+        --d(OWColoredName.."Spell-ID " .. spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " has been added to the block list")
+    end
+
+    -- =============================================================================
+    -- == RECAST BLOCK LIST MENU ===================================================
+    -- =============================================================================
+    --[[
+        Function: AddSpellToRecastBlockList
+        Purpose: Adds a spell to the recast block list.
+        Features:
+        - Checks whether spell exists
+        - Prevents duplicates
+        - Saves directly to OWSV.customRecastBlockList
+    --]]
+    local function AddSpellToRecastBlockList()
+        local spellId = tonumber(_G["OW_TEMP_RECAST_SPELL_ID"])
+        
+        -- Check whether a valid ID has been entered
+        if not spellId or spellId <= 1000 or spellId >= 500000 then
+            ZO_Dialogs_ShowDialog("OW_INVALID_ID_DIALOG")
+            return
+        end
+        
+        -- Check if Spell exists 
+        local AbilityName = GetAbilityName(spellId)
+        if AbilityName == nil or AbilityName == "" then
+            ZO_Dialogs_ShowDialog("OW_ID_NOT_EXIST_DIALOG")
+            --d(OWColoredName.."Error: Spell-ID " .. spellId .. " does not exist")
+            return
+        end
+        
+        -- Prevent duplicates
+        if OWSV.customRecastBlockList[spellId] ~= nil then
+            ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
+            --d(OWColoredName.."Note: Spell ID  " ..  spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " is already in the block list")
+            return
+        end
+        
+        -- Add Spell to block list
+        OWSV.customRecastBlockList[spellId] = false  -- Default: not blocked
+        _G["OW_TEMP_RECAST_SPELL_ID"] = ""  -- Clear input field
+        ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+        --d(OWColoredName.."Spell-ID " .. spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " has been added to the block list")
+    end
+
 
     -- Register main panel with LibAddonMenu
     LAM:RegisterAddonPanel(OW.name.."Menu", panel)
@@ -451,8 +632,9 @@ function OW.BuildMenu(OWSV, defaults)
                     name = COLOR.WARNING..OW.L("OW_MENU_RESET_SETTINGS_LABEL"),
                     tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESET_SETTINGS_TOOLTIP"),
                     width = "full",
+                    isDangerous = true,
                     func = function()
-                        -- Einfach OWSV mit defaults überschreiben
+                        -- Overwrite savedvariables (OWSV) with defaults
                         for key, value in pairs(defaults) do
                             if type(value) == "table" then
                                 OWSV[key] = {}
@@ -739,6 +921,32 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.useExecuteCheck end
                 ),
 
+                 -- Mages' Fury and Morphs 
+                CreateCheckbox(
+                    "OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS",
+                    "OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP",
+                    function() return OWSV.executeCheckSpells[19123] end,
+                    function(value) 
+                        OWSV.executeCheckSpells[19123] = value
+                        OWSV.executeCheckSpells[18718] = value
+                        OWSV.executeCheckSpells[19109] = value
+                    end,
+                    function() return not OWSV.useExecuteCheck end
+                ),
+
+                -- Reverse Slash and Morphs
+                CreateCheckbox(
+                    "OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS",
+                    "OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP",
+                    function() return OWSV.executeCheckSpells[28302] end,
+                    function(value) 
+                        OWSV.executeCheckSpells[28302] = value
+                        OWSV.executeCheckSpells[38823] = value
+                        OWSV.executeCheckSpells[38819] = value
+                    end,
+                    function() return not OWSV.useExecuteCheck end
+                ),
+
                 -- guild
                 CreateSectionHeader(OW.L("OW_MENU_SUBCLASS_HEADER")),
                 {
@@ -970,6 +1178,224 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
+-- USER-CONFIGURABLE BLOCK LIST 
+        {
+            type = "submenu",
+            name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_HEADER"),
+            controls = (function()
+                local controls = {
+                    CreateSectionHeader(OW.L("OW_MENU_CONFIGURABLEBLOCK_HEADER")),
+                    {
+                        type = "description",
+                        text = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_DESC"),
+                        width = "full"
+                    },
+
+                    CreateCheckbox(
+                        "OW_MENU_USE_CUSTOM_BLOCK_LIST",
+                        "OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP",
+                        function() return OWSV.useCustomBlockList end,
+                        function(value) OWSV.useCustomBlockList = value end
+                    ),
+
+                    { type = "divider", alpha = 0.3 },
+
+                    -- Health Check für Block List
+                    CreateCheckbox(
+                        "OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK",
+                        "OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP",
+                        function() return OWSV.useCustomBlockListHealthCheck end,
+                        function(value) OWSV.useCustomBlockListHealthCheck = value end,
+                        function() return not OWSV.useCustomBlockList end
+                    ),
+
+                    -- Health Percent Slider für Block List
+                    CreateSlider(
+                        "OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT",
+                        "OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP",
+                        0, 100, -- 0-100%
+                        function() return OWSV.useCustomBlockListHealthPercent end,
+                        function(value) OWSV.useCustomBlockListHealthPercent = value end,
+                        function() return not (OWSV.useCustomBlockList and OWSV.useCustomBlockListHealthCheck) end
+                    ),
+
+                    { type = "divider", alpha = 0.3 },
+
+                    {
+                        type = "editbox",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP"),
+                        getFunc = function() return _G["OW_TEMP_SPELL_ID"] or "" end,
+                        setFunc = function(value) 
+                            _G["OW_TEMP_SPELL_ID"] = value
+                        end,
+                        width = "full"
+                    },
+                    {
+                        type = "button",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_ADD_BUTTON"),
+                        func = function()
+                            AddSpellToBlockList()
+                            --ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+                        end,
+                        --requiresReload = true,
+                        width = "full"
+                    },
+
+                    { type = "divider", alpha = 0.3 },
+                    
+                    {
+                        type = "description",
+                        text = COLOR.ACCENT..OW.L("OW_MENU_CUSTOMBLOCK_LIST_HEADER"),
+                        width = "full"
+                    },
+                }
+                
+                -- Dynamically generated checkboxes for each spell ID in customRecastBlockList
+                local spellIds = {}
+                for spellId, _ in pairs(OWSV.customBlockList) do
+                    table.insert(spellIds, spellId)
+                end
+                table.sort(spellIds)
+                
+                for _, spellId in ipairs(spellIds) do
+                    local spellName = GetAbilityName(spellId) or "Unknown Spell ("..spellId..")"
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.PRIMARY..zo_strformat("<<1>>", spellName),
+                        tooltip = COLOR.SECONDARY.."Spell ID: "..spellId,
+                        getFunc = function() 
+                            return OWSV.customBlockList[spellId] 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customBlockList[spellId] = value
+                        end,
+                        width = "full"
+                    })
+                end
+                
+                return controls
+            end)()
+        },
+
+        -- USER-CONFIGURABLE RECAST BLOCK LIST 
+        {
+            type = "submenu",
+            name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER"),
+            controls = (function()
+                local controls = {
+                    CreateSectionHeader(OW.L("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER")),
+                    {
+                        type = "description",
+                        text = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_DESC"),
+                        width = "full"
+                    },
+
+                    CreateCheckbox(
+                        "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST",
+                        "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP",
+                        function() return OWSV.useCustomRecastBlockList end,
+                        function(value) OWSV.useCustomRecastBlockList = value end
+                    ),
+
+                    CreateSlider(
+                        "OW_MENU_RECAST_BLOCK_TIME",
+                        "OW_MENU_RECAST_BLOCK_TIME_TOOLTIP",
+                        0, 120, -- 0-120s (Default 1)
+                        function() return OWSV.recastBlockTime end,
+                        function(value) OWSV.recastBlockTime = value end,
+                        function() return not OWSV.useCustomRecastBlockList end
+                    ),
+                    
+                    { type = "divider", alpha = 0.3 },
+
+                    -- Health Check für Recast Block List
+                    CreateCheckbox(
+                        "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK",
+                        "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP",
+                        function() return OWSV.useCustomRecastBlockListHealthCheck end,
+                        function(value) OWSV.useCustomRecastBlockListHealthCheck = value end,
+                        function() return not OWSV.useCustomRecastBlockList end
+                    ),
+
+                    -- Health Percent Slider für Recast Block List
+                    CreateSlider(
+                        "OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT",
+                        "OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP",
+                        0, 100, -- 0-100%
+                        function() return OWSV.useCustomRecastBlockListHealthPercent end,
+                        function(value) OWSV.useCustomRecastBlockListHealthPercent = value end,
+                        function() return not (OWSV.useCustomRecastBlockList and OWSV.useCustomRecastBlockListHealthCheck) end
+                    ),
+
+                    CreateSlider(
+                        "OW_MENU_RECAST_BLOCK_TIME",
+                        "OW_MENU_RECAST_BLOCK_TIME_TOOLTIP",
+                        0, 120, -- 0-120s (Default 1)
+                        function() return OWSV.recastBlockTime end,
+                        function(value) OWSV.recastBlockTime = value end,
+                        function() return not OWSV.useCustomRecastBlockList end
+                    ),
+                    
+                    { type = "divider", alpha = 0.3 },
+
+                    {
+                        type = "editbox",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP"),
+                        getFunc = function() return _G["OW_TEMP_RECAST_SPELL_ID"] or "" end,
+                        setFunc = function(value) 
+                            _G["OW_TEMP_RECAST_SPELL_ID"] = value
+                        end,
+                        width = "full"
+                    },
+                    {
+                        type = "button",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON"),
+                        func = function()
+                            AddSpellToRecastBlockList()
+                            --ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")  
+                        end,
+                        --requiresReload = true,
+                        width = "full"
+                    },
+
+                    { type = "divider", alpha = 0.3 },
+
+                    {
+                        type = "description",
+                        text = COLOR.ACCENT..OW.L("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER"),
+                        width = "full"
+                    },
+                }
+                
+                -- Dynamically generated checkboxes for each spell ID in customRecastBlockList
+                local spellIds = {}
+                for spellId, _ in pairs(OWSV.customRecastBlockList) do
+                    table.insert(spellIds, spellId)
+                end
+                table.sort(spellIds)
+                
+                for _, spellId in ipairs(spellIds) do
+                    local spellName = GetAbilityName(spellId) or "Unknown Spell ("..spellId..")"
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.PRIMARY..zo_strformat("<<1>>", spellName),
+                        tooltip = COLOR.SECONDARY.."Spell ID: "..spellId,
+                        getFunc = function() 
+                            return OWSV.customRecastBlockList[spellId] 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customRecastBlockList[spellId] = value
+                        end,
+                        width = "full"
+                    })
+                end
+                
+                return controls
+            end)()
+        },
+
         {
             type = "button",
             name = OW.L("OW_MENU_DISCLAIMER_LABEL"),
@@ -987,7 +1413,7 @@ function OW.BuildMenu(OWSV, defaults)
         }
     }
 
-    LAM:RegisterOptionControls(OW.name.."_LAM", optionsTable)
+    --LAM:RegisterOptionControls(OW.name.."_LAM", optionsTable)
     LAM:RegisterOptionControls(OW.name.."Menu", options)
 end
 

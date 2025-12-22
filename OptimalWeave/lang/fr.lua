@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -190,6 +190,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Bloque les mor
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Lame de l'Assassin, Empaler, Lame du Tueur")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Bloque les morphs de Lame de l'Assassin jusqu'à ce que la cible soit en phase d'exécution")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Courroux des mages, Fureur des mages, Fureur infinie")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Bloque les morphs de Fureur des mages jusqu'à ce que la cible soit en phase d'exécution")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Taillade inversée, Entaille inversée, Exécuteur")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Bloque les morphs de Taillade inversée jusqu'à ce que la cible soit en phase d'exécution")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -256,6 +262,67 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Désactiver lors
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Arme réservée")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Désactiver lorsqu'un type d'arme réservé est équipé")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Liste de Blocage Personnalisée")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Ajoutez des IDs de sorts pour les bloquer. Vous pouvez également ajouter des sorts en cliquant avec le bouton droit sur l'emplacement de la barre d'action (nécessite un rechargement)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID du Sort")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Entrez l'ID numérique du sort (ex. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Ajouter à la Liste de Blocage")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Sorts Bloqués:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Activer la Liste de Blocage Personnalisée")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Active ou désactive la fonctionnalité de la liste de blocage personnalisée")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Vérifiez votre fichier SavedVariables:\n customBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Activer la vérification de santé pour la liste de blocage")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Lorsqu'elle est activée, les sorts de la liste de blocage ne seront bloqués que si votre santé est au-dessus du seuil.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Seuil de santé pour la liste de blocage (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Les sorts de la liste de blocage ne sont bloqués que lorsque votre santé est supérieure à ce pourcentage.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Liste de Blocage de Relance Personnalisée")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Ajoutez des IDs de sorts pour les bloquer d'être relancés jusqu'à ce que le temps d'effet restant soit inférieur au seuil. Vous pouvez également ajouter des sorts en cliquant avec le bouton droit sur l'emplacement de la barre d'action (nécessite un rechargement).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID du Sort")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Entrez l'ID numérique du sort (ex. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Ajouter à la Liste de Blocage de Relance")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Sorts Bloqués pour Relance:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Activer la Liste de Blocage de Relance Personnalisée")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Active ou désactive la fonctionnalité de la liste de blocage de relance personnalisée")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Temps de Blocage de Relance (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Temps en secondes en dessous duquel un sort dans la liste de blocage de relance peut être relancé (1.0 = 1 seconde)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Vérifiez votre fichier SavedVariables:\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Activer la vérification de santé pour la liste de blocage de relance")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Lorsqu'elle est activée, les sorts de la liste de blocage de relance ne seront bloqués que si votre santé est au-dessus du seuil.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Seuil de santé pour la liste de blocage de relance (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Les sorts de la liste de blocage de relance ne sont bloqués que lorsque votre santé est supérieure à ce pourcentage.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID du sort a été ajouté. Si vous ne souhaitez pas ajouter d'autres sorts, veuillez recharger l'interface pour que les modifications soient affichées")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recharger l'Interface")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Ajouter plus")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Erreur : Veuillez entrer un ID de sort valide")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "L'ID du sort n'existe pas")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "L'ID du sort est déjà dans la liste de blocage")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Basculer le Mode (Strict/Intelligent/Désactivé)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Basculer la Liste de Blocage Personnalisée")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Basculer la Liste de Blocage de Relance Personnalisée")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Basculer la Désactivation des Fonctions de la Barre Secondaire")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Basculer la Désactivation de l'Assistant de Tissage sur la Barre Secondaire")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Basculer la Vérification d'Exécution")
 
 -- =============================================================================
 -- === END OF FRENCH LOCALIZATION ==============================================

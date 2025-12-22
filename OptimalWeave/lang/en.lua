@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,10 +42,10 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Disclaimer:|r This add
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Core Settings")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Operating Mode")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Hard:|r Strict blocking. No skill queuing during GCD.\n|cFFFF00Soft:|r Smart blocking. Skill queuing allowed only if no Light Attack is queued.\n|c00FFFFNone:|r Disabled.")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Hard")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Soft")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "None")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Strict:|r Strict blocking. No skill queuing during GCD.\n|cFFFF00Intelligent:|r Smart blocking. Skill queuing allowed only if no Light Attack is queued.\n|c00FFFFDisabled:|r Disabled.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Strict")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Intelligent")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Disabled")
 ZO_CreateStringId("OW_MENU_COMBAT_LABEL", "Active Only in Combat")
 ZO_CreateStringId("OW_MENU_COMBAT_TOOLTIP", "If checked, OptimalWeave will only manage ability queuing while in combat.")
 ZO_CreateStringId("OW_MENU_ENEMYTARGET_LABEL", "Active Only with Hostile Target")
@@ -191,6 +191,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Block Radiant 
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Assassin's Blade, Impale, Killer's Blade")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Block Assassin's Blade morphs until target is in execute range")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Mages' Wrath, Mages' Fury, Endless Fury")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Block Mages' Fury morphs until target is in execute range")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Reverse Slash, Reverse Slice, Executioner")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Block Reverse Slash morphs until target is in execute range")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -257,6 +263,67 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Deactivate when 
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Reserved Weapon")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Deactivate when reserved weapon type is equipped")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Custom Block List")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Add spell IDs to block them from being used. You can also add spells by right-clicking on the action bar slot (requires reload)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "Spell ID")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Enter the numeric spell ID (e.g., 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Add to Block List")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Blocked Spells:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Enable Custom Block List")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Enable or disable the custom block list functionality")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Check your SavedVariables file:\n customBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Enable Health Check for Block List")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "When enabled, spells in the block list will only be blocked if your health is above the threshold.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Health Threshold for Block List (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Block list spells are only blocked when your health is above this percentage.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Custom Recast Block List")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Add spell IDs to block them from being recast until the remaining effect time is below the threshold. You can also add spells by right-clicking on the action bar slot (requires reload).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "Spell ID")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Enter the numeric spell ID (e.g., 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Add to Recast Block List")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Recast Blocked Spells:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Enable Custom Recast Block List")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Enable or disable the custom recast block list functionality")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Recast Block Time (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Time in seconds below which a spell in the recast block list can be cast again (1.0 = 1 second)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Check your SavedVariables file:\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Enable Health Check for Recast Block List")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "When enabled, spells in the recast block list will only be blocked if your health is above the threshold.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Health Threshold for Recast Block List (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Recast block list spells are only blocked when your health is above this percentage.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Spell ID has been added. If you do not want to add any more spells, please reload the UI so that the spells can be displayed")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Reload UI")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Add more")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Error: Please enter a valid spell ID")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Spell ID does not exist")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT",  "Spell ID is already in the block list")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Toggle Mode (Strict/Intelligent/Disabled)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Toggle Custom Block List")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Toggle Custom Recast Block List")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Toggle Backbar Features Deactivation")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Toggle Backbar Weave Assist Deactivation")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Toggle Execute Check")
 
 -- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================

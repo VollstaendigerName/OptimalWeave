@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -189,6 +189,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Блокиру
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Клинок ассасина, Пронзание, Клинок убийцы")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Блокирует морфы Клинка ассасина, пока цель не достигнет порога добивания")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Гнев магов, Ярость магов, Бесконечная ярость")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Блокирует морфы Ярости магов, пока цель не достигнет порога добивания")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Обратный разрез, Обратный удар, Палач")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Блокирует морфы Обратного разреза, пока цель не достигнет порога добивания")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -255,6 +261,69 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Отключат
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Резервное оружие")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Отключать при экипировке резервного типа оружия")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
+-- =============================================================================
+
+-- ПОЛЬЗОВАТЕЛЬСКИ НАСТРАИВАЕМЫЙ СПИСОК БЛОКИРОВКИ
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Пользовательский список блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Добавьте ID способностей, чтобы заблокировать их использование. Вы также можете добавить способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Способности")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Введите числовой ID способности (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Добавить в список блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Заблокированные способности:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Включить пользовательский список блокировки")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Включает или отключает функциональность пользовательского списка блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Проверьте ваш файл SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Включить проверку здоровья для списка блокировки")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Если включено, заклинания в списке блокировки будут блокироваться только если ваше здоровье выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Порог здоровья для списка блокировки (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Заклинания из списка блокировки блокируются только когда ваше здоровье выше этого процента.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+-- ПОЛЬЗОВАТЕЛЬСКИ НАСТРАИВАЕМЫЙ СПИСОК БЛОКИРОВКИ ПОВТОРНОГО ПРИМЕНЕНИЯ
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Пользовательский список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Добавьте ID способностей, чтобы заблокировать их повторное применение, пока оставшееся время эффекта не станет ниже порога. Вы также можете добавить способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID Способности")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Введите числовой ID способности (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Добавить в список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Способности, заблокированные для повторного применения:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Включить пользовательский список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Включает или отключает функциональность пользовательского списка блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Время блокировки повторного применения (с)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Время в секундах, ниже которого способность из списка блокировки повторного применения может быть применена снова (1.0 = 1 секунда)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Проверьте ваш файл SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Включить проверку здоровья для списка блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Если включено, заклинания в списке блокировки повторного применения будут блокироваться только если ваше здоровье выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Порог здоровья для списка блокировки повторного применения (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Заклинания из списка блокировки повторного применения блокируются только когда ваше здоровье выше этого процента.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID способности добавлен. Если вы не хотите добавлять больше способностей, перезагрузите интерфейс, чтобы изменения отобразились")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Перезагрузить интерфейс")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Добавить ещё")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Ошибка: Введите корректный ID способности")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID способности не существует")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID способности уже в списке блокировки")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Переключить режим (Строгий/Умный/Отключено)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Переключить пользовательский список блокировки")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Переключить пользовательский список блокировки повторного применения")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Переключить отключение функций второй панели")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Переключить отключение ассистента плетения на второй панели")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Переключить проверку добивания")
 
 -- =============================================================================
 -- === END OF RUSSIAN LOCALIZATION ============================================

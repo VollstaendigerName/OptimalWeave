@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -188,6 +188,13 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blokuje morfy 
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Ostrze Asasyna, Przebić, Ostrze Zabójcy")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blokuje morfy Ostrza Asasyna, aż cel znajdzie się w zasięgu egzekucji")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Gniew Magów, Furia Magów, Nieskończona Furia")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Blokuje morfy Furii Magów, aż cel znajdzie się w zasięgu egzekucji")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Odwrócone Cięcie, Odwrócone Cięcie Obszarowe, Egzekutor")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Blokuje morfy Odwróconego Cięcia, aż cel znajdzie się w zasięgu egzekucji")
+
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -254,6 +261,67 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Dezaktywuj gdy b
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Zarezerwowana broń")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Dezaktywuj gdy zarezerwowany typ broni jest wyposażony")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Własna Lista Blokowania")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Dodaj ID umiejętności, aby je zablokować. Możesz także dodać umiejętności, klikając prawym przyciskiem myszy na slot paska akcji (wymaga przeładowania)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Umiejętności")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Wprowadź numeryczne ID umiejętności (np. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Dodaj do Listy Blokowania")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Zablokowane Umiejętności:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Włącz Własną Listę Blokowania")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Włącza lub wyłącza funkcjonalność własnej listy blokowania")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Sprawdź swój plik SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Włącz sprawdzanie zdrowia dla własnej listy blokowania")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Po włączeniu, umiejętności na własnej liście blokowania będą blokowane tylko wtedy, gdy twoje zdrowie jest powyżej progu.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Próg zdrowia dla własnej listy blokowania (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Umiejętności z własnej listy blokowania są blokowane tylko wtedy, gdy twoje zdrowie jest powyżej tego procentu.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Własna Lista Blokowania Powtórnego Rzucania")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Dodaj ID umiejętności, aby zablokować ich powtórne rzucanie, dopóki pozostały czas efektu nie spadnie poniżej progu. Możesz także dodać umiejętności, klikając prawym przyciskiem myszy na slot paska akcji (wymaga przeładowania).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID Umiejętności")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Wprowadź numeryczne ID umiejętności (np. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Dodaj do Listy Blokowania Powtórnego Rzucania")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Umiejętności Zablokowane do Powtórnego Rzucania:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Włącz Własną Listę Blokowania Powtórnego Rzucania")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Włącza lub wyłącza funkcjonalność własnej listy blokowania powtórnego rzucania")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Czas Blokowania Powtórnego Rzucania (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Czas w sekundach, poniżej którego umiejętność z listy blokowania powtórnego rzucania może być ponownie rzucona (1.0 = 1 sekunda)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Sprawdź swój plik SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Włącz sprawdzanie zdrowia dla własnej listy blokowania powtórnego rzucania")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Po włączeniu, umiejętności na własnej liście blokowania powtórnego rzucania będą blokowane tylko wtedy, gdy twoje zdrowie jest powyżej progu.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Próg zdrowia dla własnej listy blokowania powtórnego rzucania (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Umiejętności z własnej listy blokowania powtórnego rzucania są blokowane tylko wtedy, gdy twoje zdrowie jest powyżej tego procentu.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID umiejętności zostało dodane. Jeśli nie chcesz dodawać więcej umiejętności, przeładuj interfejs, aby zmiany zostały wyświetlone")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Przeładuj Interfejs")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Dodaj więcej")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Błąd: Wprowadź prawidłowe ID umiejętności")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID umiejętności nie istnieje")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID umiejętności jest już na liście blokowania")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Przełącz Tryb (Ścisły/Inteligentny/Wyłączony)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Przełącz Własną Listę Blokowania")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Przełącz Własną Listę Blokowania Powtórnego Rzucania")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Przełącz Wyłączanie Funkcji Drugiego Paska")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Przełącz Wyłączanie Asystenta Przeplatania na Drugim Pasku")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Przełącz Sprawdzanie Egzekucji")
 
 -- =============================================================================
 -- === END OF POLISH LOCALIZATION ==============================================

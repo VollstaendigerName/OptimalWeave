@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -188,6 +188,11 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "在目标达�
 
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "刺客之刃, 穿刺击, 杀手之刃")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "在目标达到处决范围前阻止刺客之刃变形技能")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "法师之怒, 法师之怒, 无尽之怒")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "在目标达到处决范围前阻止法师之怒变形技能")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "反向斩击, 反向劈砍, 处决者")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "在目标达到处决范围前阻止反向斩击变形技能")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
@@ -255,6 +260,68 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "未装备武器�
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "保留武器")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "装备保留武器类型时禁用")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "自定义阻止列表")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "添加技能ID以阻止其使用。你也可以通过右键点击动作栏位来添加技能（需要重载界面）")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "技能ID")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "输入数字技能ID（例如：185805）")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "添加到阻止列表")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "已阻止技能：")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "启用自定义阻止列表")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "启用或禁用自定义阻止列表功能")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "检查你的SavedVariables文件：\n customBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "启用阻止列表的生命值检查")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "启用后，阻止列表中的技能只有在生命值高于阈值时才会被阻止。")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "阻止列表的生命值阈值 (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "只有当生命值高于此百分比时，阻止列表中的技能才会被阻止。")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "自定义重新施放阻止列表")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "添加技能ID以阻止其重新施放，直到剩余效果时间低于阈值。你也可以通过右键点击动作栏位来添加技能（需要重载界面）。")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "技能ID")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "输入数字技能ID（例如：185805）")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "添加到重新施放阻止列表")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "重新施放阻止的技能：")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "启用自定义重新施放阻止列表")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "启用或禁用自定义重新施放阻止列表功能")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "重新施放阻止时间 (秒)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "时间（秒），低于此值时重新施放阻止列表中的技能可以再次施放（1.0 = 1秒）")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "检查你的SavedVariables文件：\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "启用重新施放阻止列表的生命值检查")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "启用后，重新施放阻止列表中的技能只有在生命值高于阈值时才会被阻止。")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "重新施放阻止列表的生命值阈值 (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "只有当生命值高于此百分比时，重新施放阻止列表中的技能才会被阻止。")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "技能ID已添加。如果不想添加更多技能，请重新加载界面以显示更改")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "重新加载界面")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "添加更多")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "确定")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "错误：请输入有效的技能ID")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "技能ID不存在")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "技能ID已在阻止列表中")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "切换模式（严格/智能/无）")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "切换自定义阻止列表")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "切换自定义重新施放阻止列表")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "切换副栏功能停用")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "切换副栏轻击辅助停用")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "切换处决检查")
 
 -- =============================================================================
 -- === END OF CHINESE LOCALIZATION ============================================

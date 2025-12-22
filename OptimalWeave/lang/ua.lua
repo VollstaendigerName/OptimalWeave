@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -188,6 +188,11 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Блокує �
 
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Клинок Вбивці, Проколоти, Клинок Вбивці")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Блокує морфи Клинка Вбивці, поки ціль не досягне межі добивання")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Гнів магів, Лють магів, Нескінченна лють")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Блокує морфи Лють магів, поки ціль не досягне межі добивання")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Зворотний розріз, Зворотний удар, Кат")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Блокує морфи Зворотного розрізу, поки ціль не досягне межі добивання")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "В розробці")
@@ -255,6 +260,67 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Вимкнути
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Резервна зброя")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Вимкнути при екіпіруванні резервного типу зброї")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Користувацький список блокування")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Додайте ID здібностей, щоб заблокувати їх використання. Ви також можете додати здібності, клацнувши правою кнопкою миші на слоті панелі дій (потрібно перезавантаження інтерфейсу)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Здібності")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Введіть числовий ID здібності (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Додати до списку блокування")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Заблоковані здібності:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Увімкнути користувацький список блокування")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Увімкнути або вимкнути функціональність користувацького списку блокування")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Перевірте ваш файл SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Увімкнути перевірку здоров'я для списку блокування")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Якщо увімкнено, здібності в списку блокування будуть блокуватися лише тоді, коли ваше здоров'я вище порогу.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Поріг здоров'я для списку блокування (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Здібності зі списку блокування блокуються лише тоді, коли ваше здоров'я вище цього відсотка.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Користувацький список блокування повторного застосування")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Додайте ID здібностей, щоб заблокувати їх повторне застосування, доки залишковий час ефекту не стане нижче порогу. Ви також можете додати здібності, клацнувши правою кнопкою миші на слоті панелі дій (потрібно перезавантаження інтерфейсу).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID Здібності")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Введіть числовий ID здібності (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Додати до списку блокування повторного застосування")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Здібності, заблоковані для повторного застосування:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Увімкнути користувацький список блокування повторного застосування")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Увімкнути або вимкнути функціональність користувацького списку блокування повторного застосування")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Час блокування повторного застосування (с)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Час у секундах, нижче якого здібність зі списку блокування повторного застосування може бути застосована знову (1.0 = 1 секунда)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Перевірте ваш файл SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Увімкнути перевірку здоров'я для списку блокування повторного застосування")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Якщо увімкнено, здібності в списку блокування повторного застосування будуть блокуватися лише тоді, коли ваше здоров'я вище порогу.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Поріг здоров'я для списку блокування повторного застосування (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Здібності зі списку блокування повторного застосування блокуються лише тоді, коли ваше здоров'я вище цього відсотка.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID здібності додано. Якщо ви не хочете додавати більше здібностей, перезавантажте інтерфейс, щоб зміни відобразилися")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Перезавантажити інтерфейс")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Додати ще")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Помилка: Введіть коректний ID здібності")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID здібності не існує")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID здібності вже у списку блокування")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Перемкнути режим (Суворий/Розумний/Відсутній)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Перемкнути користувацький список блокування")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Перемкнути користувацький список блокування повторного застосування")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Перемкнути вимкнення функцій другої панелі")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Перемкнути вимкнення асистента плетіння на другій панелі")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Перемкнути перевірку добивання")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================

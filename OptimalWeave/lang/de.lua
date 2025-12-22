@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -44,10 +44,10 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Hinweis:|rDiese Erweit
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Haupteinstellungen")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Betriebsmodus")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Hart:|r Strikte Blockade. Kein Skill-Queuing während GCD.\n|cFFFF00Sanft:|r Smarte Blockade. Skill-Queuing nur erlaubt, wenn kein Leichter Angriff in der Queue ist.\n|c00FFFFKein:|r Deaktiviert.")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Hart")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Sanft")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Kein")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Strikt:|r Strikte Blockade. Kein Skill-Queuing während GCD.\n|cFFFF00Intelligent:|r Smarte Blockade. Skill-Queuing nur erlaubt, wenn kein Leichter Angriff in der Queue ist.\n|c00FFFFDeaktiviert:|r Deaktiviert.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Strikt")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Intelligent")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Deaktiviert")
 ZO_CreateStringId("OW_MENU_COMBAT_LABEL", "Nur im Kampf aktiv")
 ZO_CreateStringId("OW_MENU_COMBAT_TOOLTIP", "Wenn aktiviert, verwaltet OptimalWeave das Queuing nur während des Kampfes.")
 ZO_CreateStringId("OW_MENU_ENEMYTARGET_LABEL", "Nur mit feindlichem Ziel")
@@ -195,6 +195,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Blockiert Stra
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Assassinenklinge, Pfählen, Mörderklinge")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Blockiert Assassinenklinge-Morphs, bis das Ziel im Execute-Bereich ist")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Magierrage, Magierzorn, Endloser Zorn")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Blockiere Magierzorn-Morphs, bis das Ziel in der Execute-Bereich ist")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Umkehrschnitt, Umkehrschlag, Henker")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Blockiere Umkehrschnitt-Morphs, bis das Ziel in der Execute-Bereich ist")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -262,6 +268,67 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Deaktivieren, we
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Reservierte Waffe")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Deaktivieren, wenn ein reservierter Waffentyp ausgerüstet ist")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
+-- =============================================================================
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Benutzerdefinierte Blockliste")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "Fähigkeits-ID")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Gib die numerische Fähigkeits-ID ein (z. B. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Zur Blockliste hinzufügen")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Blockierte Fähigkeiten:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Benutzerdefinierte Blockliste aktivieren")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die Funktionalität der benutzerdefinierten Blockliste")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Überprüfe deine SavedVariables-Datei:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Gesundheitsprüfung")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Wenn aktiviert, werden Fähigkeiten in der Blockliste nur blockiert, wenn deine Gesundheit über dem Schwellenwert liegt.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Gesundheitsschwellenwert für Blockliste (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Fähigkeiten in der Blockliste werden nur blockiert, wenn deine Gesundheit über diesem Prozentsatz liegt.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+-- BENUTZERKONFIGURIERBARE RECAST-BLOCKLISTE
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Benutzerdefinierte Recast-Blockliste")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "Fähigkeits-ID")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Gib die numerische Fähigkeits-ID ein (z. B. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Zur Recast-Blockliste hinzufügen")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Recast-blockierte Fähigkeiten:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Benutzerdefinierte Recast-Blockliste aktivieren")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die Funktionalität der benutzerdefinierten Recast-Blockliste")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Recast-Blockzeit (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Zeit in Sekunden, unterhalb derer eine Fähigkeit in der Recast-Blockliste erneut gewirkt werden kann (1.0 = 1 Sekunde)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Überprüfe deine SavedVariables-Datei:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Gesundheitsprüfung")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Wenn aktiviert, werden Fähigkeiten in der Recast-Blockliste nur blockiert, wenn deine Gesundheit über dem Schwellenwert liegt.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Gesundheitsschwellenwert (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Fähigkeiten in der Recast-Blockliste werden nur blockiert, wenn deine Gesundheit über diesem Prozentsatz liegt.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Fähigkeits-ID wurde hinzugefügt. Wenn du keine weiteren Fähigkeiten hinzufügen möchtest, lade bitte die UI neu, damit die Änderungen angezeigt werden können")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "UI neu laden")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Weitere hinzufügen")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Fehler: Bitte gib eine gültige Fähigkeits-ID ein")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Fähigkeits-ID existiert nicht")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "Fähigkeits-ID ist bereits in der Blockliste")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Modus umschalten (Strikt/Intelligent/Deaktiviert)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Benutzerdefinierte Blockliste umschalten")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Benutzerdefinierte Recast-Blockliste umschalten")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Hinterleisten-Funktionen umschalten")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Weave-Assistent auf der Hinterleiste umschalten")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Execute-Prüfung umschalten")
 
 -- =============================================================================
 -- === END OF GERMAN LOCALIZATION ==============================================

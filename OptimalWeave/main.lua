@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -34,7 +34,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.9.0",
+    version = "1.11.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -56,6 +56,34 @@ local OW = OptimalWeave              -- Local namespace alias
 local NAME = OW.name                 -- Immutable addon name
 local OWSV                           -- Will hold SavedVariables reference
 local EM = EVENT_MANAGER             -- Event system shortcut
+
+-- =============================================================================
+-- == LOCAL VARIABLES ==========================================================
+-- =============================================================================
+--[[
+    Purpose: User-configurable block list
+--]]
+
+local LFG_ROLE_TANK = 2
+local LFG_ROLE_HEAL = 4
+local LFG_ROLE_DPS = 1
+local weaponTypeToKey = {
+    [WEAPONTYPE_NONE] = "none",
+    [WEAPONTYPE_AXE] = "axe",
+    [WEAPONTYPE_HAMMER] = "hammer",
+    [WEAPONTYPE_SWORD] = "sword",
+    [WEAPONTYPE_TWO_HANDED_SWORD] = "twoHandedSword",
+    [WEAPONTYPE_TWO_HANDED_AXE] = "twoHandedAxe",
+    [WEAPONTYPE_TWO_HANDED_HAMMER] = "twoHandedHammer",
+    [WEAPONTYPE_BOW] = "bow",
+    [WEAPONTYPE_HEALING_STAFF] = "healingStaff",
+    [WEAPONTYPE_RUNE] = "rune",
+    [WEAPONTYPE_DAGGER] = "dagger",
+    [WEAPONTYPE_FIRE_STAFF] = "fireStaff",
+    [WEAPONTYPE_FROST_STAFF] = "frostStaff",
+    [WEAPONTYPE_SHIELD] = "shield",
+    [WEAPONTYPE_LIGHTNING_STAFF] = "lightningStaff"
+}
 
 -- =============================================================================
 -- == DEFAULT CONFIGURATION SETTINGS ===========================================
@@ -165,6 +193,12 @@ defaults = {
         [34851] = false, -- Impale
         [34843] = false, -- Killer's Blade
         [33386] = false, -- Assassin's Blade
+        [19123] = false, -- Mages' Wrath
+        [18718] = false, -- Mages' Fury
+        [19109] = false, -- Endless Fury
+        [28302] = false, -- Reverse Slash
+        [38823] = false, -- Reverse Slice
+        [38819] = false, -- Executioner
     },
 
     MoltenWhip = {
@@ -222,27 +256,24 @@ defaults = {
 
     autoEquipWeapons = false, -- Enable/disable automatic weapon activation
     resetAfterSeconds = 25,
-}
+    useCustomBlockList = false,
+    useCustomRecastBlockList = false,
+    useCustomBlockListHealthCheck = false,
+    useCustomRecastBlockListHealthCheck = false,
+    useCustomBlockListHealthPercent = 20,
+    useCustomRecastBlockListHealthPercent = 20,
+    recastBlockTime = 3, -- In seconds
 
-local LFG_ROLE_TANK = 2
-local LFG_ROLE_HEAL = 4
-local LFG_ROLE_DPS = 1
-local weaponTypeToKey = {
-    [WEAPONTYPE_NONE] = "none",
-    [WEAPONTYPE_AXE] = "axe",
-    [WEAPONTYPE_HAMMER] = "hammer",
-    [WEAPONTYPE_SWORD] = "sword",
-    [WEAPONTYPE_TWO_HANDED_SWORD] = "twoHandedSword",
-    [WEAPONTYPE_TWO_HANDED_AXE] = "twoHandedAxe",
-    [WEAPONTYPE_TWO_HANDED_HAMMER] = "twoHandedHammer",
-    [WEAPONTYPE_BOW] = "bow",
-    [WEAPONTYPE_HEALING_STAFF] = "healingStaff",
-    [WEAPONTYPE_RUNE] = "rune",
-    [WEAPONTYPE_DAGGER] = "dagger",
-    [WEAPONTYPE_FIRE_STAFF] = "fireStaff",
-    [WEAPONTYPE_FROST_STAFF] = "frostStaff",
-    [WEAPONTYPE_SHIELD] = "shield",
-    [WEAPONTYPE_LIGHTNING_STAFF] = "lightningStaff"
+    --USER-CONFIGURABLE BLOCK LIST
+    customBlockList = { -- Example: [12345] = false/true  -> [SpellID] = bool if active in block list
+
+    },
+
+    --USER-CONFIGURABLE RECAST BLOCK    
+    customRecastBlockList = { -- Example: [12345] = false/true  -> [SpellID] = bool if active in block list
+
+    },
+
 }
 
 -- =============================================================================
@@ -271,6 +302,71 @@ local function DebugPrint(mode, ...)
         d(...)
     end
 end
+
+-- =============================================================================
+-- == KEYBIND FUNCTIONS ========================================================
+-- =============================================================================
+
+function OptimalWeave.ToggleMode()
+    if not OWSV then return end
+    
+    -- Cycle through modes: 1->2->3->1
+    local currentMode = OWSV.mode or 1
+    local newMode = currentMode + 1
+    if newMode > 3 then
+        newMode = 1
+    end
+    
+    OWSV.mode = newMode
+    OWSV.originalMode = 0
+    
+    local modeNames = {[1] = "Hard", [2] = "Soft", [3] = "Disabled"}
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Mode set to |cFFD700%s|r", modeNames[newMode]))
+end
+
+function OptimalWeave.ToggleCustomBlockList()
+    if not OWSV then return end
+    
+    OWSV.useCustomBlockList = not OWSV.useCustomBlockList
+    local status = OWSV.useCustomBlockList and "|c00FF00enabled|r" or "|cFF0000disabled|r"
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Custom Block List %s", status))
+end
+
+function OptimalWeave.ToggleCustomRecastBlockList()
+    if not OWSV then return end
+    
+    OWSV.useCustomRecastBlockList = not OWSV.useCustomRecastBlockList
+    local status = OWSV.useCustomRecastBlockList and "|c00FF00enabled|r" or "|cFF0000disabled|r"
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Custom Recast Block List %s", status))
+end
+
+function OptimalWeave.ToggleBackbarFeatures()
+    if not OWSV then return end
+    
+    OWSV.deactivateOnBackbar.features = not OWSV.deactivateOnBackbar.features
+    local status = OWSV.deactivateOnBackbar.features and "|c00FF00enabled|r" or "|cFF0000disabled|r"
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Backbar Features deactivation %s", status))
+end
+
+function OptimalWeave.ToggleBackbarWeaveAssist()
+    if not OWSV then return end
+    
+    OWSV.deactivateOnBackbar.weaveAssist = not OWSV.deactivateOnBackbar.weaveAssist
+    local status = OWSV.deactivateOnBackbar.weaveAssist and "|c00FF00enabled|r" or "|cFF0000disabled|r"
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Backbar Weave Assist deactivation %s", status))
+end
+
+function OptimalWeave.ToggleExecuteCheck()
+    if not OWSV then return end
+    
+    OWSV.useExecuteCheck = not OWSV.useExecuteCheck
+    local status = OWSV.useExecuteCheck and "|c00FF00enabled|r" or "|cFF0000disabled|r"
+    d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Execute Check %s", status))
+end
+
+-- =============================================================================
+-- === END OF KEYBIND FUNCTIONS ================================================
+-- =============================================================================
 
 -- =============================================================================
 -- == AUTOMATIC GCD TRACKING SLOT SELECTION ====================================
@@ -927,6 +1023,65 @@ local function CanUseActionSlots()
         return false
     end
 
+    -- Custom Block List Check
+    -- if OWSV.useCustomBlockList and OWSV.customBlockList[id] then
+    --     DebugPrint("condition", "Custom Block List: Spell blocked by custom block list")
+    --     return true
+    -- end
+    if OWSV.useCustomBlockList and OWSV.customBlockList[id] then
+        DebugPrint("condition", "Custom Block List: Spell found in custom block list")
+        
+        -- Health check for Custom Block List
+        if OWSV.useCustomBlockListHealthCheck then
+            local currentHealth, maxHealth, effHealth = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_HEALTH)
+            local pecentHealth = currentHealth / effHealth * 100
+            DebugPrint("condition", string.format("Custom Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", pecentHealth, OWSV.useCustomBlockListHealthPercent))
+            
+            if pecentHealth <= OWSV.useCustomBlockListHealthPercent then
+                DebugPrint("condition", "Custom Block List: Health below threshold, NOT blocking")
+                return false
+            end
+        end
+        
+        DebugPrint("condition", "Custom Block List: Spell blocked by custom block list")
+        return true
+    end
+
+
+    -- Custom Recast Block List Check
+    -- if OWSV.useCustomRecastBlockList and OWSV.customRecastBlockList[id] then
+    --     local timeRemainingMS = GetActionSlotEffectTimeRemaining(slot)
+    --     DebugPrint("condition", string.format("Custom Recast Block: timeRemainingMS = %d, threshold = %d", timeRemainingMS, OWSV.recastBlockTime * 1000))
+    --     if timeRemainingMS > (OWSV.recastBlockTime * 1000) then
+    --         DebugPrint("condition", "Custom Recast Block: Spell blocked by custom recast block list")
+    --         return true
+    --     end
+    -- end
+
+    if OWSV.useCustomRecastBlockList and OWSV.customRecastBlockList[id] then
+        DebugPrint("condition", "Custom Recast Block List: Spell found in custom recast block list")
+        
+        -- Health check for Custom Recast Block List
+        if OWSV.useCustomRecastBlockListHealthCheck then
+            local currentHealth, maxHealth, effHealth = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_HEALTH)
+            local pecentHealth = currentHealth / effHealth * 100
+            DebugPrint("condition", string.format("Custom Recast Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", pecentHealth, OWSV.useCustomRecastBlockListHealthPercent))
+            
+            if pecentHealth <= OWSV.useCustomRecastBlockListHealthPercent then
+                DebugPrint("condition", "Custom Recast Block List: Health below threshold, NOT blocking")
+                return false
+            end
+        end
+        
+        local timeRemainingMS = GetActionSlotEffectTimeRemaining(slot)
+        DebugPrint("condition", string.format("Custom Recast Block: timeRemainingMS = %d, threshold = %d", timeRemainingMS, OWSV.recastBlockTime * 1000))
+        if timeRemainingMS > (OWSV.recastBlockTime * 1000) then
+            DebugPrint("condition", "Custom Recast Block: Spell blocked by custom recast block list")
+            return true
+        end
+    end
+
+
     -- PvP Deactivation Check
     local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
     if OWSV.deactivateInPvP.features and inPvPWorld then
@@ -1092,6 +1247,159 @@ local function AbilityUsed(_, slot)
 end
 
 -- =============================================================================
+-- == ABILITY ADDITION TO LISTS FUNCTIONS ======================================
+-- =============================================================================
+
+--------------------------------------------------------------------------------
+-- Add Ability to Block List
+-- @param abilityId: The ID of the ability to add
+-- @param abilityName: The name of the ability (for display)
+--------------------------------------------------------------------------------
+local function AddToBlockList(abilityId, abilityName)
+    if not OWSV then return end
+    
+    OWSV.customBlockList[abilityId] = true
+    d(string.format(
+        "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s|r", 
+        abilityId, 
+        abilityName
+    ))
+end
+
+--------------------------------------------------------------------------------
+-- Add Ability to Recast Block List
+-- @param abilityId: The ID of the ability to add
+-- @param abilityName: The name of the ability (for display)
+--------------------------------------------------------------------------------
+local function AddToRecastBlockList(abilityId, abilityName)
+    if not OWSV then return end
+    
+    OWSV.customRecastBlockList[abilityId] = true
+    d(string.format(
+        "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s|r", 
+        abilityId, 
+        abilityName
+    ))
+end
+
+
+-- =============================================================================
+-- == ABILITY ID DISPLAY HOOKS =================================================
+-- =============================================================================
+--[[
+    Function: SetupAbilityIDHooks
+    Purpose:  Provides right-click context menu on action bar and assignable skill
+              slots to display the underlying ability ID for debugging and configuration.
+    Features: - Action bar slot right-click detection
+              - Assignable skill slot menu integration
+              - Formatted debug output with addon branding
+              - Ability to add skills to block lists
+--]]
+
+--------------------------------------------------------------------------------
+-- Action Bar Right-Click Hook
+-- @description: Intercepts right-click events on action bar slots to display
+--               ability ID in a context menu for debugging purposes
+-- @features:   - Validates slot type and usage state
+--              - Creates formatted debug output with colored addon name
+--              - Integrates with ESO's custom menu system
+--              - Allows adding abilities to block lists
+--------------------------------------------------------------------------------
+local function HookActionBarRightClick()
+    ZO_PreHook("ZO_AbilitySlot_OnSlotClicked", function(abilitySlot, buttonId)
+        if buttonId == MOUSE_BUTTON_INDEX_RIGHT then
+            local button = ZO_ActionBar_GetButton(abilitySlot.slotNum)
+            if button then
+                local slotNum = button:GetSlot()
+                if GetSlotType(slotNum) == ACTION_TYPE_ABILITY and 
+                   IsSlotUsed(slotNum) and 
+                   not IsSlotLocked(slotNum) then
+                    
+                    local abilityId = GetSlotBoundId(slotNum)
+                    local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
+                    
+                    ClearMenu()
+                    AddCustomMenuItem("Show Ability ID", function()
+                        d(string.format(
+                            "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                            abilityId, 
+                            abilityName
+                        ))
+                    end)
+                    
+                    AddCustomMenuItem("Add to Block List", function()
+                        AddToBlockList(abilityId, abilityName)
+                    end)
+                    
+                    AddCustomMenuItem("Add to Recast Block List", function()
+                        AddToRecastBlockList(abilityId, abilityName)
+                    end)
+                    
+                    ShowMenu(abilitySlot)
+                    
+                    return true
+                end
+            end
+        end
+    end)
+end
+
+--------------------------------------------------------------------------------
+-- Assignable Skills Menu Hook
+-- @description: Extends assignable skill slot context menus with ability ID
+--               display functionality
+-- @features:   - Integrates with ESO's skill assignment system
+--              - Validates slot data existence and non-empty state
+--              - Maintains original menu functionality while adding ID display
+--              - Allows adding abilities to block lists
+--------------------------------------------------------------------------------
+local function HookAssignableSkillsMenu()
+    ZO_PreHook(ZO_KeyboardAssignableActionBarButton, "ShowActionMenu", function(self)
+        local hotbar = ACTION_BAR_ASSIGNMENT_MANAGER:GetCurrentHotbar()
+        local slotData = hotbar:GetSlotData(self.slotId)
+        
+        if slotData and not slotData:IsEmpty() then
+            local abilityId = GetSlotBoundId(self.slotId)
+            local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
+            
+            ClearMenu()
+            AddCustomMenuItem("Show Ability ID", function()
+                d(string.format(
+                    "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                    abilityId, 
+                    abilityName
+                ))
+            end)
+            
+            AddCustomMenuItem("Add to Block List", function()
+                AddToBlockList(abilityId, abilityName)
+            end)
+            
+            AddCustomMenuItem("Add to Recast Block List", function()
+                AddToRecastBlockList(abilityId, abilityName)
+            end)
+            
+            ShowMenu(self.button)
+            
+            return true
+        end
+        return false
+    end)
+end
+
+--------------------------------------------------------------------------------
+-- Ability ID Display System Initialization
+-- @function: SetupAbilityIDHooks
+-- @description: Activates both action bar and assignable skill hooks
+--               for unified ability ID debugging functionality
+-- @calls:      HookActionBarRightClick(), HookAssignableSkillsMenu()
+--------------------------------------------------------------------------------
+local function SetupAbilityIDHooks()
+    HookActionBarRightClick()
+    HookAssignableSkillsMenu()
+end
+
+-- =============================================================================
 -- == SYSTEM INITIALIZATION ====================================================
 -- =============================================================================
 --[[
@@ -1110,6 +1418,8 @@ end
 local function Initialize()
     -- Load persistent settings
     OWSV = ZO_SavedVars:NewAccountWide('OptimalWeaveSV', 1, nil, defaults)
+
+    SetupAbilityIDHooks()
 
     -- Reset tracking
 	if OWSV.resetOnBarswap then

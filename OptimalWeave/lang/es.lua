@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -181,6 +181,11 @@ ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Activa o desactiva la funci
 ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Umbral de Ejecución (%)")
 ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Porcentaje de salud del objetivo por debajo del cual se permiten hechizos de ejecución")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Hechizos de Ejecución")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Ira de los magos, Furia de los magos, Furia interminable")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Bloquea los morphs de Furia de los magos hasta que el objetivo esté en rango de ejecución")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Tajo inverso, Corte inverso, Verdugo")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Bloquea los morphs de Tajo inverso hasta que el objetivo esté en rango de ejecución")
 
 -- == Grouped Execute Spells ==========================================
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Destrucción Radiante, Gloria Radiante, Opresión Radiante")
@@ -255,6 +260,70 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Desactivar cuand
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Arma reservada")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Desactivar cuando se equipe un tipo de arma reservado")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ===============================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista de Bloqueo Personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Añade IDs de hechizos para bloquearlos. También puedes añadir hechizos haciendo clic derecho en la ranura de la barra de acción (requiere recarga)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID de Hechizo")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Introduce el ID numérico del hechizo (ej. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Añadir a la Lista de Bloqueo")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Hechizos Bloqueados:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Activar Lista de Bloqueo Personalizada")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Activa o desactiva la funcionalidad de la lista de bloqueo personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Revisa tu archivo SavedVariables:\n customBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Activar verificación de salud para la lista de bloqueo")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Cuando está activado, los hechizos en la lista de bloqueo solo se bloquearán si tu salud está por encima del umbral.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Umbral de salud para la lista de bloqueo (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Los hechizos de la lista de bloqueo solo se bloquean cuando tu salud está por encima de este porcentaje.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Lista de Bloqueo de Relanzamiento Personalizada")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Añade IDs de hechizos para bloquear su relanzamiento hasta que el tiempo restante del efecto esté por debajo del umbral. También puedes añadir hechizos haciendo clic derecho en la ranura de la barra de acción (requiere recarga).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID de Hechizo")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Introduce el ID numérico del hechizo (ej. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Añadir a la Lista de Bloqueo de Relanzamiento")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Hechizos Bloqueados para Relanzamiento:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Activar Lista de Bloqueo de Relanzamiento Personalizada")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Activa o desactiva la funcionalidad de la lista de bloqueo de relanzamiento personalizada")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Tiempo de Bloqueo de Relanzamiento (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Tiempo en segundos por debajo del cual un hechizo en la lista de bloqueo de relanzamiento puede ser lanzado de nuevo (1.0 = 1 segundo)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Revisa tu archivo SavedVariables:\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Activar verificación de salud para la lista de bloqueo de relanzamiento")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Cuando está activado, los hechizos en la lista de bloqueo de relanzamiento solo se bloquearán si tu salud está por encima del umbral.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Umbral de salud para la lista de bloqueo de relanzamiento (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Los hechizos de la lista de bloqueo de relanzamiento solo se bloquean cuando tu salud está por encima de este porcentaje.")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "El ID del hechizo ha sido añadido. Si no quieres añadir más hechizos, por favor recarga la interfaz para que los cambios se muestren")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recargar Interfaz")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Añadir más")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Error: Por favor introduce un ID de hechizo válido")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "El ID del hechizo no existe")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "El ID del hechizo ya está en la lista de bloqueo")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+-- Categoría
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+
+-- Acciones
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Alternar Modo (Estricto/Inteligente/Desactivado)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Alternar Lista de Bloqueo Personalizada")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Alternar Lista de Bloqueo de Relanzamiento Personalizada")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alternar Desactivación de Funciones de la Barra Secundaria")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alternar Desactivación del Asistente de Tejido en la Barra Secundaria")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alternar Verificación de Ejecución")
 
 -- =============================================================================
 -- === END OF SPANISH LOCALIZATION =============================================

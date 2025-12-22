@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.9.0
+    Version:            1.11.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -188,6 +188,12 @@ ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "ターゲッ�
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "アサシンズブレイド, 貫刺, キラーズブレイド")
 ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "ターゲットがエグゼキュート範囲に達するまでアサシンズブレイドモーフをブロックします")
 
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "魔術師の憤怒, 魔術師の激昂, 無尽の激昂")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "ターゲットが執行範囲になるまで魔術師の激昂のモーフをブロックします")
+
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "反転斬り, 反転スライス, 処刑人")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "ターゲットが執行範囲になるまで反転斬りのモーフをブロックします")
+
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
 
@@ -254,6 +260,68 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "武器未装備�
 
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "予約済み武器")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "予約済み武器タイプ装備時に無効化")
+
+-- =============================================================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
+-- =============================================================================
+
+-- ユーザー設定可能ブロックリスト
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "カスタムブロックリスト")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "スペルIDを追加して使用をブロックします。アクションバーのスロットを右クリックしてスペルを追加することもできます（リロードが必要）")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "スキルID")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "数値のスキルIDを入力してください（例：185805）")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "ブロックリストに追加")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "ブロック済みスキル:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "カスタムブロックリストを有効化")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "カスタムブロックリスト機能を有効または無効にします")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "SavedVariablesファイルを確認:\n customBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "ブロックリストの健康チェックを有効にする")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "有効にすると、ブロックリスト内のスペルは、あなたの健康がしきい値を超えている場合にのみブロックされます。")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "ブロックリストの健康しきい値 (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "ブロックリストのスペルは、あなたの健康がこのパーセンテージを超えている場合にのみブロックされます。")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "カスタム再発動ブロックリスト")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "残りの効果時間がしきい値を下回るまで再キャストをブロックするスペルIDを追加します。アクションバーのスロットを右クリックしてスペルを追加することもできます（リロードが必要）。")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "スキルID")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "数値のスキルIDを入力してください（例：185805）")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "再発動ブロックリストに追加")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "再発動ブロック済みスキル:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "カスタム再発動ブロックリストを有効化")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "カスタム再発動ブロックリスト機能を有効または無効にします")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "再発動ブロック時間 (s)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "再発動ブロックリスト内のスキルを再発動できる時間（秒）（1.0 = 1秒）")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "SavedVariablesファイルを確認:\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "再キャストブロックリストの健康チェックを有効にする")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "有効にすると、再キャストブロックリスト内のスペルは、あなたの健康がしきい値を超えている場合にのみブロックされます。")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "再キャストブロックリストの健康しきい値 (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "再キャストブロックリストのスペルは、あなたの健康がこのパーセンテージを超えている場合にのみブロックされます。")
+
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "スキルIDが追加されました。これ以上スキルを追加しない場合は、変更を表示するためにUIを再読み込みしてください")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "UI再読み込み")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "さらに追加")
+
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "エラー: 有効なスキルIDを入力してください")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "スキルIDが存在しません")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "スキルIDはすでにブロックリストにあります")
+
+-- =============================================================================
+-- == KEYBINDINGS LOCALIZATION =================================================
+-- =============================================================================
+
+ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "モード切替（厳格/スマート/無効）")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "カスタムブロックリスト切替")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "カスタム再発動ブロックリスト切替")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "バックバー機能無効化切替")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "バックバーウィーブアシスト無効化切替")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "エグゼキュートチェック切替")
 
 -- =============================================================================
 -- === END OF JAPANESE LOCALIZATION ===========================================
