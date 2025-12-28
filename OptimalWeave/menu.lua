@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.11.0
+-- Version:           1.12.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -22,6 +22,7 @@
 local OW = OptimalWeave
 local LAM = LibAddonMenu2
 local OWColoredName = " |c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r "
+local valueMode
 -- =============================================================================
 -- == COLOR SCHEMA DEFINITION ==================================================
 -- =============================================================================
@@ -65,7 +66,7 @@ local COLOR = {
 -- @param disabledFunc: Optional function to determine disabled state
 -- @return: Fully configured checkbox table
 --------------------------------------------------------------------------------
-local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disabledFunc)
+local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disabledFunc, reloadUICheck)
     return {
         type = "checkbox",
         name = COLOR.PRIMARY..OW.L(nameKey),
@@ -79,7 +80,7 @@ local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disable
             labelBeforeCheckbox = true
         },
         disabled = disabledFunc,
-        --requiresReload = true, 
+        requiresReload = reloadUICheck or false, 
     }
 end
 
@@ -107,7 +108,7 @@ local function CreateDropdown(nameKey, tooltipKey, choicesKeys, OWgetFunc, OWset
         setFunc = OWsetFunc,
         scrollable = true,
         width = "full",
-        choicesValues = {1, 2, 3}
+        choicesValues = {4 ,1, 2, 3}
     }
 end
 
@@ -157,7 +158,7 @@ end
 local function CreateSectionHeader(text)
     return {
     --     type = "divider",
-    --     alpha = 0.3
+    --     alpha = 0.2
     -- }, {
         type = "description",
         --text = COLOR.ACCENT..text,
@@ -281,7 +282,7 @@ ZO_Dialogs_RegisterCustomDialog("OW_ID_IS_IN_SV_DIALOG", {
     - Legal disclaimer
 --]]
 -- Main panel definition
-function OW.BuildMenu(OWSV, defaults)
+local function BuildMenu(OWSV, defaults)
     local panel = {
         type = "panel",
         name = OW.name,
@@ -306,7 +307,8 @@ function OW.BuildMenu(OWSV, defaults)
         - Saves directly to OWSV.customBlockList.
     --]]
     local function AddSpellToBlockList()
-        local spellId = tonumber(_G["OW_TEMP_SPELL_ID"])
+        --local spellId = tonumber(_G["OW_TEMP_SPELL_ID"])
+        local spellId = tonumber(OW.TEMP_SPELL_ID) 
         
         -- Check whether a valid ID has been entered
         if not spellId or spellId <= 1000 or spellId >= 500000 then
@@ -331,7 +333,8 @@ function OW.BuildMenu(OWSV, defaults)
         
         -- Add Spell to block list
         OWSV.customBlockList[spellId] = false  -- Default: not blocked
-        _G["OW_TEMP_SPELL_ID"] = ""  -- Clear input field
+        --_G["OW_TEMP_SPELL_ID"] = ""  -- Clear input field
+        OW.TEMP_SPELL_ID = ""
         ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
         --d(OWColoredName.."Spell-ID " .. spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " has been added to the block list")
     end
@@ -348,7 +351,8 @@ function OW.BuildMenu(OWSV, defaults)
         - Saves directly to OWSV.customRecastBlockList
     --]]
     local function AddSpellToRecastBlockList()
-        local spellId = tonumber(_G["OW_TEMP_RECAST_SPELL_ID"])
+        --local spellId = tonumber(_G["OW_TEMP_RECAST_SPELL_ID"])
+        local spellId = tonumber(OW.TEMP_RECAST_SPELL_ID)
         
         -- Check whether a valid ID has been entered
         if not spellId or spellId <= 1000 or spellId >= 500000 then
@@ -373,12 +377,62 @@ function OW.BuildMenu(OWSV, defaults)
         
         -- Add Spell to block list
         OWSV.customRecastBlockList[spellId] = false  -- Default: not blocked
-        _G["OW_TEMP_RECAST_SPELL_ID"] = ""  -- Clear input field
+        OW.TEMP_RECAST_SPELL_ID = ""--_G["OW_TEMP_RECAST_SPELL_ID"] = ""  -- Clear input field
         ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
         --d(OWColoredName.."Spell-ID " .. spellId .. ", Spell " .. zo_strformat("<<1>>", AbilityName) .. " has been added to the block list")
     end
 
+    -- =============================================================================
+    -- == RESOURCE BLOCK LIST MENU =================================================
+    -- =============================================================================
+    --[[
+        Function: AddSpellToResourceBlockList
+        Purpose: Adds a spell to the block list.
+        Features:
+        - Checks whether spell exists
+        - Prevents duplicates.
+        - Saves directly to OWSV.customResourceBlockList.
+    --]]
+local function AddSpellToResourceBlockList()
+    local spellId = tonumber(OW.TEMP_RESOURCE_SPELL_ID) 
+    
+    -- Check whether a valid ID has been entered
+    if not spellId or spellId <= 1000 or spellId >= 500000 then
+        ZO_Dialogs_ShowDialog("OW_INVALID_ID_DIALOG")
+        return
+    end
+    
+    -- Check if Spell exists 
+    local AbilityName = GetAbilityName(spellId)
+    if AbilityName == nil or AbilityName == "" then
+        ZO_Dialogs_ShowDialog("OW_ID_NOT_EXIST_DIALOG")
+        return
+    end
+    
+    -- Prevent duplicates
+    if OWSV.customResourceBlockList[spellId] ~= nil then
+        ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
+        return
+    end
+    
+    -- Add Spell to block list with new structure
+    OWSV.customResourceBlockList[spellId] = {
+        blocked = false,           -- Complete blocked
+        magickaCheck = false,      -- If Magicka check is used
+        magickaBlock = false,      -- Block when magicka below threshold (true=block, false=allow only)
+        magickaPercent = 0,        -- Magicka percentage threshold
+        staminaCheck = false,      -- If Stamina check is used
+        staminaBlock = false,      -- Block when stamina below threshold (true=block, false=allow only)
+        staminaPercent = 0,        -- Stamina percentage threshold
+    }
+    
+    OW.TEMP_RESOURCE_SPELL_ID = "" -- Clear input field
+    ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+end
 
+    -- =============================================================================
+    -- == MENU =====================================================================
+    -- =============================================================================
     -- Register main panel with LibAddonMenu
     LAM:RegisterAddonPanel(OW.name.."Menu", panel)
 
@@ -392,7 +446,9 @@ function OW.BuildMenu(OWSV, defaults)
             width = "full"
         },
 
-        -- Core Mechanics Submenu
+        -- ====================================================================================================================================================
+        -- Core Mechanics Submenu =============================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_MODE_HEADER"),
@@ -401,33 +457,25 @@ function OW.BuildMenu(OWSV, defaults)
                 CreateDropdown(
                     "OW_MENU_MODE_LABEL",
                     "OW_MENU_MODE_TOOLTIP",
-                    {"OW_MENU_MODE_CHOICE_HARD", "OW_MENU_MODE_CHOICE_SOFT", "OW_MENU_MODE_CHOICE_NONE"},
+                    {"OW_MENU_MODE_CHOICE_COND", "OW_MENU_MODE_CHOICE_HARD", "OW_MENU_MODE_CHOICE_SOFT", "OW_MENU_MODE_CHOICE_NONE"},
                     function() return OWSV.mode end,
-                    -- function(value)
-                    --     if tostring(value) == COLOR.SECONDARY .. OW.L("OW_MENU_MODE_CHOICE_NONE") then
-                    --         valueMode = 3
-                    --     elseif tostring(value) == COLOR.SECONDARY .. OW.L("OW_MENU_MODE_CHOICE_SOFT") then
-                    --         valueMode = 2
-                    --     elseif tostring(value) == COLOR.SECONDARY .. OW.L("OW_MENU_MODE_CHOICE_HARD") then
-                    --         valueMode = 1
-                    --     else
-                    --         valueMode = 0
-                    --     end
-                        
+   
                     function(value) -- Tmp fix, fix later
-                        if value == 3 then
-                            valueMode = 3
-                        elseif value == 2 then
-                            valueMode = 2
+                        if value == 4 then
+                            valueMode = 4  -- Sequential
                         elseif value == 1 then
-                            valueMode = 1
-                        else
+                            valueMode = 1  -- Strict
+                        elseif value == 2 then
+                            valueMode = 2  -- Intelligent
+                        elseif value == 3 then
+                            valueMode = 3  -- Disabled
+                        else    
                             valueMode = 0
                         end
 
                         -- d("ValueMode "..valueMode)
                         -- d("Value " ..value)
-                        -- d("OWSV.mode "..tostring(OWSV.mode))
+                        
                         OWSV.originalMode = 0
                         OWSV.mode = tonumber(valueMode) 
                     end
@@ -441,7 +489,9 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-        -- Activation Conditions Submenu
+        -- ====================================================================================================================================================
+        -- Activation Conditions Submenu ======================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_CONDITIONS_HEADER"),
@@ -466,10 +516,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.block = value end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 CreateCheckbox(
                     "OW_MENU_DISABLE_TANK",
@@ -477,7 +524,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.disableTank end,
                     function(value) 
                         OWSV.disableTank = value
-                        CheckRoleOverride()
+                        OW.CheckRoleOverride()
                     end
                 ),
                 CreateCheckbox(
@@ -486,14 +533,11 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.disableHeal end,
                     function(value) 
                         OWSV.disableHeal = value
-                        CheckRoleOverride()
+                        OW.CheckRoleOverride()
                     end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 CreateCheckbox(
                     "OW_MENU_DISABLE_FEATURES_ON_BACKBAR",
@@ -512,10 +556,7 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 CreateCheckbox(
                     "OW_MENU_DISABLE_FEATURES_IN_PVP",
@@ -523,16 +564,28 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.deactivateInPvP.features end,
                     function(value) OWSV.deactivateInPvP.features = value end
                 ),
+
                 CreateCheckbox(
                     "OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP",
                     "OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP",
                     function() return OWSV.deactivateInPvP.weaveAssist end,
                     function(value) OWSV.deactivateInPvP.weaveAssist = value end
                 ),
+
+                -- { type = "divider", alpha = 0.2 }, -- ===================================================================================== 
+
+                -- CreateCheckbox( -- Dosen´t work!, will fix it later (Wish from kalitva) =================================================== 
+                --     "OW_MENU_BLOCKAOEIFNOTARGET_LABEL",
+                --     "OW_MENU_BLOCKAOEIFNOTARGET_TOOLTIP",
+                --     function() return OWSV.blockAoEIfNoTarget end,
+                --     function(value) OWSV.blockAoEIfNoTarget = value end
+                -- ),
             }
         },
 
-        -- Advanced Controls Submenu
+        -- ====================================================================================================================================================
+        -- Advanced Controls Submenu ==========================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_ADVANCED_HEADER"),
@@ -608,23 +661,19 @@ function OW.BuildMenu(OWSV, defaults)
                     function(value) OWSV.resetAfterSeconds = value end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 -- Automatic Weapon Equipping
                 CreateCheckbox(
                     "OW_MENU_AUTO_EQUIP_WEAPONS_LABEL",
                     "OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP",
                     function() return OWSV.autoEquipWeapons end,
-                    function(value) OWSV.autoEquipWeapons = value end
+                    function(value) OWSV.autoEquipWeapons = value end,
+                    nil,
+                    true
                 ),
-
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 -- Reset Settings Button
                 {
@@ -651,7 +700,9 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-         -- (Sub)Class Settings Submenu
+        -- ====================================================================================================================================================
+        -- (Sub)Class Settings Submenu ========================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_SUBCLASS_HEADER"),
@@ -686,10 +737,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return OWSV.grimFocusSkillIds[61919] end
                 ),
                 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Grim Focus Stacks Slider
                 CreateSlider(
@@ -736,10 +784,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.useCruxStacks end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 -- Deactivate under certain HP toggle
                 CreateCheckbox(
@@ -751,10 +796,7 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
                 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Deactivate under certain HP Slider
                 CreateSlider(
@@ -766,10 +808,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not OWSV.checkHpForArcaBeam end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 -- Deactivate under certain Stam toggle
                 CreateCheckbox(
@@ -781,10 +820,6 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
                 
-                -- {   
-                --     type = "divider",
-                --     alpha = 0.3
-                -- },
                 
                 -- Deactivate under certain HP Slider
                 CreateSlider(
@@ -966,11 +1001,8 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
-
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
+                
                 -- Fighter guild
                 CreateCheckbox(
                     "OW_MENU_HUNTER_ALL_MORPHS",
@@ -983,10 +1015,7 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
 
-                {   
-                    type = "divider",
-                    alpha = 0.3
-                },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Deactivate Hunter and light block in PvP
                 CreateCheckbox(
@@ -1000,7 +1029,9 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
-        -- Weapon Type Deactivation Submenu
+        -- ====================================================================================================================================================
+        -- Weapon Type Deactivation Submenu ===================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER"),
@@ -1024,7 +1055,7 @@ function OW.BuildMenu(OWSV, defaults)
                     end
                 ),
                 
-                { type = "divider", alpha = 1 },
+                { type = "divider", alpha = 1.0 }, -- =====================================================================================
 
                 -- One-handed weapons
                 CreateCheckbox(
@@ -1056,7 +1087,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
                 ),
                 
-                { type = "divider", alpha = 0.3 },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Two-handed weapons
                 CreateCheckbox(
@@ -1088,7 +1119,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
                 ),
                 
-                { type = "divider", alpha = 0.3 },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Staves
                 CreateCheckbox(
@@ -1120,7 +1151,7 @@ function OW.BuildMenu(OWSV, defaults)
                     function() return not (OWSV.deactivateOnWeapon.features or OWSV.deactivateOnWeapon.weaveAssist) end
                 ),
                 
-                { type = "divider", alpha = 0.3 },
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
                 
                 -- Other weapons
                 CreateCheckbox(
@@ -1153,8 +1184,10 @@ function OW.BuildMenu(OWSV, defaults)
                 -- )
             }
         },
-    
-        -- Performance Settings
+
+        -- ====================================================================================================================================================
+        -- Performance Settings ===============================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_PERFORMANCE_HEADER"),
@@ -1178,7 +1211,9 @@ function OW.BuildMenu(OWSV, defaults)
             }
         },
 
--- USER-CONFIGURABLE BLOCK LIST 
+        -- ====================================================================================================================================================
+        -- USER-CONFIGURABLE BLOCK LIST =======================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_HEADER"),
@@ -1198,9 +1233,9 @@ function OW.BuildMenu(OWSV, defaults)
                         function(value) OWSV.useCustomBlockList = value end
                     ),
 
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
-                    -- Health Check für Block List
+                    -- Health Check for Block List
                     CreateCheckbox(
                         "OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK",
                         "OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP",
@@ -1209,7 +1244,7 @@ function OW.BuildMenu(OWSV, defaults)
                         function() return not OWSV.useCustomBlockList end
                     ),
 
-                    -- Health Percent Slider für Block List
+                    -- Health Percent Slider for Block List
                     CreateSlider(
                         "OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT",
                         "OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP",
@@ -1219,15 +1254,16 @@ function OW.BuildMenu(OWSV, defaults)
                         function() return not (OWSV.useCustomBlockList and OWSV.useCustomBlockListHealthCheck) end
                     ),
 
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                     {
                         type = "editbox",
                         name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL"),
                         tooltip = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP"),
-                        getFunc = function() return _G["OW_TEMP_SPELL_ID"] or "" end,
+                        getFunc = function() return OW.TEMP_SPELL_ID or "" end,--_G["OW_TEMP_SPELL_ID"] or "" end,
                         setFunc = function(value) 
-                            _G["OW_TEMP_SPELL_ID"] = value
+                            --_G["OW_TEMP_SPELL_ID"] = value
+                            OW.TEMP_SPELL_ID = value 
                         end,
                         width = "full"
                     },
@@ -1242,7 +1278,7 @@ function OW.BuildMenu(OWSV, defaults)
                         width = "full"
                     },
 
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
                     
                     {
                         type = "description",
@@ -1259,7 +1295,7 @@ function OW.BuildMenu(OWSV, defaults)
                 table.sort(spellIds)
                 
                 for _, spellId in ipairs(spellIds) do
-                    local spellName = GetAbilityName(spellId) or "Unknown Spell ("..spellId..")"
+                    local spellName = GetAbilityName(spellId) or ("Unknown Spell ("..spellId..")")
                     table.insert(controls, {
                         type = "checkbox",
                         name = COLOR.PRIMARY..zo_strformat("<<1>>", spellName),
@@ -1278,7 +1314,9 @@ function OW.BuildMenu(OWSV, defaults)
             end)()
         },
 
-        -- USER-CONFIGURABLE RECAST BLOCK LIST 
+        -- ====================================================================================================================================================
+        -- USER-CONFIGURABLE RECAST BLOCK LIST ================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER"),
@@ -1307,9 +1345,9 @@ function OW.BuildMenu(OWSV, defaults)
                         function() return not OWSV.useCustomRecastBlockList end
                     ),
                     
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
-                    -- Health Check für Recast Block List
+                    -- Health Check for Recast Block List
                     CreateCheckbox(
                         "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK",
                         "OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP",
@@ -1318,7 +1356,7 @@ function OW.BuildMenu(OWSV, defaults)
                         function() return not OWSV.useCustomRecastBlockList end
                     ),
 
-                    -- Health Percent Slider für Recast Block List
+                    -- Health Percent Slider for Recast Block List
                     CreateSlider(
                         "OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT",
                         "OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP",
@@ -1337,15 +1375,15 @@ function OW.BuildMenu(OWSV, defaults)
                         function() return not OWSV.useCustomRecastBlockList end
                     ),
                     
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                     {
                         type = "editbox",
                         name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL"),
                         tooltip = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP"),
-                        getFunc = function() return _G["OW_TEMP_RECAST_SPELL_ID"] or "" end,
+                        getFunc = function() return OW.TEMP_RECAST_SPELL_ID or "" end,--_G["OW_TEMP_RECAST_SPELL_ID"] or "" end,
                         setFunc = function(value) 
-                            _G["OW_TEMP_RECAST_SPELL_ID"] = value
+                            OW.TEMP_RECAST_SPELL_ID = value--_G["OW_TEMP_RECAST_SPELL_ID"] = value
                         end,
                         width = "full"
                     },
@@ -1360,7 +1398,7 @@ function OW.BuildMenu(OWSV, defaults)
                         width = "full"
                     },
 
-                    { type = "divider", alpha = 0.3 },
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                     {
                         type = "description",
@@ -1377,7 +1415,7 @@ function OW.BuildMenu(OWSV, defaults)
                 table.sort(spellIds)
                 
                 for _, spellId in ipairs(spellIds) do
-                    local spellName = GetAbilityName(spellId) or "Unknown Spell ("..spellId..")"
+                    local spellName = GetAbilityName(spellId) or ("Unknown Spell ("..spellId..")")
                     table.insert(controls, {
                         type = "checkbox",
                         name = COLOR.PRIMARY..zo_strformat("<<1>>", spellName),
@@ -1396,6 +1434,184 @@ function OW.BuildMenu(OWSV, defaults)
             end)()
         },
 
+        -- ====================================================================================================================================================
+        -- USER-CONFIGURABLE RESOURCE-BASED BLOCK LIST ========================================================================================================
+        -- ====================================================================================================================================================
+        {
+            type = "submenu",
+            name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER").." Experimental",
+            controls = (function()
+                local controls = {
+                    CreateSectionHeader(OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER").." Experimental"),
+                    {
+                        type = "description",
+                        text = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC"),
+                        width = "full"
+                    },
+
+                    CreateCheckbox(
+                        "OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST",
+                        "OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP",
+                        function() return OWSV.useCustomResourceBlockList end,
+                        function(value) OWSV.useCustomResourceBlockList = value end
+                    ),
+
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
+
+                    {
+                        type = "editbox",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP"),
+                        getFunc = function() return OW.TEMP_RESOURCE_SPELL_ID or "" end,
+                        setFunc = function(value) 
+                            OW.TEMP_RESOURCE_SPELL_ID = value
+                        end,
+                        width = "full"
+                    },
+                    {
+                        type = "button",
+                        name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_ADD_BUTTON"),
+                        func = function()
+                            AddSpellToResourceBlockList()
+                        end,
+                        width = "full"
+                    },
+
+                    { type = "divider", alpha = 0.2 }, -- =====================================================================================
+                    
+                    {
+                        type = "description",
+                        text = COLOR.ACCENT..OW.L("OW_MENU_CUSTOMBLOCK_LIST_HEADER"),
+                        width = "full"
+                    },
+                }
+                
+                -- Dynamically generated controls for each spell ID in customResourceBlockList
+                local spellIds = {}
+                for spellId, _ in pairs(OWSV.customResourceBlockList) do
+                    table.insert(spellIds, spellId)
+                end
+                table.sort(spellIds)
+                
+                for _, spellId in ipairs(spellIds) do
+                    local spellData = OWSV.customResourceBlockList[spellId]
+                    local spellName = GetAbilityName(spellId) or ("Unknown Spell ("..spellId..")")
+                    
+                    -- Base blocked checkbox
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.PRIMARY..zo_strformat("<<1>>", spellName),
+                        tooltip = COLOR.SECONDARY.."Spell ID: "..spellId,
+                        getFunc = function() 
+                            return spellData.blocked 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].blocked = value
+                        end,
+                        width = "full"
+                    })
+                    
+                    -- Magicka check section
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_CHECK"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP"),
+                        getFunc = function() 
+                            return spellData.magickaCheck 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].magickaCheck = value
+                        end,
+                        width = "full",
+                        disabled = function() return not OWSV.useCustomResourceBlockList end
+                    })
+                    
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP"),
+                        getFunc = function() 
+                            return spellData.magickaBlock 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].magickaBlock = value
+                        end,
+                        width = "full",
+                        disabled = function() return not (OWSV.useCustomResourceBlockList and spellData.magickaCheck) end
+                    })
+                    
+                    table.insert(controls, {
+                        type = "slider",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_THRESHOLD"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP"),
+                        min = 0,
+                        max = 100,
+                        getFunc = function() 
+                            return spellData.magickaPercent 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].magickaPercent = value
+                        end,
+                        width = "full",
+                        disabled = function() return not (OWSV.useCustomResourceBlockList and spellData.magickaCheck) end
+                    })
+                    
+                    -- Stamina check section
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_CHECK"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP"),
+                        getFunc = function() 
+                            return spellData.staminaCheck 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].staminaCheck = value
+                        end,
+                        width = "full",
+                        disabled = function() return not OWSV.useCustomResourceBlockList end
+                    })
+                    
+                    table.insert(controls, {
+                        type = "checkbox",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP"),
+                        getFunc = function() 
+                            return spellData.staminaBlock 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].staminaBlock = value
+                        end,
+                        width = "full",
+                        disabled = function() return not (OWSV.useCustomResourceBlockList and spellData.staminaCheck) end
+                    })
+                    
+                    table.insert(controls, {
+                        type = "slider",
+                        name = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_THRESHOLD"),
+                        tooltip = COLOR.SECONDARY..OW.L("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP"),
+                        min = 0,
+                        max = 100,
+                        getFunc = function() 
+                            return spellData.staminaPercent 
+                        end,
+                        setFunc = function(value) 
+                            OWSV.customResourceBlockList[spellId].staminaPercent = value
+                        end,
+                        width = "full",
+                        disabled = function() return not (OWSV.useCustomResourceBlockList and spellData.staminaCheck) end
+                    })
+                    
+                    -- Divider between spells
+                    table.insert(controls, { type = "divider", alpha = 1.0 })
+                end
+                
+                return controls
+            end)()
+        },
+
+        -- ====================================================================================================================================================
+        -- LICENSE ============================================================================================================================================
+        -- ====================================================================================================================================================
         {
             type = "button",
             name = OW.L("OW_MENU_DISCLAIMER_LABEL"),
@@ -1416,6 +1632,13 @@ function OW.BuildMenu(OWSV, defaults)
     --LAM:RegisterOptionControls(OW.name.."_LAM", optionsTable)
     LAM:RegisterOptionControls(OW.name.."Menu", options)
 end
+
+
+-- =============================================================================
+-- === MENU TO GLOBAL FOR INITIALIZATION IN MAIN ===============================
+-- =============================================================================
+
+OptimalWeave.BuildMenu = BuildMenu
 
 -- =============================================================================
 -- === END OF MENU SYSTEM ======================================================

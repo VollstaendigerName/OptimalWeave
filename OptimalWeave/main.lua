@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -28,13 +28,14 @@
     - Version control using semantic versioning (SemVer)
     - Localization system placeholder
 --]]
+OptimalWeave = OptimalWeave or {}
 
 OptimalWeave = {
     -- Internal namespace identifier (must match folder name)
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.11.0",
+    version = "1.12.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -91,47 +92,55 @@ local weaponTypeToKey = {
 --[[
     Purpose: Fallback settings for first-time users
     Structure:
-    - Mode: 1=Hard, 2=Soft, 3=Disabled
+    - Mode: 1=Strict, 2=Intelligent, 3=Disabled, 4=Sequential
     - Technical: Latency compensation values
     - Safety: Input blocking conditions
     - Lists: Custom ability management
 --]]
 
-defaults = {
-    mode = 1,                        -- Operating mode selector
+local defaults = {
+    mode = 4,                        -- Operating mode selector
     autoLag = true,                  -- Dynamic latency detection toggle
     inputLag = 50,                   -- Manual latency override (ms)
     block = true,                    -- Global input blocking enabled
     combat = true,                   -- Combat-only restriction
     blockGroundAbilities = true,     -- Ground AOE protection
     checkTarget = true,              -- Target requirement
-    neverBlockedAbilityIDs = {},
+    neverBlockedAbilityIDs = {},     -- Abilities that should never be blocked under any circumstances
 
-    -- Nightblade
+    -- =========================================================================
+    -- == NIGHTBLADE CLASS SETTINGS ============================================
+    -- =========================================================================
+    -- Grim Focus ability tracking and configuration
     grimFocusSkillIds = {
         [61919] = false, -- Merciless
         [61927] = false, -- Relentless
         [61902] = false  -- Grim
     },
 
+    -- -- Buff IDs that indicate Grim Focus stacks are active
     grimFocusStackIds = {
-        [122586] = true, --Merciless
-        [122585] = true, --Grim
+        [122586] = true, -- Merciless
+        [122585] = true, -- Grim
         [122587] = true  -- Relentless
     },
 
-    useGrimFocusStacks = false,
-    grimFocusStacks = 10, -- How many grim focus stacks
+    useGrimFocusStacks = false, -- Enable stack-based blocking: Block ability when reaching certain stack count
+    grimFocusStacks = 10,       -- How many grim focus stacks
 
+    -- Death Stroke ability configuration
     deathStrokeMorphs = {
                          -- Death Stroke
         [36514] = false  -- Soul Harvest
                          -- Incapacitating Strike
     },
     
-    incapacitatingStrikeStacks = 120,
+    incapacitatingStrikeStacks = 120, -- Stack threshold for Incapacitating Strike morph
 
-    -- Arcanist
+    -- =========================================================================
+    -- == ARCANIST CLASS SETTINGS ==============================================
+    -- =========================================================================
+    -- Fatecarver beam ability configurations (both magicka and stamina morphs)
     arcaBeamSkillIds = {
         [185805] = false, -- Base Mag
         [183122] = false, -- Exhausting Fatecarver Mag
@@ -142,12 +151,14 @@ defaults = {
 
     },
 
+    -- Tentacular Dread ability configuration
     tentacularDread = {
-        [185823] = false -- Tentacular Dread
+        [185823] = false -- Tentacular Dread (that one that consumes Crux)
     },
 
+    -- Cephaliarch's Flail ability configuration
     cephaliarchsFlail = {
-        [183006] = false -- Cephaliarch's Flail
+        [183006] = false -- Cephaliarch's Flail 
     },
     useCruxStacksCephaliarch = false,  -- Cephaliarch's Flail Crux Check
 
@@ -157,12 +168,22 @@ defaults = {
     deactivateArcaBeamBlockAtStamUnder = 20, -- limit value of Stam
     checkStamForArcaBeam = true, -- Check Stam before beam
 
-    cruxId = 184220,    
-    useCruxStacks = false,
-    cruxStacks = 3,
-    usecruxStacksTentacular = false,
-    cruxStacksTentacular = 3,
+    cruxId = 184220,        -- Crux buff ID
+    useCruxStacks = false,  -- Enable Crux-based blocking for Fatecarver abilities
+    cruxStacks = 3,         -- Crux stack threshold for Fatecarver blocking
+    usecruxStacksTentacular = false, -- Enable Crux-based blocking for Tentacular Dread
+    cruxStacksTentacular = 3, -- Crux stack threshold for Tentacular Dread blocking
 
+    -- =========================================================================
+    -- == DRAGONKNIGHT CLASS SETTINGS ==========================================
+    -- =========================================================================
+    MoltenWhip = {
+        [20805] = false -- Molten Whip
+    },
+
+    -- =========================================================================
+    -- == GUILD SETTINGS =======================================================
+    -- =========================================================================
     -- Mages guild
     lightMorphs = {
         [30920] = true, -- Magelight
@@ -174,17 +195,21 @@ defaults = {
     hunterMorphs = {
         [35762] = true, -- Expert Hunter
         [40195] = true, -- Camouflaged Hunter
-        [40194] = true -- Evil Hunter
+        [40194] = true  -- Evil Hunter
     },
 
+    -- Fighters Guild
     dawnbreakerMorphs = {
         [35713] = false, -- Dawnbreaker
         [40161] = false, -- Flawless Dawnbreaker
         [40158] = false  -- Dawnbreaker of Smiting
     },
 
-    useExecuteCheck = false,          -- Enable/disable Execute Check
-    executeThreshold = 30,            -- Percentage threshold value for execute
+    -- =========================================================================
+    -- == EXECUTE SYSTEM SETTINGS ==============================================
+    -- =========================================================================
+    useExecuteCheck = false, -- Execute Check Master Toggle: Enable/disable all execute functionality
+    executeThreshold = 30,   -- Health Percentage Threshold: Target HP% below which execute abilities are allowed
 
     executeCheckSpells = {
         [63029] = false, -- Radiant Destruction
@@ -201,78 +226,127 @@ defaults = {
         [38819] = false, -- Executioner
     },
 
-    MoltenWhip = {
-        [20805] = false -- Molten Whip
-    },
+    -- =========================================================================
+    -- == GCD SETTINGS =========================================================
+    -- =========================================================================
+    channelBufferNormal = 50,       -- Standard ability buffer: Extra time (ms) added to non-channeled cast times, Default: 50ms
+    channelBufferChanneled = 200,   -- Channeled ability buffer: Extra time (ms) added to channeled abilities, Default: 200ms
+    gcdTrackingSlot = 3,            -- Default GCD tracking slot: Action bar slot (3-8) used to monitor GCD state, Default: Slot 3
+    autoGcdTrackingSlot = false,    -- Automatic slot selection: Dynamically find active ability slot for GCD tracking
+    minGcdThreshold = 10,           -- Minimum GCD detection: Smallest cooldown (ms) recognized as a GCD, Default: 10ms
+    baseQueueTime = 1050,           -- Base ability queue window: Time window (ms) for queuing next ability, Default: 1050ms
 
-    channelBufferNormal = 50,       -- Default: 50ms
-    channelBufferChanneled = 200,   -- Default: 200ms
-    gcdTrackingSlot = 3,            -- Default: Slot 3
-    autoGcdTrackingSlot = false,     -- Automatic search for tracking slot
-    minGcdThreshold = 10,           -- Default: 10ms
-    baseQueueTime = 1050,           -- Default: 1050ms
+    -- =========================================================================
+    -- == ROLE-BASED DEACTIVATION SETTINGS =====================================
+    -- =========================================================================
+    disableTank = true, -- Tank role deactivation: Automatically disable addon when in tank role
+    disableHeal = true, -- Healer role deactivation: Automatically disable addon when in healer role
+    originalMode = 0,   -- Original mode storage
 
-    disableTank = true,
-    disableHeal = true,
-    originalMode = 0, 
+    -- =========================================================================
+    -- == RESET BEHAVIOR SETTINGS ==============================================
+    -- =========================================================================
+    resetOnDodge = true,    -- Reset on dodge: Clear GCD state when player dodges
+    resetOnBarswap = true,  -- Reset on bar swap: Clear GCD state when swapping bars
+    resetAfterSeconds = 25, -- Inactivity reset timer: Seconds of inactivity before GCD state resets
 
-    resetOnDodge = true,
-    resetOnBarswap = true,
-    deactivateHunterLightInPvP = true,
-
+    -- =========================================================================
+    -- == WEAPON DEACTIVATION SETTINGS =========================================
+    -- =========================================================================
+    -- Backbar deactivation settings
     deactivateOnBackbar = {
-        features = false, -- Deactivating other features on Backbar
-        weaveAssist = false  -- Deactivate weave Assist on Backbar
+        features = false,   -- Deactivating other features on Backbar
+        weaveAssist = false -- Deactivate weave Assist on Backbar
     },
 
     deactivateOnWeaponType = {
-        none = false, -- Int. = 0
-        axe = false,  -- Int. = 1
-        hammer = false,  -- Int. = 2
-        sword = false,  -- Int. = 3
-        twoHandedSword = false,  -- Int. = 4
-        twoHandedAxe = false,  -- Int. = 5
-        twoHandedHammer = false,  -- Int. = 6
-        reservedWeapon = false, -- Int. 7
-        bow = false,  -- Int. = 8
-        healingStaff = false,  -- Int. = 9
-        rune = false,  -- Int. = 10
-        dagger = false,  -- Int. = 11
-        fireStaff = false,  -- Int. = 12
-        frostStaff = false,  -- Int. = 13
-        shield = false,  -- Int. = 14
-        lightningStaff = false -- Int. 15
+        none = false,           -- No weapon equipped, Int. = 0
+        axe = false,            -- One-handed axe,     Int. = 1
+        hammer = false,         -- One-handed hammer,  Int. = 2
+        sword = false,          -- One-handed sword,   Int. = 3
+        twoHandedSword = false, -- Two-handed sword,   Int. = 4
+        twoHandedAxe = false,   -- Two-handed axe,     Int. = 5
+        twoHandedHammer = false,-- Two-handed hammer,  Int. = 6
+        reservedWeapon = false, -- Reserved weapon,    Int. = 7
+        bow = false,            -- Bow,                Int. = 8
+        healingStaff = false,   -- Restoration staff,  Int. = 9
+        rune = false,           -- Rune (unused),      Int. = 10
+        dagger = false,         -- Dagger,             Int. = 11
+        fireStaff = false,      -- Inferno staff,      Int. = 12
+        frostStaff = false,     -- Frost staff,        Int. = 13
+        shield = false,         -- Shield,             Int. = 14
+        lightningStaff = false  -- Lightning staff,    Int. = 15
     },
 
+    -- Weapon-based deactivation toggles
     deactivateOnWeapon = {
-        features = false, -- Deactivating other features 
-        weaveAssist = false  -- Deactivate weave Assist
+        features = false,   -- Deactivating other features 
+        weaveAssist = false -- Deactivate weave Assist
     },
 
+    -- PvP area deactivation settings
     deactivateInPvP = {
-        features = false, -- Deactivating other features in PVP
-        weaveAssist = false  -- Deactivate weave Assist in PVP
+        features = false,   -- Deactivating other features in PvP areas
+        weaveAssist = false -- Deactivate weave Assist in PvP areas
     },
 
-    autoEquipWeapons = false, -- Enable/disable automatic weapon activation
-    resetAfterSeconds = 25,
-    useCustomBlockList = false,
-    useCustomRecastBlockList = false,
-    useCustomBlockListHealthCheck = false,
-    useCustomRecastBlockListHealthCheck = false,
-    useCustomBlockListHealthPercent = 20,
-    useCustomRecastBlockListHealthPercent = 20,
-    recastBlockTime = 3, -- In seconds
+    autoEquipWeapons = false,           -- Automatic weapon equipping: Auto-unsheathe weapons in combat/dungeon situations
+    deactivateHunterLightInPvP = true,  -- PvP deactivation: Disable Hunter/Light morph blocking in PvP areas
 
-    --USER-CONFIGURABLE BLOCK LIST
+    -- =========================================================================
+    -- == CUSTOM BLOCK LIST SETTINGS ===========================================
+    -- =========================================================================
+    useCustomBlockList = false,                     -- Master toggle for user-defined block list
+    useCustomRecastBlockList = false,               -- Master toggle for user-defined recast block list
+    useCustomBlockListHealthCheck = false,          -- Enable health-based exceptions for custom block list
+    useCustomRecastBlockListHealthCheck = false,    -- Enable health-based exceptions for custom recast block list
+    useCustomBlockListHealthPercent = 20,           -- Health threshold (%) for custom block list exceptions
+    useCustomRecastBlockListHealthPercent = 20,     -- Health threshold (%) for custom recast block list exceptions
+    recastBlockTime = 3,                            -- Time window (seconds) for recast blocking
+    
+    -- =========================================================================
+    -- == RESOURCE-BASED BLOCK LIST SETTINGS ===================================
+    -- =========================================================================
+    activateResourceBasedBlockingMenu = true, -- Toggle menu visibility 
+    useCustomResourceBlockList = false,
+    useCustomResourceRecastBlockList = false,
+    useCustomBlockListResourceCheck = false,
+    useCustomRecastBlockListResourceCheck = false,
+    useCustomBlockListResourcePercent = 20,
+    useCustomRecastBlockListResourcePercent = 20,
+    recastResourceBlockTime = 3, -- In seconds
+
+
+    -- =========================================================================
+    -- == USER-CONFIGURABLE BLOCK LISTS ========================================
+    -- =========================================================================
+    -- Immediate blocking list: Blocks abilities as soon as pressed
     customBlockList = { -- Example: [12345] = false/true  -> [SpellID] = bool if active in block list
-
+    -- Example: [12345] = true  -- Blocks ability ID 12345 immediately
     },
 
-    --USER-CONFIGURABLE RECAST BLOCK    
+    -- Recast blocking list: Blocks abilities if recast within time window
     customRecastBlockList = { -- Example: [12345] = false/true  -> [SpellID] = bool if active in block list
-
+    -- Example: [12345] = true  -- Blocks ability ID 12345 if recast too soon
     },
+
+    -- Resource-based blocking list
+    customResourceBlockList = { 
+    -- Example: [12345] = {
+    --     blocked = false,           -- Complete blocked
+    --     magickaCheck = false,      -- If Magicka check is used
+    --     magickaBlock = false,      -- Check if the spell is Blocked or usable depending on the Magicka Percentage
+    --     magickaPercent = 0,        -- Percentage how many Magicka
+    --     staminaCheck = false,      -- If Stamina check is used
+    --     staminaBlock = false,      -- Check if the spell is Blocked or usable depending on the Stamina Percentage
+    --     staminaPercent = 0,        -- Percentage how many Stamina
+    -- }
+    },
+
+    -- =========================================================================
+    -- == EXPERIMENTAL SETTINGS ================================================
+    -- =========================================================================
+    blockAoEIfNoTarget = false, -- Experimental: Block ground AoEs when no target is selected
 
 }
 
@@ -289,7 +363,7 @@ defaults = {
 local DEBUG_MODES = {
     block = false,      -- GCD blocking decisions
     condition = false,  -- Ability condition checks
-    info = false        -- General state information
+    info = false       -- General state information
 }
 
 --------------------------------------------------------------------------------
@@ -302,29 +376,29 @@ local function DebugPrint(mode, ...)
         d(...)
     end
 end
-
+   
 -- =============================================================================
 -- == KEYBIND FUNCTIONS ========================================================
 -- =============================================================================
 
-function OptimalWeave.ToggleMode()
+local function ToggleMode()
     if not OWSV then return end
     
     -- Cycle through modes: 1->2->3->1
     local currentMode = OWSV.mode or 1
     local newMode = currentMode + 1
-    if newMode > 3 then
+    if newMode > 4 then
         newMode = 1
     end
     
     OWSV.mode = newMode
-    OWSV.originalMode = 0
+    --OWSV.originalMode = 0
     
-    local modeNames = {[1] = "Hard", [2] = "Soft", [3] = "Disabled"}
+    local modeNames = {[1] = "Strict", [2] = "Intelligent", [3] = "Disabled", [4] = "Sequential"}
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Mode set to |cFFD700%s|r", modeNames[newMode]))
 end
 
-function OptimalWeave.ToggleCustomBlockList()
+local function ToggleCustomBlockList()
     if not OWSV then return end
     
     OWSV.useCustomBlockList = not OWSV.useCustomBlockList
@@ -332,7 +406,7 @@ function OptimalWeave.ToggleCustomBlockList()
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Custom Block List %s", status))
 end
 
-function OptimalWeave.ToggleCustomRecastBlockList()
+local function ToggleCustomRecastBlockList()
     if not OWSV then return end
     
     OWSV.useCustomRecastBlockList = not OWSV.useCustomRecastBlockList
@@ -340,7 +414,7 @@ function OptimalWeave.ToggleCustomRecastBlockList()
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Custom Recast Block List %s", status))
 end
 
-function OptimalWeave.ToggleBackbarFeatures()
+local function ToggleBackbarFeatures()
     if not OWSV then return end
     
     OWSV.deactivateOnBackbar.features = not OWSV.deactivateOnBackbar.features
@@ -348,7 +422,7 @@ function OptimalWeave.ToggleBackbarFeatures()
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Backbar Features deactivation %s", status))
 end
 
-function OptimalWeave.ToggleBackbarWeaveAssist()
+local function ToggleBackbarWeaveAssist()
     if not OWSV then return end
     
     OWSV.deactivateOnBackbar.weaveAssist = not OWSV.deactivateOnBackbar.weaveAssist
@@ -356,7 +430,7 @@ function OptimalWeave.ToggleBackbarWeaveAssist()
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Backbar Weave Assist deactivation %s", status))
 end
 
-function OptimalWeave.ToggleExecuteCheck()
+local function ToggleExecuteCheck()
     if not OWSV then return end
     
     OWSV.useExecuteCheck = not OWSV.useExecuteCheck
@@ -365,8 +439,15 @@ function OptimalWeave.ToggleExecuteCheck()
 end
 
 -- =============================================================================
--- === END OF KEYBIND FUNCTIONS ================================================
+-- === TO GLOBAL FOR KEYBIND FUNCTIONS =========================================
 -- =============================================================================
+
+OptimalWeave.ToggleMode = ToggleMode
+OptimalWeave.ToggleCustomBlockList = ToggleCustomBlockList
+OptimalWeave.ToggleCustomRecastBlockList = ToggleCustomRecastBlockList
+OptimalWeave.ToggleBackbarFeatures = ToggleBackbarFeatures
+OptimalWeave.ToggleBackbarWeaveAssist = ToggleBackbarWeaveAssist
+OptimalWeave.ToggleExecuteCheck = ToggleExecuteCheck
 
 -- =============================================================================
 -- == AUTOMATIC GCD TRACKING SLOT SELECTION ====================================
@@ -463,7 +544,7 @@ Function: deactivateBasedOnWeapon
 -- Weapon-Based Deactivation Check
 -- @return: Boolean indicating if features should be deactivated for current weapons
 --------------------------------------------------------------------------------
-function deactivateBasedOnWeapon()
+local function deactivateBasedOnWeapon()
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     local slots
     
@@ -548,7 +629,7 @@ end
 -- == ABILITY VALIDATION SUBSYSTEM =============================================
 -- =============================================================================
 --[[
-    Function: IsBlockedAbilityID
+    Function: IsBlockedNeverAbilityID
     Purpose: Check against hardcoded blocklist
     Logic:
     1. Iterate through BlockedAbilityIDs table
@@ -562,7 +643,7 @@ end
 -- @param id: AbilityID to validate
 -- @return: Boolean blocking status
 --------------------------------------------------------------------------------
-local function IsBlockedAbilityID(id)
+local function IsBlockedNeverAbilityID(id)
     return OWSV.neverBlockedAbilityIDs and OWSV.neverBlockedAbilityIDs[id] or false
 end
 
@@ -593,7 +674,7 @@ Function: CheckRoleOverride
 -- Role-Based Mode Management
 -- @return: None (modifies OWSV state directly)
 --------------------------------------------------------------------------------
-function CheckRoleOverride()
+local function CheckRoleOverride()
     local role = GetSelectedLFGRole()
 
     if (role == LFG_ROLE_TANK and OWSV.disableTank) or
@@ -612,6 +693,8 @@ function CheckRoleOverride()
         end
     end
 end
+
+OW.CheckRoleOverride = CheckRoleOverride
 
 -- =============================================================================
 -- == CHECK IF GRIM FOCUS STATUS ===============================================
@@ -699,7 +782,7 @@ Function: checkCruxStacks
     Process Flow:
       1. Iterate through all active buffs on the player.
       2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OWSV.CruxId.
+         with the configured OWSV.cruxId.
       3. Check the stack count of the identified Crux buff:
             - If the stack count is equal to or greater than the defined threshold (OWSV.cruxStacks),
               set 'active' to false (i.e., block the ability) and exit the loop.
@@ -715,7 +798,7 @@ Function: checkCruxStacks
 local function checkCruxStacks(id)
     local active = true 
     DebugPrint("condition", "Check Crux stacks block in checkCruxStacks(")
-    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
+    DebugPrint("condition", "OWSV.cruxId ".. tostring(OWSV.cruxId))
     local currentHealth, maxHealth, effHealth = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_HEALTH)
     local pecentHealth = currentHealth / effHealth * 100
     DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
@@ -732,7 +815,7 @@ local function checkCruxStacks(id)
             local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
             DebugPrint("condition", "Buff"..abilityId)
             if OWSV.cruxId == abilityId then
-                DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
+                DebugPrint("condition", "Check Crux stacks block in OWSV.cruxId == abilityId")
                 if stackCount >= OWSV.cruxStacks then
                     active = false
                     DebugPrint("condition", "active = false")
@@ -761,7 +844,7 @@ Function: checkCruxStacksCephaliarch
     Process Flow:
       1. Iterate through all active buffs on the player.
       2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OWSV.CruxId.
+         with the configured OWSV.cruxId.
       3. Check the stack count of the identified Crux buff:
             - If the stack count is equal to or greater than 3,
               set 'active' to true (i.e., allow the ability) and exit the loop.
@@ -778,13 +861,13 @@ Function: checkCruxStacksCephaliarch
 local function checkCruxStacksCephaliarch(id)
     local active = false 
     DebugPrint("condition", "Check Crux stacks block in checkCruxStacksCephaliarch")
-    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
+    DebugPrint("condition", "OWSV.cruxId ".. tostring(OWSV.cruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
         local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
         DebugPrint("condition", "Buff "..abilityId)
         if OWSV.cruxId == abilityId then
-            DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
+            DebugPrint("condition", "Check Crux stacks block in OWSV.cruxId == abilityId")
             if stackCount >= 3 then  -- Always block at 3 stacks
                 active = true
                 DebugPrint("condition", "active = true due to 3+ Crux stacks")
@@ -813,7 +896,7 @@ Function: checkCruxStacksTentacular
     Process Flow:
       1. Iterate through all active buffs on the player.
       2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OWSV.CruxId.
+         with the configured OWSV.cruxId.
       3. Check the stack count of the identified Crux buff:
             - If the stack count is equal to or greater than the defined threshold (OWSV.cruxStacks),
               set 'active' to false (i.e., block the ability) and exit the loop.
@@ -829,13 +912,13 @@ Function: checkCruxStacksTentacular
 local function checkcruxStacksTentacular(id)
     local active = true 
     DebugPrint("condition", "Check Crux stacks block in checkcruxStacks(")
-    DebugPrint("condition", "OWSV.CruxId ".. tostring(OWSV.CruxId))
+    DebugPrint("condition", "OWSV.cruxId ".. tostring(OWSV.cruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
         local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
         DebugPrint("condition", "Buff"..abilityId)
         if OWSV.cruxId == abilityId then
-            DebugPrint("condition", "Check Crux stacks block in OWSV.CruxId == abilityId")
+            DebugPrint("condition", "Check Crux stacks block in OWSV.cruxId == abilityId")
             if stackCount >= OWSV.cruxStacksTentacular then
                 active = false
                 DebugPrint("condition", "active = false")
@@ -957,6 +1040,105 @@ local function CastCanceled() -- Check if
 end    
 
 -- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST CHECK ==========================================
+-- =============================================================================
+--[[
+Function: CheckResourceBlockList
+    Purpose:
+      Evaluates all conditions for a spell in the customResourceBlockList
+      and determines if it should be blocked.
+    
+    Structure of spellData:
+      spellData = {
+          blocked = false,           -- Complete blocked
+          magickaCheck = false,      -- If Magicka check is used
+          magickaBlock = false,      -- Check if the spell is Blocked or usable depending on the Magicka Percentage
+          magickaPercent = 0,        -- Percentage how many Magicka
+          staminaCheck = false,      -- If Stamina check is used
+          staminaBlock = false,      -- Check if the spell is Blocked or usable depending on the Stamina Percentage
+          staminaPercent = 0,        -- Percentage how many Stamina
+          recastBlock = false,       -- Recast Block is used
+          recastTime = 0             -- Recast Block time in seconds
+      }
+    
+    Process Flow:
+      1. Check if spell is completely blocked
+      2. Check Magicka conditions if enabled
+      3. Check Stamina conditions if enabled
+      4. Check Recast conditions if enabled
+      5. Return true if any condition triggers blocking, false otherwise
+--]]
+
+local function CheckResourceBlockList(spellId)
+   
+    -- Get spell data
+    local spellData = OWSV.customResourceBlockList[spellId]
+    if not spellData then
+        return false  -- Spell not in resource block list
+    end
+    
+    DebugPrint("condition", string.format("Checking resource block for spell ID %d", spellId))
+    
+    -- 1. Check if spell block is active
+    if not spellData.blocked then
+        DebugPrint("condition", "Resource Block: Spell is active")
+        return false
+    end
+    
+    -- 2. Magicka check
+    if spellData.magickaCheck then
+        local currentMagicka, maxMagicka, effMagicka = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_MAGICKA)
+        local percentMagicka = (effMagicka > 0) and (currentMagicka / effMagicka * 100) or 0
+        
+        DebugPrint("condition", string.format("Magicka Check: Current: %.1f%%, Threshold: %.1f%%, Mode: %s", 
+            percentMagicka, spellData.magickaPercent, 
+            spellData.magickaBlock and "Block when below" or "Allow only when below"))
+        
+        if spellData.magickaBlock then
+            -- Block when magicka is below threshold
+            if percentMagicka <= spellData.magickaPercent then
+                DebugPrint("condition", "Resource Block: Magicka below threshold - Blocking")
+                return true
+            end
+        else
+            -- Allow only when magicka is below threshold (block when above)
+            if percentMagicka > spellData.magickaPercent then
+                DebugPrint("condition", "Resource Block: Magicka above threshold - Blocking")
+                return true
+            end
+        end
+    end
+    
+    -- 3. Stamina check
+    if spellData.staminaCheck then
+        local currentStamina, maxStamina, effStamina = GetUnitPower('player', COMBAT_MECHANIC_FLAGS_STAMINA)
+        local percentStamina = (effStamina > 0) and (currentStamina / effStamina * 100) or 0
+        
+        DebugPrint("condition", string.format("Stamina Check: Current: %.1f%%, Threshold: %.1f%%, Mode: %s", 
+            percentStamina, spellData.staminaPercent, 
+            spellData.staminaBlock and "Block when below" or "Allow only when below"))
+        
+        if spellData.staminaBlock then
+            -- Block when stamina is below threshold
+            if percentStamina <= spellData.staminaPercent then
+                DebugPrint("condition", "Resource Block: Stamina below threshold - Blocking")
+                return true
+            end
+        else
+            -- Allow only when stamina is below threshold (block when above)
+            if percentStamina > spellData.staminaPercent then
+                DebugPrint("condition", "Resource Block: Stamina above threshold - Blocking")
+                return true
+            end
+        end
+    end
+        
+    DebugPrint("condition", "Resource Block: No blocking conditions met")
+    return false
+end
+
+
+-- =============================================================================
 -- == ACTION SLOT PROCESSING ===================================================
 -- =============================================================================
 --[[
@@ -972,9 +1154,11 @@ end
 -- Debug-Based Slot Detection
 -- @return: Action slot number (0-8)
 --------------------------------------------------------------------------------
+
 local function GetActionSlot()
     -- Extract slot from call stack trace
-    return tonumber(debug.traceback():match('ACTION_BUTTON_(%d)')) or 0
+    --d('ActionButton Traceback'..debug.traceback():match('keybind = \".*ACTION_BUTTON_(%d)'))
+    return tonumber(debug.traceback():match('keybind = \".*ACTION_BUTTON_(%d)')) or 0
 end
 
 -- =============================================================================
@@ -995,8 +1179,9 @@ end
 -- Input Validation Master Function
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
+
 local function CanUseActionSlots()
-    
+
     AutoSelectGcdTrackingSlot()
 
     -- check for inactivity
@@ -1007,8 +1192,8 @@ local function CanUseActionSlots()
 
     -- Global block conditions
     local ignore = (OWSV.block and IsBlockActive()) or 
-                   (OWSV.combat and not IsUnitInCombat('player')) or 
-                   (OWSV.checkTarget and not IsUnitAttackable('reticleover'))
+                (OWSV.combat and not IsUnitInCombat('player')) or 
+                (OWSV.checkTarget and not IsUnitAttackable('reticleover'))
     
     -- Extract action details
     local slot = GetActionSlot()
@@ -1018,16 +1203,24 @@ local function CanUseActionSlots()
     
     DebugPrint("info", "Buff"..abilityId)
     DebugPrint("info", "id "..id)
+
     -- Hard block exit
     if ignore and not OWSV.blockGroundAbilities then
         return false
     end
 
-    -- Custom Block List Check
-    -- if OWSV.useCustomBlockList and OWSV.customBlockList[id] then
-    --     DebugPrint("condition", "Custom Block List: Spell blocked by custom block list")
-    --     return true
+    -- if OWSV.blockAoEIfNoTarget and isGround and not DoesUnitExist('reticleover') then -- Dosen´t work!, will fix it later (Wish from kalitva) =================================================== 
+    --     DebugPrint("condition", "Target check for AoE, Block AoE") 
+    --     return true -- Block
     -- end
+
+    -- Resource-Based Block List Check
+    if OWSV.useCustomResourceBlockList and CheckResourceBlockList(id) then
+        DebugPrint("condition", "Spell blocked by resource block list")
+        return true
+    end
+
+    -- Custom Block List Check
     if OWSV.useCustomBlockList and OWSV.customBlockList[id] then
         DebugPrint("condition", "Custom Block List: Spell found in custom block list")
         
@@ -1049,15 +1242,6 @@ local function CanUseActionSlots()
 
 
     -- Custom Recast Block List Check
-    -- if OWSV.useCustomRecastBlockList and OWSV.customRecastBlockList[id] then
-    --     local timeRemainingMS = GetActionSlotEffectTimeRemaining(slot)
-    --     DebugPrint("condition", string.format("Custom Recast Block: timeRemainingMS = %d, threshold = %d", timeRemainingMS, OWSV.recastBlockTime * 1000))
-    --     if timeRemainingMS > (OWSV.recastBlockTime * 1000) then
-    --         DebugPrint("condition", "Custom Recast Block: Spell blocked by custom recast block list")
-    --         return true
-    --     end
-    -- end
-
     if OWSV.useCustomRecastBlockList and OWSV.customRecastBlockList[id] then
         DebugPrint("condition", "Custom Recast Block List: Spell found in custom recast block list")
         
@@ -1081,7 +1265,6 @@ local function CanUseActionSlots()
         end
     end
 
-
     -- PvP Deactivation Check
     local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
     if OWSV.deactivateInPvP.features and inPvPWorld then
@@ -1091,7 +1274,6 @@ local function CanUseActionSlots()
 
     -- disable on backbar
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
-    --d("ActiveWeaponPair"..ActiveWeaponPair)
     if (OWSV.deactivateOnBackbar.features  and (ActiveWeaponPair == 2)) or (OWSV.deactivateOnWeapon.features  and deactivateBasedOnWeapon()) then
         DebugPrint("block", "disable features")
         return false
@@ -1135,7 +1317,6 @@ local function CanUseActionSlots()
         end
     end
 
-    --local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() -- Helper variable
     -- Light Morphs & Hunter Morphs block in non-PvP areas
     if not (OWSV.deactivateHunterLightInPvP and inPvPWorld) then
         -- Mages Guild Light morphs block
@@ -1150,9 +1331,14 @@ local function CanUseActionSlots()
         DebugPrint("condition", "MoltenWhip block")
         return true
     end
+    
+    if OWSV.mode == 4 and GCD_STAGE > 0 and not(GCD_STAGE == 3) and slot >= 3 and slot <= 8 then
+        DebugPrint("condition", "GCD_STAGE block")
+        return true
+    end    
 
     -- Special case blocking
-    if (ignore and not isGround) or IsBlockedAbilityID(id) then
+    if (ignore and not isGround) or IsBlockedNeverAbilityID(id) then
         return false
     end
 
@@ -1171,16 +1357,18 @@ local function CanUseActionSlots()
 
     -- Final decision matrix
     local allow = GCD_STAGE > 0 and 
-                 slot >= 3 and slot <= 8 and 
-                 (isGround or (not IsBlockedAbilityID(id))) and 
-                 (GCD_STAGE >= 3 or OWSV.mode == 1 or isGround)
+                slot >= 3 and slot <= 8 and 
+                (isGround or (not IsBlockedNeverAbilityID(id))) and 
+                (GCD_STAGE >= 3 or OWSV.mode == 1 or isGround)
     
+
     -- Hard mode queuing
-    if not allow and cd > 0 and OWSV.mode == 1 then
+    if not allow and cd > 0 and (OWSV.mode == 1 or OWSV.mode == 4) then
         GCD_STAGE = 4
     end
     
     return allow
+
 end
 
 -- =============================================================================
@@ -1201,6 +1389,7 @@ end
 -- @param slot: Activated action slot
 --------------------------------------------------------------------------------
 local function AbilityUsed(_, slot)
+
     if OWSV.mode == 3 then 
         return
     end
@@ -1260,7 +1449,7 @@ local function AddToBlockList(abilityId, abilityName)
     
     OWSV.customBlockList[abilityId] = true
     d(string.format(
-        "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s|r", 
+        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
         abilityId, 
         abilityName
     ))
@@ -1276,12 +1465,47 @@ local function AddToRecastBlockList(abilityId, abilityName)
     
     OWSV.customRecastBlockList[abilityId] = true
     d(string.format(
-        "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s|r", 
+        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
         abilityId, 
         abilityName
     ))
 end
 
+--------------------------------------------------------------------------------
+-- Add Ability to Resource Block List
+-- @param abilityId: The ID of the ability to add
+-- @param abilityName: The name of the ability (for display)
+--------------------------------------------------------------------------------
+local function AddToResourceBlockList(abilityId, abilityName)
+    if not OWSV then return end
+    
+    -- Check if spell already exists in resource block list
+    if OWSV.customResourceBlockList[abilityId] ~= nil then
+        d(string.format(
+            '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFSpell already in Resource Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
+            abilityId, 
+            abilityName
+        ))
+        return
+    end
+    
+    -- Add Spell to resource block list with default structure
+    OWSV.customResourceBlockList[abilityId] = {
+        blocked = false,           -- Complete blocked
+        magickaCheck = false,      -- If Magicka check is used
+        magickaBlock = false,      -- Block when magicka below threshold (true=block, false=allow only)
+        magickaPercent = 0,        -- Magicka percentage threshold
+        staminaCheck = false,      -- If Stamina check is used
+        staminaBlock = false,      -- Block when stamina below threshold (true=block, false=allow only)
+        staminaPercent = 0,        -- Stamina percentage threshold
+    }
+    
+    d(string.format(
+        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Resource Block List: |c00FF00%d|r|cFFFFFF - %s (configure resource checks in settings then "/reloadui")|r', 
+        abilityId, 
+        abilityName
+    ))
+end
 
 -- =============================================================================
 -- == ABILITY ID DISPLAY HOOKS =================================================
@@ -1319,21 +1543,40 @@ local function HookActionBarRightClick()
                     local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
                     
                     ClearMenu()
-                    AddCustomMenuItem("Show Ability ID", function()
-                        d(string.format(
-                            "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
-                            abilityId, 
-                            abilityName
-                        ))
-                    end)
                     
-                    AddCustomMenuItem("Add to Block List", function()
-                        AddToBlockList(abilityId, abilityName)
-                    end)
+                    local entries = {
+                        {
+                            label = "Show Ability ID",
+                            callback = function()
+                                d(string.format(
+                                    "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                                    abilityId, 
+                                    abilityName
+                                ))
+                            end
+                        },
+                        {
+                            label = "Add to Block List",
+                            callback = function()
+                                AddToBlockList(abilityId, abilityName)
+                            end
+                        },
+                        {
+                            label = "Add to Recast Block List",
+                            callback = function()
+                                AddToRecastBlockList(abilityId, abilityName)
+                            end
+                        },
+                        {
+                            label = "Add to Resource Block List",
+                            callback = function()
+                                AddToResourceBlockList(abilityId, abilityName)
+                            end
+                        }
+                    }
                     
-                    AddCustomMenuItem("Add to Recast Block List", function()
-                        AddToRecastBlockList(abilityId, abilityName)
-                    end)
+                    AddCustomSubMenuItem("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r", entries)
+                    --AddCustomMenuTooltip("A sub-menu with ability options")
                     
                     ShowMenu(abilitySlot)
                     
@@ -1363,21 +1606,41 @@ local function HookAssignableSkillsMenu()
             local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
             
             ClearMenu()
-            AddCustomMenuItem("Show Ability ID", function()
-                d(string.format(
-                    "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
-                    abilityId, 
-                    abilityName
-                ))
-            end)
             
-            AddCustomMenuItem("Add to Block List", function()
-                AddToBlockList(abilityId, abilityName)
-            end)
+            -- Alle Menüpunkte in ein Sub-Menü packen
+            local entries = {
+                {
+                    label = "Show Ability ID",
+                    callback = function()
+                        d(string.format(
+                            "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                            abilityId, 
+                            abilityName
+                        ))
+                    end
+                },
+                {
+                    label = "Add to Block List",
+                    callback = function()
+                        AddToBlockList(abilityId, abilityName)
+                    end
+                },
+                {
+                    label = "Add to Recast Block List",
+                    callback = function()
+                        AddToRecastBlockList(abilityId, abilityName)
+                    end
+                },
+                {
+                    label = "Add to Resource Block List",
+                    callback = function()
+                        AddToResourceBlockList(abilityId, abilityName)
+                    end
+                }
+            }
             
-            AddCustomMenuItem("Add to Recast Block List", function()
-                AddToRecastBlockList(abilityId, abilityName)
-            end)
+            AddCustomSubMenuItem("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r", entries)
+            --AddCustomMenuTooltip("A sub-menu with ability options")
             
             ShowMenu(self.button)
             
@@ -1399,6 +1662,7 @@ local function SetupAbilityIDHooks()
     HookAssignableSkillsMenu()
 end
 
+
 -- =============================================================================
 -- == SYSTEM INITIALIZATION ====================================================
 -- =============================================================================
@@ -1419,18 +1683,18 @@ local function Initialize()
     -- Load persistent settings
     OWSV = ZO_SavedVars:NewAccountWide('OptimalWeaveSV', 1, nil, defaults)
 
+    OW.TEMP_SPELL_ID = OW.TEMP_SPELL_ID or ""
+    OW.TEMP_RECAST_SPELL_ID = OW.TEMP_RECAST_SPELL_ID or ""
+    OW.TEMP_RESOURCE_SPELL_ID = OW.TEMP_RESOURCE_SPELL_ID or ""
+
     SetupAbilityIDHooks()
 
     -- Reset tracking
-	if OWSV.resetOnBarswap then
-		EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) -- changed bar
-	end
+	EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) 
 
-	if OWSV.resetOnDodge then
-		EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCDOnDodge)
-		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
-		EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549)
-	end
+    EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCDOnDodge)
+    EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549) -- https://esoitem.uesp.net/viewSkillCoef.php
 
     EM:RegisterForEvent(NAME, EVENT_PLAYER_SWIMMING, ResetGCD)
     EM:RegisterForEvent(NAME, EVENT_PLAYER_DEAD, ResetGCD)
@@ -1481,13 +1745,12 @@ local function Initialize()
         EM:RegisterForEvent(NAME .. "_EquipLoot", EVENT_LOOT_CLOSED, EquipWeaponsStateChange)
         EM:RegisterForEvent(NAME .. "_EquipActivated", EVENT_PLAYER_ACTIVATED, EquipWeaponsStateChange)
         EM:RegisterForEvent(NAME .. "_EquipSwimming", EVENT_PLAYER_NOT_SWIMMING, EquipWeaponsStateChange)
-        --EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
+        EM:RegisterForEvent(NAME .. "_EquipInteraction", EVENT_INTERACTION_ENDED, EquipWeaponsStateChange)
     end    
 
     -- Action system integration
     EM:RegisterForEvent(NAME, EVENT_ACTION_SLOT_ABILITY_USED, AbilityUsed)
     ZO_PreHook("ZO_ActionBar_CanUseActionSlots", CanUseActionSlots)
-
     -- Menu system initialization
     OW.BuildMenu(OWSV, defaults)
    

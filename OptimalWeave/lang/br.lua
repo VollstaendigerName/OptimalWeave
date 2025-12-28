@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP", "|cFF0000Aviso legal:|r Este add
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Configurações principais")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Modo de operação")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Rígido:|r Bloqueio total. Sem fila durante GCD.\n|cFFFF00Inteligente:|r Fila permitida apenas sem Ataque Leve.\n|c00FFFFNenhum:|r Desativado.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sequencial:|r Permite usar habilidades apenas após um ataque leve.\n|cFF0000Rígido:|r Bloqueio total. Sem fila durante GCD.\n|cFFFF00Inteligente:|r Fila permitida apenas sem Ataque Leve.\n|c00FFFFNenhum:|r Desativado.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sequencial")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Rígido")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Inteligente")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Nenhum")

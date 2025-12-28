@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Відмова від 
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Основні налаштування")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Режим роботи")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Суворий:|r Повне блокування. Черга відсутня під час GCD.\n|cFFFF00Розумний:|r Черга дозволена лише без очікуваної легкої атаки.\n|c00FFFFВідсутній:|r Вимкнено.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Послідовний:|r Дозволяє використовувати вміння лише після легкої атаки.\n|cFF0000Суворий:|r Повне блокування. Черга відсутня під час GCD.\n|cFFFF00Розумний:|r Черга дозволена лише без очікуваної легкої атаки.\n|c00FFFFВідсутній:|r Вимкнено.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Послідовний")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Суворий")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Розумний")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Відсутній")

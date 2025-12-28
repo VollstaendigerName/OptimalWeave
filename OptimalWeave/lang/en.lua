@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Disclaimer:|r This add
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Core Settings")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Operating Mode")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Strict:|r Strict blocking. No skill queuing during GCD.\n|cFFFF00Intelligent:|r Smart blocking. Skill queuing allowed only if no Light Attack is queued.\n|c00FFFFDisabled:|r Disabled.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sequential:|r Allows ability usage only after a Light Attack has been performed.\n|cFF0000Strict:|r Strict blocking. No skill queuing during GCD.\n|cFFFF00Intelligent:|r Smart blocking. Skill queuing allowed only if no Light Attack is queued.\n|c00FFFFDisabled:|r Disabled.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sequential")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Strict")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Intelligent")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Disabled")
@@ -69,6 +70,9 @@ ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "Disable features in PvP")
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "Disables most addon features in PvP areas")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "Disable weave assist in PvP")
 ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "Disables the weave assist (GCD management) in PvP areas")
+
+ZO_CreateStringId("OW_MENU_BLOCKAOEIFNOTARGET_LABEL", "Block AoE Without Target")
+ZO_CreateStringId("OW_MENU_BLOCKAOEIFNOTARGET_TOOLTIP", "Blocks ground-targeted abilities when no target is selected")
 
 -- =============================================================================
 -- == BLOCK ID SETTINGS ========================================================
@@ -313,6 +317,32 @@ ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Error: Please enter a 
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Spell ID does not exist")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT",  "Spell ID is already in the block list")
 
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Resource-Based Block List")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Add spell IDs to block them when your primary resource (Magicka or Stamina) is below the threshold. You can also add spells by right-clicking on the action bar slot (requires reload).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Enable Resource-Based Block List")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Enable or disable the resource-based block list functionality")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Enable Resource Check")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "When enabled, spells in the resource block list will only be blocked if your primary resource (Magicka or Stamina) is above the threshold.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Resource Threshold (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Resource block list spells are only blocked when your primary resource (Magicka or Stamina) is above this percentage.")
+
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Spell: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Magicka Check")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Enable magicka-based blocking for this spell")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Block when Magicka below threshold")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Block spell when magicka is below threshold (uncheck to allow only when below)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Magicka Threshold (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Magicka percentage threshold")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Stamina Check")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Enable stamina-based blocking for this spell")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Block when Stamina below threshold")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Block spell when stamina is below threshold (uncheck to allow only when below)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Stamina Threshold (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Stamina percentage threshold")
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
 -- =============================================================================

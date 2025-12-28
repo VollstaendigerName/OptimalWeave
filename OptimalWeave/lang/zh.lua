@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000免责声明:|r 本插
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "核心设置")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "操作模式")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000严格:|r 完全阻止。\n|cFFFF00智能:|r 无轻击时允许队列。\n|c00FFFF无:|r 禁用。")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00顺序:|r 仅在进行轻攻击后才允许使用技能。\n|cFF0000严格:|r 完全阻止。\n|cFFFF00智能:|r 无轻击时允许队列。\n|c00FFFF无:|r 禁用。")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "顺序")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "严格")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "智能")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "无")

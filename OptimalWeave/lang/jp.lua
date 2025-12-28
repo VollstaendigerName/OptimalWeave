@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/jp.lua
     Description:        Japanese localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP", "|cFF0000免責事項:|r 本ア�
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "基本設定")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "動作モード")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000厳格:|r 完全ブロック。GCD中キュー不可\n|cFFFF00スマート:|r 軽攻撃がない場合のみキュー許可\n|c00FFFFなし:|r 無効")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00シーケンシャル:|r 軽攻撃の後にのみアビリティを使用できます。\n|cFF0000厳格:|r 完全ブロック。GCD中キュー不可\n|cFFFF00スマート:|r 軽攻撃がない場合のみキュー許可\n|c00FFFFなし:|r 無効")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "シーケンシャル")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "厳格")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "スマート")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "なし")

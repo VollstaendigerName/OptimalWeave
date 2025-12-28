@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/tr.lua
     Description:        Turkish localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -43,7 +43,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Uyarı:|rBu eklenti Ze
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Ana Ayarlar")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Çalışma Modu")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Katı:|r Katı bloklama. GCD sırasında yetenek sıralaması yok.\n|cFFFF00Akıllı:|r Akıllı bloklama. Kuyrukta Hafif Saldırı yoksa yetenek sıralamasına izin verilir.\n|c00FFFFDevre Dışı:|r Devre dışı.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sıralı:|r Yetenek kullanımına yalnızca hafif saldırıdan sonra izin verir.\n|cFF0000Katı:|r Katı bloklama. GCD sırasında yetenek sıralaması yok.\n|cFFFF00Akıllı:|r Akıllı bloklama. Kuyrukta Hafif Saldırı yoksa yetenek sıralamasına izin verilir.\n|c00FFFFDevre Dışı:|r Devre dışı.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sıralı")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Katı")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Akıllı")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Devre Dışı")

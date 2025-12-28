@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Отказ от отв
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Основные Настройки")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Режим Работы")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Строгий:|r Полная блокировка.\n|cFFFF00Умный:|r Очередь без легкой атаки.\n|c00FFFFНет:|r Отключено.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Последовательный:|r Позволяет использовать способности только после лёгкой атаки.\n|cFF0000Строгий:|r Полная блокировка.\n|cFFFF00Умный:|r Очередь без легкой атаки.\n|c00FFFFНет:|r Отключено.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Последовательный")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Строгий")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Умный")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Нет")

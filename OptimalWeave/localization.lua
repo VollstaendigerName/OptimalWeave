@@ -9,7 +9,7 @@
                         MUST load after all language files in manifest.
     Dependencies:       lang/*.lua files
     Author:             Orollas & VollständigerName
-    Version:            1.4.2
+    Version:            1.12.0
 --]]
 -- =============================================================================
 
@@ -59,7 +59,14 @@ OW.L = function(key, ...)
     -- Retrieve and format string ----------------------------------------------
     local stringId = _G[key]              -- Get registered string ID
     local formatArgs = { ... }            -- Capture variable arguments
-    local formattedString = GetString(stringId, unpack(formatArgs))  -- ESO API call
+    
+    -- Format string only if arguments exist
+    local formattedString
+    if #formatArgs > 0 then
+        formattedString = GetString(stringId, unpack(formatArgs))  -- ESO API call with args
+    else
+        formattedString = GetString(stringId)  -- Simple string without formatting
+    end
     
     -- Return final processed string
     return formattedString

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ko.lua
     Description:        Korean localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000고지사항:|r이 애
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "핵심 설정")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "작동 모드")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000엄격:|r 엄격한 차단. GCD 중 기술 큐 없음.\n|cFFFF00지능형:|r 스마트 차단. 경량 공격이 큐에 없을 때만 기술 큐 허용.\n|c00FFFF비활성:|r 비활성.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00순차적:|r 경공격 후에만 능력을 사용할 수 있습니다.\n|cFF0000엄격:|r 엄격한 차단. GCD 중 기술 큐 없음.\n|cFFFF00지능형:|r 스마트 차단. 경량 공격이 큐에 없을 때만 기술 큐 허용.\n|c00FFFF비활성:|r 비활성.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "순차적")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "엄격")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "지능형")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "비활성")

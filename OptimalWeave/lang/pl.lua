@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -42,7 +42,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP", "|cFF0000Ostrzeżenie:|r Ten dod
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Ustawienia główne")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Tryb działania")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Ścisły:|r Pełna blokada. Brak kolejki podczas GCD.\n|cFFFF00Inteligentny:|r Kolejka dozwolona tylko bez oczekującego Lekkiego Ataku.\n|c00FFFFBrak:|r Wyłączone.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sekwencyjny:|r Pozwala używać umiejętności tylko po wykonaniu lekkiego ataku.\n|cFF0000Ścisły:|r Pełna blokada. Brak kolejki podczas GCD.\n|cFFFF00Inteligentny:|r Kolejka dozwolona tylko bez oczekującego Lekkiego Ataku.\n|c00FFFFBrak:|r Wyłączone.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sekwencyjny")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Ścisły")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Inteligentny")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Brak")

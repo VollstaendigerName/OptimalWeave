@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.11.0
+    Version:            1.12.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -44,7 +44,8 @@ ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Hinweis:|rDiese Erweit
 
 ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Haupteinstellungen")
 ZO_CreateStringId("OW_MENU_MODE_LABEL", "Betriebsmodus")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|cFF0000Strikt:|r Strikte Blockade. Kein Skill-Queuing während GCD.\n|cFFFF00Intelligent:|r Smarte Blockade. Skill-Queuing nur erlaubt, wenn kein Leichter Angriff in der Queue ist.\n|c00FFFFDeaktiviert:|r Deaktiviert.")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sequenziell:|r Erlaubt das Wirken von Fähigkeiten nur nach einem ausgeführten Leichtangriff.\n|cFF0000Strikt:|r Strikte Blockade. Kein Skill-Queuing während GCD.\n|cFFFF00Intelligent:|r Smarte Blockade. Skill-Queuing nur erlaubt, wenn kein Leichter Angriff in der Queue ist.\n|c00FFFFDeaktiviert:|r Deaktiviert.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sequenziell")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Strikt")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Intelligent")
 ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Deaktiviert")
@@ -290,7 +291,6 @@ ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Fähigkei
 -- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
 -- =============================================================================
 
--- BENUTZERKONFIGURIERBARE RECAST-BLOCKLISTE
 ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Benutzerdefinierte Recast-Blockliste")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI)")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "Fähigkeits-ID")
@@ -317,6 +317,19 @@ ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Fehler: Bitte gib eine gültige Fähigkeits-ID ein")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Fähigkeits-ID existiert nicht")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "Fähigkeits-ID ist bereits in der Blockliste")
+
+-- =============================================================================
+-- == RESOURCE-BASIERTE BLOCKLISTEN-EINSTELLUNGEN ==============================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Ressourcenbasierte Blockliste")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren, wenn deine Hauptressource (Magicka oder Ausdauer) unter dem Schwellenwert liegt. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Ressourcenbasierte Blockliste aktivieren")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die ressourcenbasierte Blocklisten-Funktionalität")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Ressourcenprüfung aktivieren")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Wenn aktiviert, werden Fähigkeiten in der ressourcenbasierten Blockliste nur blockiert, wenn deine Hauptressource (Magicka oder Ausdauer) über dem Schwellenwert liegt.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Ressourcen-Schwellenwert (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Fähigkeiten in der ressourcenbasierten Blockliste werden nur blockiert, wenn deine Hauptressource (Magicka oder Ausdauer) über diesem Prozentsatz liegt.")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================

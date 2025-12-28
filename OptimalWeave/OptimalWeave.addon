@@ -1,10 +1,10 @@
 ## Title: |c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r
-## Version: 1.11.0
+## Version: 1.12.0
 ## APIVersion: 101048
-## AddOnVersion: 1
+## AddOnVersion: 1120
 ## Author: |c8A2BE2Orollas|r & |cEBD03CVollständigerName|r
 ## SavedVariables: OptimalWeaveSV
-## DependsOn: LibAddonMenu-2.0>=41
+## DependsOn: LibAddonMenu-2.0>=41 LibCustomMenu>=730
 
 main.lua
 lang/en.lua
