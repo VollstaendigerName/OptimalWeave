@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -303,14 +303,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Um
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID umiejętności zostało dodane. Jeśli nie chcesz dodawać więcej umiejętności, przeładuj interfejs, aby zmiany zostały wyświetlone")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Przeładuj Interfejs")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Dodaj więcej")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID umiejętności został dodany/usunięty. Jeśli nie chcesz dodawać lub usuwać więcej umiejętności, przeładuj interfejs, aby zmiany zostały wyświetlone.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Przeładuj interfejs")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Później")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Błąd: Wprowadź prawidłowe ID umiejętności")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID umiejętności nie istnieje")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID umiejętności jest już na liście blokowania")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Lista blokowania oparta na zasobach")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Dodaj ID umiejętności, aby blokować je, gdy twój główny zasób (Magia lub Wytrzymałość) jest poniżej progu. Możesz także dodawać umiejętności, klikając prawym przyciskiem na slot paska akcji (wymaga przeładowania interfejsu).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Włącz listę blokowania opartą na zasobach")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Włącza lub wyłącza funkcjonalność listy blokowania opartej na zasobach")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Włącz kontrolę zasobów")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Gdy włączone, umiejętności na liście blokowania zasobów będą blokowane tylko wtedy, gdy twój główny zasób (Magia lub Wytrzymałość) jest powyżej progu.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Próg zasobu (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Umiejętności na liście blokowania zasobów są blokowane tylko wtedy, gdy twój główny zasób (Magia lub Wytrzymałość) jest powyżej tego procentu.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Umiejętność: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Kontrola Magii")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Włącz blokowanie oparte na Magii dla tej umiejętności")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Blokuj, gdy Magia jest poniżej progu")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Blokuj umiejętność, gdy Magia jest poniżej progu (odznacz, aby zezwalać tylko gdy poniżej)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Próg Magii (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Próg procentowy Magii")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Kontrola Wytrzymałości")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Włącz blokowanie oparte na Wytrzymałości dla tej umiejętności")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Blokuj, gdy Wytrzymałość jest poniżej progu")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Blokuj umiejętność, gdy Wytrzymałość jest poniżej progu (odznacz, aby zezwalać tylko gdy poniżej)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Próg Wytrzymałości (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Próg procentowy Wytrzymałości")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -323,6 +349,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Przełącz Wyłączanie Funkcji Drugiego Paska")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Przełącz Wyłączanie Asystenta Przeplatania na Drugim Pasku")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Przełącz Sprawdzanie Egzekucji")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Usuń")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Usuń tę umiejętność z listy blokowania (wymagane /reloadui)")
 
 -- =============================================================================
 -- === END OF POLISH LOCALIZATION ==============================================

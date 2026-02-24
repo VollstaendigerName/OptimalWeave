@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -302,9 +302,9 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Lo
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "El ID del hechizo ha sido añadido. Si no quieres añadir más hechizos, por favor recarga la interfaz para que los cambios se muestren")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recargar Interfaz")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Añadir más")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "El ID del hechizo ha sido añadido/eliminado. Si no quieres añadir o eliminar más hechizos, por favor recarga la interfaz para que los cambios se muestren.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recargar interfaz")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Más tarde")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Error: Por favor introduce un ID de hechizo válido")
@@ -312,19 +312,50 @@ ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "El ID del hechizo no
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "El ID del hechizo ya está en la lista de bloqueo")
 
 -- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Lista de bloqueo basada en recursos")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Añade IDs de hechizos para bloquearlos cuando tu recurso principal (Magia o Aguante) esté por debajo del umbral. También puedes añadir hechizos haciendo clic derecho en la ranura de la barra de acción (requiere recarga).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Activar lista de bloqueo basada en recursos")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Activa o desactiva la funcionalidad de la lista de bloqueo basada en recursos")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Activar verificación de recursos")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Cuando está activado, los hechizos en la lista de bloqueo de recursos solo se bloquearán si tu recurso principal (Magia o Aguante) está por encima del umbral.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Umbral de recurso (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Los hechizos de la lista de bloqueo de recursos solo se bloquean cuando tu recurso principal (Magia o Aguante) está por encima de este porcentaje.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Hechizo: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Verificación de Magia")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Activar el bloqueo basado en Magia para este hechizo")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Bloquear cuando la Magia esté por debajo del umbral")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Bloquear hechizo cuando la Magia esté por debajo del umbral (desmarcar para permitir solo cuando esté por debajo)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Umbral de Magia (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Umbral de porcentaje de Magia")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Verificación de Aguante")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Activar el bloqueo basado en Aguante para este hechizo")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Bloquear cuando el Aguante esté por debajo del umbral")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Bloquear hechizo cuando el Aguante esté por debajo del umbral (desmarcar para permitir solo cuando esté por debajo)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Umbral de Aguante (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Umbral de porcentaje de Aguante")
+
+-- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
 -- =============================================================================
 
--- Categoría
 ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
 
--- Acciones
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Alternar Modo (Estricto/Inteligente/Desactivado)")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Alternar Lista de Bloqueo Personalizada")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Alternar Lista de Bloqueo de Relanzamiento Personalizada")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alternar Desactivación de Funciones de la Barra Secundaria")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alternar Desactivación del Asistente de Tejido en la Barra Secundaria")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alternar Verificación de Ejecución")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Eliminar")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Eliminar este hechizo de la lista de bloqueo (/reloadui requerido)")
 
 -- =============================================================================
 -- === END OF SPANISH LOCALIZATION =============================================

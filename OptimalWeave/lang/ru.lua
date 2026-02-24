@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -305,14 +305,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "З
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID способности добавлен. Если вы не хотите добавлять больше способностей, перезагрузите интерфейс, чтобы изменения отобразились")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID способности был добавлен/удален. Если вы не хотите добавлять или удалять другие способности, пожалуйста, перезагрузите интерфейс, чтобы изменения отобразились.")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Перезагрузить интерфейс")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Добавить ещё")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Позже")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Ошибка: Введите корректный ID способности")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID способности не существует")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID способности уже в списке блокировки")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Блок-лист на основе ресурсов")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Добавьте ID способностей, чтобы блокировать их, когда ваш основной ресурс (Магия или Выносливость) ниже порога. Вы также можете добавлять способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Включить блок-лист на основе ресурсов")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Включить или отключить функциональность блок-листа на основе ресурсов")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Включить проверку ресурса")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Если включено, способности в блок-листе ресурсов будут блокироваться только если ваш основной ресурс (Магия или Выносливость) выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Порог ресурса (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Способности в блок-листе ресурсов блокируются только когда ваш основной ресурс (Магия или Выносливость) выше этого процента.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Способность: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Проверка Магии")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Включить блокировку на основе Магии для этой способности")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Блокировать, когда Магия ниже порога")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Блокировать способность, когда Магия ниже порога (снимите флажок, чтобы разрешать только когда ниже)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Порог Магии (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Пороговый процент Магии")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Проверка Выносливости")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Включить блокировку на основе Выносливости для этой способности")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Блокировать, когда Выносливость ниже порога")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Блокировать способность, когда Выносливость ниже порога (снимите флажок, чтобы разрешать только когда ниже)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Порог Выносливости (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Пороговый процент Выносливости")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -325,6 +351,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Переключить отключение функций второй панели")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Переключить отключение ассистента плетения на второй панели")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Переключить проверку добивания")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Удалить")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Удалить это заклинание из списка блокировки (требуется /reloadui)")
 
 -- =============================================================================
 -- === END OF RUSSIAN LOCALIZATION ============================================

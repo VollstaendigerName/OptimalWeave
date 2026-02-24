@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -305,14 +305,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Fe
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID da habilidade foi adicionada. Se você não quiser adicionar mais habilidades, por favor recarregue a interface para que as mudanças sejam exibidas")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recarregar Interface")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Adicionar mais")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID da habilidade foi adicionada/removida. Se você não quiser adicionar ou remover mais habilidades, por favor recarregue a interface para que as mudanças sejam exibidas.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recarregar interface")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Mais tarde")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Erro: Por favor insira um ID de habilidade válido")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID da habilidade não existe")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID da habilidade já está na lista de bloqueio")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Lista de bloqueio baseada em recursos")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Adicione IDs de habilidades para bloqueá-las quando seu recurso principal (Magicka ou Vigor) estiver abaixo do limite. Você também pode adicionar habilidades clicando com o botão direito no slot da barra de ação (requer recarregar a interface).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Ativar lista de bloqueio baseada em recursos")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Ativa ou desativa a funcionalidade da lista de bloqueio baseada em recursos")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Ativar verificação de recurso")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Quando ativado, as habilidades na lista de bloqueio de recursos só serão bloqueadas se seu recurso principal (Magicka ou Vigor) estiver acima do limite.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Limite de recurso (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "As habilidades na lista de bloqueio de recursos só são bloqueadas quando seu recurso principal (Magicka ou Vigor) está acima desta porcentagem.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Habilidade: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Verificação de Magicka")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Ativar bloqueio baseado em Magicka para esta habilidade")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Bloquear quando Magicka estiver abaixo do limite")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Bloquear habilidade quando Magicka estiver abaixo do limite (desmarque para permitir apenas quando abaixo)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Limite de Magicka (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Limite percentual de Magicka")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Verificação de Vigor")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Ativar bloqueio baseado em Vigor para esta habilidade")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Bloquear quando Vigor estiver abaixo do limite")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Bloquear habilidade quando Vigor estiver abaixo do limite (desmarque para permitir apenas quando abaixo)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Limite de Vigor (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Limite percentual de Vigor")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -325,6 +351,14 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alternar Desativação de Recursos da Barra Secundária")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alternar Desativação do Assistente de Tecelagem na Barra Secundária")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alternar Verificação de Execução")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Remover")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Remover esta habilidade da lista de bloqueio (/reloadui necessário)")
+
 -- =============================================================================
 -- === END OF BRAZILIAN PORTUGUESE LOCALIZATION ===============================
 -- =============================================================================

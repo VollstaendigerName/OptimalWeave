@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -304,14 +304,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Gl
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID dell'abilità è stato aggiunto. Se non vuoi aggiungere altre abilità, per favore ricarica l'interfaccia per visualizzare i cambiamenti")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Ricarica Interfaccia")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Aggiungi altre")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID dell'abilità è stato aggiunto/rimosso. Se non vuoi aggiungere o rimuovere altre abilità, per favore ricarica l'interfaccia per visualizzare i cambiamenti.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Ricarica interfaccia")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Più tardi")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Errore: Inserisci un ID abilità valido")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "L'ID dell'abilità non esiste")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "L'ID dell'abilità è già nella lista di blocco")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Lista di blocco basata sulle risorse")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Aggiungi ID abilità per bloccarle quando la tua risorsa principale (Magicka o Vigore) è sotto la soglia. Puoi anche aggiungere abilità facendo clic con il tasto destro sullo slot della barra delle azioni (richiede ricaricamento).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Abilita lista di blocco basata sulle risorse")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Abilita o disabilita la funzionalità della lista di blocco basata sulle risorse")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Abilita controllo risorsa")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Quando abilitato, le abilità nella lista di blocco risorse saranno bloccate solo se la tua risorsa principale (Magicka o Vigore) è sopra la soglia.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Soglia risorsa (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Le abilità nella lista di blocco risorse sono bloccate solo quando la tua risorsa principale (Magicka o Vigore) è superiore a questa percentuale.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Abilità: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Controllo Magicka")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Abilita il blocco basato su Magicka per questa abilità")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Blocca quando Magicka è sotto la soglia")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Blocca l'abilità quando Magicka è sotto la soglia (deseleziona per consentire solo quando sotto)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Soglia Magicka (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Soglia percentuale di Magicka")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Controllo Vigore")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Abilita il blocco basato su Vigore per questa abilità")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Blocca quando Vigore è sotto la soglia")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Blocca l'abilità quando Vigore è sotto la soglia (deseleziona per consentire solo quando sotto)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Soglia Vigore (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Soglia percentuale di Vigore")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -324,6 +350,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Alterna Disattivazione Funzioni Barra Secondaria")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Alterna Disattivazione Assistente Tessitura Barra Secondaria")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alterna Controllo Esecuzione")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Rimuovi")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Rimuovi questa abilità dalla lista di blocco (/reloadui richiesto)")
 
 -- =============================================================================
 -- === END OF ITALIAN LOCALIZATION ============================================

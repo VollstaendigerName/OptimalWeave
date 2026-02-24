@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -308,9 +308,9 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Re
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Spell ID has been added. If you do not want to add any more spells, please reload the UI so that the spells can be displayed")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Spell ID has been added/removed. If you do not want to add any more spells, please reload the UI so that the spells can be displayed")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Reload UI")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Add more")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Later")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Error: Please enter a valid spell ID")
@@ -343,6 +343,7 @@ ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Block when Stamina bel
 ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Block spell when stamina is below threshold (uncheck to allow only when below)")
 ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Stamina Threshold (%)")
 ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Stamina percentage threshold")
+
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
 -- =============================================================================
@@ -354,6 +355,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Toggle Backbar Features Deactivation")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Toggle Backbar Weave Assist Deactivation")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Toggle Execute Check")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Remove")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Remove this spell from the block list (/reloadui required)")
 
 -- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -295,7 +295,7 @@ ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Benutzerdefinierte 
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI)")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "Fähigkeits-ID")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Gib die numerische Fähigkeits-ID ein (z. B. 185805)")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Zur Recast-Blockliste hinzufügen")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Zur Blockliste hinzufügen")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Recast-blockierte Fähigkeiten:")
 ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Benutzerdefinierte Recast-Blockliste aktivieren")
 ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die Funktionalität der benutzerdefinierten Recast-Blockliste")
@@ -309,9 +309,9 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "F�
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Fähigkeits-ID wurde hinzugefügt. Wenn du keine weiteren Fähigkeiten hinzufügen möchtest, lade bitte die UI neu, damit die Änderungen angezeigt werden können")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Fähigkeits-ID wurde hinzugefügt/entfernt. Wenn du keine weiteren Fähigkeiten hinzufügen möchtest, lade bitte die UI neu, damit die Änderungen angezeigt werden können")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "UI neu laden")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Weitere hinzufügen")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Später")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Fehler: Bitte gib eine gültige Fähigkeits-ID ein")
@@ -319,17 +319,30 @@ ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Fähigkeits-ID exist
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "Fähigkeits-ID ist bereits in der Blockliste")
 
 -- =============================================================================
--- == RESOURCE-BASIERTE BLOCKLISTEN-EINSTELLUNGEN ==============================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
 -- =============================================================================
 
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Ressourcenbasierte Blockliste")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Füge Fähigkeits-IDs hinzu, um sie zu blockieren, wenn deine Hauptressource (Magicka oder Ausdauer) unter dem Schwellenwert liegt. Du kannst Fähigkeiten auch durch Rechtsklick auf den Aktionsleisten-Slot hinzufügen (benötigt Neuladen der UI).")
 ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Ressourcenbasierte Blockliste aktivieren")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die ressourcenbasierte Blocklisten-Funktionalität")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Aktiviert oder deaktiviert die Funktionalität der ressourcenbasierten Blockliste")
 ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Ressourcenprüfung aktivieren")
 ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Wenn aktiviert, werden Fähigkeiten in der ressourcenbasierten Blockliste nur blockiert, wenn deine Hauptressource (Magicka oder Ausdauer) über dem Schwellenwert liegt.")
 ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Ressourcen-Schwellenwert (%)")
 ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Fähigkeiten in der ressourcenbasierten Blockliste werden nur blockiert, wenn deine Hauptressource (Magicka oder Ausdauer) über diesem Prozentsatz liegt.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Fähigkeit: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Magicka-Prüfung")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Aktiviert die Magicka-basierte Blockierung für diese Fähigkeit")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Blockieren, wenn Magicka unter Schwellenwert")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Fähigkeit blockieren, wenn Magicka unter dem Schwellenwert liegt (deaktivieren, um nur unterhalb zuzulassen)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Magicka-Schwellenwert (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Magicka-Prozentsatz-Schwellenwert")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Ausdauer-Prüfung")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Aktiviert die Ausdauer-basierte Blockierung für diese Fähigkeit")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Blockieren, wenn Ausdauer unter Schwellenwert")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Fähigkeit blockieren, wenn Ausdauer unter dem Schwellenwert liegt (deaktivieren, um nur unterhalb zuzulassen)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Ausdauer-Schwellenwert (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Ausdauer-Prozentsatz-Schwellenwert")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -342,6 +355,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Hinterleisten-Funktionen umschalten")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Weave-Assistent auf der Hinterleiste umschalten")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Execute-Prüfung umschalten")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Entfernen")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Diese Fähigkeit von der Blockliste entfernen (/reloadui erforderlich)")
 
 -- =============================================================================
 -- === END OF GERMAN LOCALIZATION ==============================================

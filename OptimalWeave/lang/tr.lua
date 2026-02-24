@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/tr.lua
     Description:        Turkish localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -308,15 +308,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Ye
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Yetenek ID eklendi. Daha fazla yetenek eklemek istemiyorsanız, değişikliklerin görüntülenebilmesi için lütfen arayüzü yeniden yükleyin")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Arayüzü Yeniden Yükle")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Daha Fazla Ekle")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "Yetenek ID'si eklendi/kaldırıldı. Daha fazla yetenek eklemek veya kaldırmak istemiyorsanız, değişikliklerin görüntülenmesi için lütfen arayüzü yeniden yükleyin.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Arayüzü yeniden yükle")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Sonra")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "TAMAM")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Hata: Lütfen geçerli bir yetenek ID'si girin")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "Yetenek ID'si mevcut değil")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "Yetenek ID'si zaten engelleme listesinde")
 
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Kaynak Tabanlı Engelleme Listesi")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Birincil kaynağınız (Büyü veya Dayanıklılık) eşiğin altındayken engellemek için yetenek ID'leri ekleyin. Ayrıca, aksiyon çubuğu yuvasına sağ tıklayarak yetenek ekleyebilirsiniz (yeniden yükleme gerektirir).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Kaynak Tabanlı Engelleme Listesini Etkinleştir")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Kaynak tabanlı engelleme listesi işlevini etkinleştirir veya devre dışı bırakır")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Kaynak Kontrolünü Etkinleştir")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Etkinleştirildiğinde, kaynak engelleme listesindeki yetenekler yalnızca birincil kaynağınız (Büyü veya Dayanıklılık) eşiğin üstündeyse engellenir.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Kaynak Eşiği (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Kaynak engelleme listesindeki yetenekler yalnızca birincil kaynağınız (Büyü veya Dayanıklılık) bu yüzdenin üstündeyse engellenir.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Yetenek: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Büyü Kontrolü")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Bu yetenek için Büyü tabanlı engellemeyi etkinleştir")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Büyü eşiğin altındayken engelle")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Büyü eşiğin altındayken yeteneği engelle (yalnızca altındayken izin vermek için işareti kaldırın)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Büyü Eşiği (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Büyü yüzde eşiği")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Dayanıklılık Kontrolü")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Bu yetenek için Dayanıklılık tabanlı engellemeyi etkinleştir")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Dayanıklılık eşiğin altındayken engelle")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Dayanıklılık eşiğin altındayken yeteneği engelle (yalnızca altındayken izin vermek için işareti kaldırın)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Dayanıklılık Eşiği (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Dayanıklılık yüzde eşiği")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -329,6 +354,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Arka Çubuk Özelliklerini Değiştir")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Arka Çubuk Weave Asistanını Değiştir")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Execute Kontrolünü Değiştir")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Kaldır")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Bu yeteneği engelleme listesinden kaldır (/reloadui gerekli)")
 
 -- =============================================================================
 -- === END OF TURKISH LOCALIZATION =============================================

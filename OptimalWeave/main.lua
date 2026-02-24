@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -35,7 +35,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.12.0",
+    version = "1.13.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end

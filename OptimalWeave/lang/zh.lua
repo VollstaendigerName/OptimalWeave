@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -302,14 +302,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "�
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "技能ID已添加。如果不想添加更多技能，请重新加载界面以显示更改")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "技能ID已被添加/移除。如果您不想再添加或移除更多技能，请重新加载界面以便显示更改。")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "重新加载界面")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "添加更多")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "稍后")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "确定")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "错误：请输入有效的技能ID")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "技能ID不存在")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "技能ID已在阻止列表中")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "基于资源的阻止列表")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "添加技能ID以在主要资源（魔力或耐力）低于阈值时阻止它们。您也可以通过右键点击动作条槽位添加技能（需要重新加载界面）。")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "启用基于资源的阻止列表")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "启用或禁用基于资源的阻止列表功能")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "启用资源检查")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "启用后，资源阻止列表中的技能仅当您的主要资源（魔力或耐力）高于阈值时才会被阻止。")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "资源阈值 (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "资源阻止列表中的技能仅当您的主要资源（魔力或耐力）高于此百分比时才会被阻止。")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "技能：")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "魔力检查")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "为此技能启用基于魔力的阻止")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "当魔力低于阈值时阻止")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "当魔力低于阈值时阻止技能（取消勾选以仅在低于时允许）")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "魔力阈值 (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "魔力百分比阈值")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "耐力检查")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "为此技能启用基于耐力的阻止")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "当耐力低于阈值时阻止")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "当耐力低于阈值时阻止技能（取消勾选以仅在低于时允许）")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "耐力阈值 (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "耐力百分比阈值")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -323,6 +349,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "切换副栏功能停用")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "切换副栏轻击辅助停用")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "切换处决检查")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "移除")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "将此技能从阻止列表中移除（需要/reloadui）")
 
 -- =============================================================================
 -- === END OF CHINESE LOCALIZATION ============================================

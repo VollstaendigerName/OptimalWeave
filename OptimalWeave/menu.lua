@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.12.0
+-- Version:           1.13.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -1308,7 +1308,18 @@ end
                         end,
                         width = "full"
                     })
-                end
+                    --Remove Button for each spell in block list
+                    table.insert(controls, {
+                    type = "button",
+                    name = COLOR.WARNING..OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON"),
+                    tooltip = OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP"),
+                    width = "full",
+                    func = function()
+                        OWSV.customBlockList[spellId] = nil
+                        ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+                    end
+                })
+            end
                 
                 return controls
             end)()
@@ -1428,7 +1439,18 @@ end
                         end,
                         width = "full"
                     })
-                end
+                    --Remove Button for each spell in recast block list
+                    table.insert(controls, {
+                    type = "button",
+                    name = COLOR.WARNING..OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON"),
+                    tooltip = OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP"),
+                    width = "full",
+                    func = function()
+                        OWSV.customRecastBlockList[spellId] = nil
+                        ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+                    end
+                })
+            end
                 
                 return controls
             end)()
@@ -1439,10 +1461,10 @@ end
         -- ====================================================================================================================================================
         {
             type = "submenu",
-            name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER").." Experimental",
+            name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER"),
             controls = (function()
                 local controls = {
-                    CreateSectionHeader(OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER").." Experimental"),
+                    CreateSectionHeader(OW.L("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER")),
                     {
                         type = "description",
                         text = COLOR.SECONDARY..OW.L("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC"),
@@ -1599,6 +1621,18 @@ end
                         end,
                         width = "full",
                         disabled = function() return not (OWSV.useCustomResourceBlockList and spellData.staminaCheck) end
+                    })
+                    
+                    -- Remove Button for each spell in resource block list
+                    table.insert(controls, {
+                        type = "button",
+                        name = COLOR.WARNING..OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON"),
+                        tooltip = OW.L("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP"),
+                        width = "full",
+                        func = function()
+                            OWSV.customResourceBlockList[spellId] = nil
+                            ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
+                        end
                     })
                     
                     -- Divider between spells

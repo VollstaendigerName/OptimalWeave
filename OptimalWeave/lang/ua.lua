@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -302,14 +302,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "З
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID здібності додано. Якщо ви не хочете додавати більше здібностей, перезавантажте інтерфейс, щоб зміни відобразилися")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID здібності було додано/видалено. Якщо ви не бажаєте додавати або видаляти інші здібності, будь ласка, перезавантажте інтерфейс, щоб зміни відобразилися.")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Перезавантажити інтерфейс")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Додати ще")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Пізніше")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Помилка: Введіть коректний ID здібності")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID здібності не існує")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID здібності вже у списку блокування")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Список блокування на основі ресурсів")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Додайте ID здібностей, щоб блокувати їх, коли ваш основний ресурс (Магія або Витривалість) нижче порогу. Ви також можете додавати здібності, клацнувши правою кнопкою миші на слоті панелі дій (потрібне перезавантаження інтерфейсу).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Увімкнути список блокування на основі ресурсів")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Увімкнути або вимкнути функціональність списку блокування на основі ресурсів")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Увімкнути перевірку ресурсу")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Якщо увімкнено, здібності в списку блокування ресурсів будуть блокуватися лише тоді, коли ваш основний ресурс (Магія або Витривалість) вище порогу.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Поріг ресурсу (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Здібності в списку блокування ресурсів блокуються лише тоді, коли ваш основний ресурс (Магія або Витривалість) вище цього відсотка.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Здібність: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Перевірка Магії")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Увімкнути блокування на основі Магії для цієї здібності")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Блокувати, коли Магія нижче порогу")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Блокувати здібність, коли Магія нижче порогу (зніміть прапорець, щоб дозволяти лише коли нижче)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Поріг Магії (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Пороговий відсоток Магії")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Перевірка Витривалості")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Увімкнути блокування на основі Витривалості для цієї здібності")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Блокувати, коли Витривалість нижче порогу")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Блокувати здібність, коли Витривалість нижче порогу (зніміть прапорець, щоб дозволяти лише коли нижче)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Поріг Витривалості (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Пороговий відсоток Витривалості")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -322,6 +348,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Перемкнути вимкнення функцій другої панелі")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Перемкнути вимкнення асистента плетіння на другій панелі")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Перемкнути перевірку добивання")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Видалити")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Видалити цю здібність зі списку блокування (потрібне /reloadui)")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================

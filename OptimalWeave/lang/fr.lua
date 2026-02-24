@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.12.0
+    Version:            1.13.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -304,14 +304,40 @@ ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Le
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID du sort a été ajouté. Si vous ne souhaitez pas ajouter d'autres sorts, veuillez recharger l'interface pour que les modifications soient affichées")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recharger l'Interface")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Ajouter plus")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "L'ID du sort a été ajouté/supprimé. Si vous ne souhaitez pas ajouter ou supprimer d'autres sorts, veuillez recharger l'interface pour que les modifications soient affichées.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Recharger l'interface")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Plus tard")
 
 ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
 ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Erreur : Veuillez entrer un ID de sort valide")
 ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "L'ID du sort n'existe pas")
 ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "L'ID du sort est déjà dans la liste de blocage")
+
+-- =============================================================================
+-- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Liste de blocage basée sur les ressources")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Ajoutez des IDs de sorts pour les bloquer lorsque votre ressource principale (Magie ou Vigueur) est en dessous du seuil. Vous pouvez également ajouter des sorts en cliquant avec le bouton droit sur l'emplacement de la barre d'action (nécessite un rechargement).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Activer la liste de blocage basée sur les ressources")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Active ou désactive la fonctionnalité de liste de blocage basée sur les ressources")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Activer la vérification de ressource")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Lorsque activé, les sorts dans la liste de blocage de ressources ne seront bloqués que si votre ressource principale (Magie ou Vigueur) est au-dessus du seuil.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Seuil de ressource (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Les sorts de la liste de blocage de ressources ne sont bloqués que lorsque votre ressource principale (Magie ou Vigueur) est supérieure à ce pourcentage.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Sort : ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Vérification de Magie")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Activer le blocage basé sur la Magie pour ce sort")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Bloquer quand la Magie est en dessous du seuil")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Bloquer le sort lorsque la Magie est en dessous du seuil (décocher pour autoriser uniquement en dessous)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Seuil de Magie (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Seuil en pourcentage de Magie")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Vérification de Vigueur")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Activer le blocage basé sur la Vigueur pour ce sort")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Bloquer quand la Vigueur est en dessous du seuil")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Bloquer le sort lorsque la Vigueur est en dessous du seuil (décocher pour autoriser uniquement en dessous)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Seuil de Vigueur (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Seuil en pourcentage de Vigueur")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
@@ -324,6 +350,13 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST"
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Basculer la Désactivation des Fonctions de la Barre Secondaire")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Basculer la Désactivation de l'Assistant de Tissage sur la Barre Secondaire")
 ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Basculer la Vérification d'Exécution")
+
+-- =============================================================================
+-- == REMOVE BUTTON ============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Retirer")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Retirer ce sort de la liste de blocage (/reloadui requis)")
 
 -- =============================================================================
 -- === END OF FRENCH LOCALIZATION ==============================================
