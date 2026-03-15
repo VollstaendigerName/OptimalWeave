@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -357,6 +357,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Basculer
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Retirer")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Retirer ce sort de la liste de blocage (/reloadui requis)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Mode de paramètres")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Choisissez si les paramètres sont partagés entre tous les personnages de ce compte (Compte entier) ou stockés séparément pour chaque personnage (Par personnage).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Compte entier")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Par personnage")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Le mode de paramètres a changé. Recharger l'interface pour appliquer les changements ?")
 
 -- =============================================================================
 -- === END OF FRENCH LOCALIZATION ==============================================

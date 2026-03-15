@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -355,6 +355,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Пере
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Видалити")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Видалити цю здібність зі списку блокування (потрібне /reloadui)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Режим налаштувань")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Виберіть, чи будуть налаштування спільними для всіх персонажів цього облікового запису (Загальний для облікового запису), чи зберігатимуться окремо для кожного персонажа (Для персонажа).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Загальний для облікового запису")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Для персонажа")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Режим налаштувань змінено. Перезавантажити інтерфейс, щоб застосувати зміни?")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================

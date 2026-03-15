@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ru.lua
     Description:        Russian localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -358,6 +358,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Пере
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Удалить")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Удалить это заклинание из списка блокировки (требуется /reloadui)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Режим настроек")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Выберите, будут ли настройки общими для всех персонажей этой учётной записи (Общий для аккаунта) или сохраняться отдельно для каждого персонажа (Для персонажа).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Общий для аккаунта")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Для персонажа")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Режим настроек изменён. Перезагрузить интерфейс, чтобы применить изменения?")
 
 -- =============================================================================
 -- === END OF RUSSIAN LOCALIZATION ============================================

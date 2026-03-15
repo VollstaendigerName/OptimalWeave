@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -356,6 +356,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Przełą
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Usuń")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Usuń tę umiejętność z listy blokowania (wymagane /reloadui)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Tryb ustawień")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Wybierz, czy ustawienia są współdzielone między wszystkimi postaciami na tym koncie (Wspólne dla konta), czy przechowywane osobno dla każdej postaci (Na postać).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Wspólne dla konta")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Na postać")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Tryb ustawień został zmieniony. Przeładować interfejs, aby zastosować zmiany?")
 
 -- =============================================================================
 -- === END OF POLISH LOCALIZATION ==============================================

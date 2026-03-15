@@ -9,7 +9,7 @@
                         MUST load after all language files in manifest.
     Dependencies:       lang/*.lua files
     Author:             Orollas & VollständigerName
-    Version:            1.12.0
+    Version:            1.14.0
 --]]
 -- =============================================================================
 
@@ -39,39 +39,31 @@ local NAME = OW.name or "OptimalWeave"          -- Fallback for AddOn name
 -- @param ... any - Optional format arguments (supports %s, %d, etc.)
 -- @return string - Localized text or error placeholder
 --------------------------------------------------------------------------------
+local _G = _G
+local GetString = GetString
+local select = select
+local format = string.format
+
 OW.L = function(key, ...)
-    -- Validate key existence --------------------------------------------------
-    if _G[key] == nil then  -- Check global namespace for string ID registration
-        -- Create error message with colored prefix
-        local errorMsg = string.format(
+    local stringId = _G[key]
+
+    if not stringId then
+        local errorMsg = format(
             "|cFFFF00[%s]|r Warning: Missing localization key |cFF0000'%s'|r",
             NAME,
             tostring(key)
         )
-        
-        -- Print to chat console for debugging
-        DEFAULT_CHAT_FRAME:AddMessage(errorMsg, 1.0, 0.82, 0.0)  -- Gold color
-        
-        -- Return visible placeholder for UI elements
-        return string.format("|cFF0000[!%s!]|r", key)
+
+        DEFAULT_CHAT_FRAME:AddMessage(errorMsg, 1.0, 0.82, 0.0)
+        return format("|cFF0000[!%s!]|r", key)
     end
 
-    -- Retrieve and format string ----------------------------------------------
-    local stringId = _G[key]              -- Get registered string ID
-    local formatArgs = { ... }            -- Capture variable arguments
-    
-    -- Format string only if arguments exist
-    local formattedString
-    if #formatArgs > 0 then
-        formattedString = GetString(stringId, unpack(formatArgs))  -- ESO API call with args
-    else
-        formattedString = GetString(stringId)  -- Simple string without formatting
+    if select("#", ...) > 0 then
+        return GetString(stringId, ...)
     end
-    
-    -- Return final processed string
-    return formattedString
+
+    return GetString(stringId)
 end
-
 -- =============================================================================
 -- == END OF LOCALIZATION SYSTEM ===============================================
 -- =============================================================================

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -362,6 +362,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Toggle E
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Remove")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Remove this spell from the block list (/reloadui required)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Settings Mode")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Choose whether settings are shared across all characters on this account (Account-wide) or stored separately for each character (Per Character).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Account-wide")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Per Character")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Settings mode changed. Reload UI to apply changes?")
 
 -- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================

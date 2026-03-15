@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ko.lua
     Description:        Korean localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -358,6 +358,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "처형 �
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "제거")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "이 스킬을 차단 목록에서 제거합니다 (/reloadui 필요)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "설정 모드")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "설정을 이 계정의 모든 캐릭터에서 공유할지(계정 전체) 아니면 각 캐릭터별로 따로 저장할지(캐릭터별) 선택합니다.")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "계정 전체")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "캐릭터별")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "설정 모드가 변경되었습니다. 변경 사항을 적용하려면 UI를 다시 로드하시겠습니까?")
 
 -- =============================================================================
 -- === END OF KOREAN LOCALIZATION ==============================================

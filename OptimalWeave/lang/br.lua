@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -358,6 +358,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Alternar
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Remover")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Remover esta habilidade da lista de bloqueio (/reloadui necessário)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Modo de configuração")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Escolha se as configurações são compartilhadas entre todos os personagens desta conta (Conta inteira) ou armazenadas separadamente para cada personagem (Por personagem).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Conta inteira")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Por personagem")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "O modo de configuração foi alterado. Recarregar a interface para aplicar as alterações?")
 
 -- =============================================================================
 -- === END OF BRAZILIAN PORTUGUESE LOCALIZATION ===============================

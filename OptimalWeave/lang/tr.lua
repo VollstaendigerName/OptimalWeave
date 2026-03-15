@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/tr.lua
     Description:        Turkish localization using ZO_CreateStringId
-    Version:            1.13.0
+    Version:            1.14.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -361,6 +361,16 @@ ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Execute 
 
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Kaldır")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Bu yeteneği engelleme listesinden kaldır (/reloadui gerekli)")
+
+-- =============================================================================
+-- == SETTIINGS MODE ===========================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Ayarlar Modu")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Ayarların bu hesaptaki tüm karakterler arasında paylaşılmasını mı (Hesap geneli) yoksa her karakter için ayrı ayrı mı (Karaktere özel) saklanmasını istediğinizi seçin.")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Hesap geneli")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Karaktere özel")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Ayarlar modu değiştirildi. Değişiklikleri uygulamak için arayüz yeniden yüklensin mi?")
 
 -- =============================================================================
 -- === END OF TURKISH LOCALIZATION =============================================
