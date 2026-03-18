@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -266,6 +266,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "装备保留
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
 
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "自定义屏蔽列表")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "自定义阻止列表")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "添加技能ID以阻止其使用。你也可以通过右键点击动作栏位来添加技能（需要重载界面）")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "技能ID")
@@ -366,6 +367,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "选择设置是此账户下
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "账号通用")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "每个角色")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "设置模式已更改。是否重新加载界面以应用更改？")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "战斗中屏蔽上一个菜单")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "防止在战斗中打开上一个菜单 (ALT)。")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "战斗中屏蔽角色菜单")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "防止在战斗中打开角色菜单 (C)。")
 
 -- =============================================================================
 -- === END OF CHINESE LOCALIZATION ============================================

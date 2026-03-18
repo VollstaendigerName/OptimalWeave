@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.14.0
+-- Version:           1.15.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -336,7 +336,7 @@ local function BuildMenu(sv, defaults)
         --registerForDefaults = true,
         slashCommand = "/optimalweave",
     }
-
+    OW.panel = LAM:RegisterAddonPanel(OW.name.."Menu", panel)
     -- =============================================================================
     -- == BLOCK LIST MENU ==========================================================
     -- =============================================================================
@@ -476,8 +476,8 @@ end
     -- == MENU =====================================================================
     -- =============================================================================
     -- Register main panel with LibAddonMenu
-    LAM:RegisterAddonPanel(OW.name.."Menu", panel)
-
+    --LAM:RegisterAddonPanel(OW.name.."Menu", panel)
+    --OW.panel = LAM:RegisterAddonPanel(OW.name.."Menu", panel)
     -- Complete menu structure definition
     local options = {
         -- Information Section (flat, no submenu)
@@ -491,10 +491,10 @@ end
         -- ====================================================================================================================================================
         -- Core Mechanics Submenu =============================================================================================================================
         -- ====================================================================================================================================================
-        {
-            type = "submenu",
-            name = COLOR.ACCENT..OW.L("OW_MENU_MODE_HEADER"),
-            controls = {
+        -- {
+        --     type = "submenu",            
+        --     name = COLOR.ACCENT..OW.L("OW_MENU_MODE_HEADER"),
+        --     controls = {
                 CreateSectionHeader(OW.L("OW_MENU_MODE_HEADER")),
                 {
                     type = "dropdown",
@@ -547,9 +547,9 @@ end
                     "OW_MENU_GROUNDAOE_TOOLTIP",
                     function() return sv.blockGroundAbilities end,
                     function(value) sv.blockGroundAbilities = value end
-                )
-            }
-        },
+                ),
+           -- }
+       -- },
 
         -- ====================================================================================================================================================
         -- Activation Conditions Submenu ======================================================================================================================
@@ -731,6 +731,25 @@ end
                     "OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP",
                     function() return sv.autoEquipWeapons end,
                     function(value) sv.autoEquipWeapons = value end,
+                    nil,
+                    true
+                ),
+
+                { type = "divider", alpha = 0.2 }, -- =====================================================================================
+
+                CreateCheckbox(
+                    "OW_MENU_BLOCK_LAST_MENU",
+                    "OW_MENU_BLOCK_LAST_MENU_TOOLTIP",
+                    function() return sv.blockLastMenu end,
+                    function(value) sv.blockLastMenu = value end,
+                    nil,
+                    true
+                ),
+                CreateCheckbox(
+                    "OW_MENU_BLOCK_CHAR_MENU",
+                    "OW_MENU_BLOCK_CHAR_MENU_TOOLTIP",
+                    function() return sv.blockCharMenu end,
+                    function(value) sv.blockCharMenu = value end,
                     nil,
                     true
                 ),
@@ -1277,6 +1296,10 @@ end
         -- USER-CONFIGURABLE BLOCK LIST =======================================================================================================================
         -- ====================================================================================================================================================
         {
+            type = "submenu",            
+            name = COLOR.ACCENT..OW.L("OW_MENU_BLOCKLIST_HEADER"),
+            controls = {
+        {
             type = "submenu",
             name = COLOR.ACCENT..OW.L("OW_MENU_CONFIGURABLEBLOCK_HEADER"),
             controls = (function()
@@ -1334,7 +1357,6 @@ end
                         name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMBLOCK_ADD_BUTTON"),
                         func = function()
                             AddSpellToBlockList()
-                            --ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
                         end,
                         --requiresReload = true,
                         width = "full"
@@ -1438,15 +1460,6 @@ end
                         function(value) sv.useCustomRecastBlockListHealthPercent = value end,
                         function() return not (sv.useCustomRecastBlockList and sv.useCustomRecastBlockListHealthCheck) end
                     ),
-
-                    CreateSlider(
-                        "OW_MENU_RECAST_BLOCK_TIME",
-                        "OW_MENU_RECAST_BLOCK_TIME_TOOLTIP",
-                        0, 120, -- 0-120s (Default 1)
-                        function() return sv.recastBlockTime end,
-                        function(value) sv.recastBlockTime = value end,
-                        function() return not sv.useCustomRecastBlockList end
-                    ),
                     
                     { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
@@ -1465,7 +1478,6 @@ end
                         name = COLOR.PRIMARY..OW.L("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON"),
                         func = function()
                             AddSpellToRecastBlockList()
-                            --ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")  
                         end,
                         --requiresReload = true,
                         width = "full"
@@ -1606,7 +1618,7 @@ end
                         setFunc = function(value) 
                             sv.customResourceBlockList[spellId].magickaCheck = value
                         end,
-                        width = "full",
+                        width = "half",
                         disabled = function() return not sv.useCustomResourceBlockList end
                     })
                     
@@ -1620,7 +1632,7 @@ end
                         setFunc = function(value) 
                             sv.customResourceBlockList[spellId].magickaBlock = value
                         end,
-                        width = "full",
+                        width = "half",
                         disabled = function() return not (sv.useCustomResourceBlockList and spellData.magickaCheck) end
                     })
                     
@@ -1651,7 +1663,7 @@ end
                         setFunc = function(value) 
                             sv.customResourceBlockList[spellId].staminaCheck = value
                         end,
-                        width = "full",
+                        width = "half",
                         disabled = function() return not sv.useCustomResourceBlockList end
                     })
                     
@@ -1665,7 +1677,7 @@ end
                         setFunc = function(value) 
                             sv.customResourceBlockList[spellId].staminaBlock = value
                         end,
-                        width = "full",
+                        width = "half",
                         disabled = function() return not (sv.useCustomResourceBlockList and spellData.staminaCheck) end
                     })
                     
@@ -1703,6 +1715,8 @@ end
                 
                 return controls
             end)()
+        },
+        },
         },
 
         -- ====================================================================================================================================================

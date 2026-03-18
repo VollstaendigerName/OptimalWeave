@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -271,7 +271,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Deactivate w
 -- =============================================================================
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
-
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Custom Block Lists")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Custom Block List")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Add spell IDs to block them from being used. You can also add spells by right-clicking on the action bar slot (requires reload)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "Spell ID")
@@ -372,6 +372,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Choose whether settings are
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Account-wide")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Per Character")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Settings mode changed. Reload UI to apply changes?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Block Last Menu in combat")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Prevents opening the last menu (ALT) while in combat.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Block Character Menu in combat")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Prevents opening the character menu (c) while in combat.")
 
 -- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================

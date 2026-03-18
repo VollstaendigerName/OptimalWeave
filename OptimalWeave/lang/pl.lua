@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/pl.lua
     Description:        Polish localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -267,6 +267,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Dezaktywuj g
 -- == CUSTOM BLOCK LIST SETTINGS ==============================================
 -- =============================================================================
 
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Niestandardowe listy blokad")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Własna Lista Blokowania")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Dodaj ID umiejętności, aby je zablokować. Możesz także dodać umiejętności, klikając prawym przyciskiem myszy na slot paska akcji (wymaga przeładowania)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Umiejętności")
@@ -366,6 +367,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Wybierz, czy ustawienia są
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Wspólne dla konta")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Na postać")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Tryb ustawień został zmieniony. Przeładować interfejs, aby zastosować zmiany?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Blokuj ostatnie menu w walce")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Zapobiega otwieraniu ostatniego menu (ALT) podczas walki.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Blokuj menu postaci w walce")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Zapobiega otwieraniu menu postaci (C) podczas walki.")
 
 -- =============================================================================
 -- === END OF POLISH LOCALIZATION ==============================================

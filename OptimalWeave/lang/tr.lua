@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/tr.lua
     Description:        Turkish localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -215,7 +215,6 @@ ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "Sadece seç
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "Silah Tipinde Özellikleri Devre Dışı Bırak")
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "Seçilen silah tipleri için eklentinin çoğu özelliğini devre dışı bırakır")
 
--- Tek elli silahlar
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "Balta")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "Balta kuşanıldığında devre dışı bırak")
 
@@ -228,7 +227,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "Kılıç kuşan
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "Hançer")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "Hançer kuşanıldığında devre dışı bırak")
 
--- İki elli silahlar
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "İki Ellik Kılıç")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "İki ellik kılıç kuşanıldığında devre dışı bırak")
 
@@ -241,7 +239,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "İki
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "Yay")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "Yay kuşanıldığında devre dışı bırak")
 
--- Asalar
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "Ateş Asası")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "Ateş asası kuşanıldığında devre dışı bırak")
 
@@ -254,7 +251,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "Yıld
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "İyileştirme Asası")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "İyileştirme asası kuşanıldığında devre dışı bırak")
 
--- Diğer silahlar
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "Kalkan")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "Kalkan kuşanıldığında devre dışı bırak")
 
@@ -270,7 +266,8 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Rezerve sila
 -- =============================================================================
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
--- KULLANICI YAPILANDIRILABİLİR BLOKLİSTESİ
+
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Özel Engelleme Listeleri")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Özel Engelleme Listesi")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Kullanılmasını engellemek için büyü ID'leri ekleyin. Ayrıca, eylem çubuğu yuvasına sağ tıklayarak büyüler ekleyebilirsiniz (yeniden yükleme gerektirir)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "Yetenek ID")
@@ -289,7 +286,6 @@ ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Engelleme
 -- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
 -- =============================================================================
 
--- KULLANICI YAPILANDIRILABİLİR YENİDEN KULLANIM BLOKLİSTESİ
 ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Özel Yeniden Kullanım Engelleme Listesi")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Büyü ID'leri ekleyerek, kalan etki süresi eşik değerin altına düşene kadar yeniden kullanılmalarını engelleyin. Ayrıca, eylem çubuğu yuvasına sağ tıklayarak büyüler ekleyebilirsiniz (yeniden yükleme gerektirir).")
 ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "Yetenek ID")
@@ -371,6 +367,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Ayarların bu hesaptaki tü
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Hesap geneli")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Karaktere özel")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Ayarlar modu değiştirildi. Değişiklikleri uygulamak için arayüz yeniden yüklensin mi?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Savaşta Son Menüyü Engelle")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Savaş sırasında son menünün (ALT) açılmasını engeller.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Savaşta Karakter Menüsünü Engelle")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Savaş sırasında karakter menüsünün (C) açılmasını engeller.")
 
 -- =============================================================================
 -- === END OF TURKISH LOCALIZATION =============================================

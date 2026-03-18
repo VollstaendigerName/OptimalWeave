@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/it.lua
     Description:        Italian localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -211,7 +211,6 @@ ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "Disattiva s
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "Disattiva funzioni sul tipo di arma")
 ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "Disattiva la maggior parte delle funzioni dell'addon per i tipi di arma selezionati")
 
--- Armi ad una mano
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "Ascia")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "Disattiva quando è equipaggiata un'ascia")
 
@@ -224,7 +223,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "Disattiva quand
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "Pugnale")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "Disattiva quando è equipaggiato un pugnale")
 
--- Armi a due mani
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "Spada a due mani")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "Disattiva quando è equipaggiata una spada a due mani")
 
@@ -237,7 +235,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "Disa
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "Arco")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "Disattiva quando è equipaggiato un arco")
 
--- Bastoni
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "Bastone del fuoco")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "Disattiva quando è equipaggiato un bastone del fuoco")
 
@@ -250,7 +247,6 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "Disat
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "Bastone della guarigione")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "Disattiva quando è equipaggiato un bastone della guarigione")
 
--- Altre armi
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "Scudo")
 ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "Disattiva quando è equipaggiato uno scudo")
 
@@ -267,7 +263,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Disattiva qu
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
 
--- LISTA DI BLOCCAGGIO CONFIGURABILE DALL'UTENTE
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Liste di blocco personalizzate")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista di Blocco Personalizzata")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Aggiungi ID abilità per bloccarle. Puoi anche aggiungere incantesimi facendo clic con il tasto destro sullo slot della barra delle azioni (richiede ricaricamento)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Abilità")
@@ -367,6 +363,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Scegli se le impostazioni s
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Condiviso sull'account")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Per personaggio")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "La modalità impostazioni è cambiata. Ricaricare l'interfaccia per applicare le modifiche?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Blocca ultimo menu in combattimento")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Impedisce l'apertura dell'ultimo menu (ALT) durante il combattimento.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Blocca menu personaggio in combattimento")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Impedisce l'apertura del menu personaggio (C) durante il combattimento.")
 
 -- =============================================================================
 -- === END OF ITALIAN LOCALIZATION ============================================

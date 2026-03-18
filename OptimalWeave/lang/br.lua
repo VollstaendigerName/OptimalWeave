@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -267,6 +267,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Desativar qu
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
 
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Listas de bloqueio personalizadas")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista de Bloqueio Personalizada")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Adicione IDs de habilidades para bloqueá-las. Você também pode adicionar feitiços clicando com o botão direito no slot da barra de ação (requer recarregamento)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID da Habilidade")
@@ -368,6 +369,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Escolha se as configuraçõ
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Conta inteira")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Por personagem")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "O modo de configuração foi alterado. Recarregar a interface para aplicar as alterações?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Bloquear último menu em combate")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Impede a abertura do último menu (ALT) durante o combate.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Bloquear menu de personagem em combate")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Impede a abertura do menu de personagem (C) durante o combate.")
 
 -- =============================================================================
 -- === END OF BRAZILIAN PORTUGUESE LOCALIZATION ===============================

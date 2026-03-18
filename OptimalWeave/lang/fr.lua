@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/fr.lua
     Description:        French localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -267,7 +267,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Désactiver 
 -- =============================================================================
 -- == CUSTOM BLOCK LIST SETTINGS ==============================================
 -- =============================================================================
-
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Listes de blocage personnalisées")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Liste de Blocage Personnalisée")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Ajoutez des IDs de sorts pour les bloquer. Vous pouvez également ajouter des sorts en cliquant avec le bouton droit sur l'emplacement de la barre d'action (nécessite un rechargement)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID du Sort")
@@ -367,6 +367,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Choisissez si les paramètr
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Compte entier")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Par personnage")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Le mode de paramètres a changé. Recharger l'interface pour appliquer les changements ?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Bloquer le dernier menu en combat")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Empêche l'ouverture du dernier menu (ALT) en combat.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Bloquer le menu Personnage en combat")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Empêche l'ouverture du menu personnage (C) en combat.")
 
 -- =============================================================================
 -- === END OF FRENCH LOCALIZATION ==============================================

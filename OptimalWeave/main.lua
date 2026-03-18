@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -35,7 +35,7 @@ OptimalWeave = {
     name = "OptimalWeave",
     
     -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.14.0",
+    version = "1.15.0",
     
     -- Localization proxy (overridden in localization.lua)
     --L = function() return "" end
@@ -85,7 +85,7 @@ local weaponTypeToKey = {
     [WEAPONTYPE_SHIELD] = "shield",
     [WEAPONTYPE_LIGHTNING_STAFF] = "lightningStaff"
 }
-
+local GCDOnBarShown = false
 -- =============================================================================
 -- == DEFAULT CONFIGURATION SETTINGS ===========================================
 -- =============================================================================
@@ -252,6 +252,12 @@ local defaults = {
     resetAfterSeconds = 25, -- Inactivity reset timer: Seconds of inactivity before GCD state resets
 
     -- =========================================================================
+    -- == IN COMBAT MENU BLOCKING ==============================================
+    -- =========================================================================
+    blockLastMenu = true,      -- Block the Last Menu (ALT) during combat
+    blockCharMenu = true,      -- Block the character menu (c) during combat
+
+    -- =========================================================================
     -- == WEAPON DEACTIVATION SETTINGS =========================================
     -- =========================================================================
     -- Backbar deactivation settings
@@ -344,13 +350,40 @@ local defaults = {
     -- }
     },
 
+    -- -- Resource-based blocking list
+    -- customBlockListNewStyle = { 
+    -- -- Example: [12345] = {
+    -- --     blocked = false,           -- Complete blocked
+    -- --     magickaCheck = false,      -- If Magicka check is used
+    -- --     magickaBlock = false,      -- Check if the spell is Blocked or usable depending on the Magicka Percentage
+    -- --     magickaPercent = 0,        -- Percentage how many Magicka
+    -- --     staminaCheck = false,      -- If Stamina check is used
+    -- --     staminaBlock = false,      -- Check if the spell is Blocked or usable depending on the Stamina Percentage
+    -- --     staminaPercent = 0,        -- Percentage how many Stamina
+    -- --     HealthCheck = false,       -- If Health check is used
+    -- --     HealthBlock = false,       -- Check if the spell is Blocked or usable depending on the Health Percentage
+    -- --     HealthPercent = 0,         -- Percentage how many Health
+    -- --     useRecastBlock = false, 
+    -- -- }
+    -- },
+
     -- =========================================================================
     -- == EXPERIMENTAL SETTINGS ================================================
     -- =========================================================================
     blockAoEIfNoTarget = false, -- Experimental: Block ground AoEs when no target is selected
+    showGCD = false,            -- Shows the internal GCD monitor 
+    --useNewStyleBlocklist = true,
 
 }
 
+-- =========================================================================
+-- == IN COMBAT MENU BLOCKING ==============================================
+-- =========================================================================
+local inCombatMenuBlockActive = false
+
+local function OnPlayerCombatState(_, inCombat)
+    inCombatMenuBlockActive = inCombat
+end
 -- =============================================================================
 -- == DEBUG SYSTEM =============================================================
 -- =============================================================================
@@ -367,6 +400,7 @@ local DEBUG_MODES = {
     info = false       -- General state information
 }
 
+
 --------------------------------------------------------------------------------
 -- Debug Print Function
 -- @param mode: Debug category ("block", "condition", "info")
@@ -376,6 +410,33 @@ local function DebugPrint(mode, ...)
     if DEBUG_MODES[mode] then
         d(...)
     end
+end
+
+-- =============================================================================
+-- == SLASH COMMANDS =============================================================
+-- =============================================================================
+SLASH_COMMANDS["/_ow_debug_block"] = function()
+    DEBUG_MODES.block= not DEBUG_MODES.block
+    local stateColor = DEBUG_MODES.block and "|c00FF00ON|r" or "|cFF0000OFF|r"
+    d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG block ".. stateColor)
+end
+
+SLASH_COMMANDS["/_ow_debug_condition"] = function()
+    DEBUG_MODES.condition= not DEBUG_MODES.condition
+    local stateColor = DEBUG_MODES.condition and "|c00FF00ON|r" or "|cFF0000OFF|r"
+    d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG condition ".. stateColor)
+end
+
+SLASH_COMMANDS["/_ow_debug_info"] = function()
+    DEBUG_MODES.info= not DEBUG_MODES.info
+    local stateColor = DEBUG_MODES.info and "|c00FF00ON|r" or "|cFF0000OFF|r"
+    d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG info ".. stateColor)
+end
+
+SLASH_COMMANDS["/owgcd"] = function()
+    OW.sv.showGCD = not OW.sv.showGCD
+    local stateColor = OW.sv.showGCD and "|c00FF00ON|r" or "|cFF0000OFF|r"
+    d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r GCD ".. stateColor)
 end
    
 -- =============================================================================
@@ -1043,6 +1104,10 @@ local function CastCanceled() -- Check if
     end
 end    
 
+-- local function BarswapSound()
+--     PlaySound(SOUNDS.EMPEROR_CORONATION_IMPERIAL)
+-- end
+
 -- =============================================================================
 -- == RESOURCE-BASED BLOCK LIST CHECK ==========================================
 -- =============================================================================
@@ -1374,6 +1439,25 @@ local function CanUseActionSlots(ReadOutslot)
 end
 
 -- =============================================================================
+-- == SHOW GLOBAL COOLDOWN ON BAR ==============================================
+-- =============================================================================
+--[[
+    Function: ShowGcdOnBar
+    Purpose: Visual toggle for GCD (Builtin ESO function)
+--]]
+
+local function ShowGcdOnBar()
+    if OW.sv.showGCD and not GCDOnBarShown then
+        ZO_ActionButtons_ToggleShowGlobalCooldown()
+        GCDOnBarShown = true
+    end    
+    if not OW.sv.showGCD and GCDOnBarShown then
+        ZO_ActionButtons_ToggleShowGlobalCooldown()
+        GCDOnBarShown = false
+    end    
+end
+
+-- =============================================================================
 -- == ABILITY USAGE HANDLER ====================================================
 -- =============================================================================
 --[[
@@ -1391,7 +1475,7 @@ end
 -- @param slot: Activated action slot
 --------------------------------------------------------------------------------
 local function AbilityUsed(_, slot)
-
+    ShowGcdOnBar()
     if OW.sv.mode == 3 then 
         return
     end
@@ -1700,16 +1784,20 @@ local function Initialize()
 
     SetupAbilityIDHooks()
 
+    -- =============================================================================
+    -- == EVENT MANAGER INITIALIZATION =============================================
+    -- =============================================================================
     -- Reset tracking
-	EM:RegisterForEvent(NAME, EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) 
+	EM:RegisterForEvent(NAME.."_BARSWAP", EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) 
+    --EM:RegisterForEvent(NAME.."_BARSWASOUND", EVENT_ACTIVE_WEAPON_PAIR_CHANGED, BarswapSound) 
 
-    EM:RegisterForEvent(NAME, EVENT_COMBAT_EVENT, ResetGCDOnDodge)
-    EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
-    EM:AddFilterForEvent(NAME, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549) -- https://esoitem.uesp.net/viewSkillCoef.php
+    EM:RegisterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, ResetGCDOnDodge)
+    EM:AddFilterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549) -- https://esoitem.uesp.net/viewSkillCoef.php
 
-    EM:RegisterForEvent(NAME, EVENT_PLAYER_SWIMMING, ResetGCD)
-    EM:RegisterForEvent(NAME, EVENT_PLAYER_DEAD, ResetGCD)
-    EM:RegisterForEvent(NAME .."BLOCK", EVENT_COMBAT_EVENT, CastCanceled)
+    EM:RegisterForEvent(NAME.."_SWIMMING", EVENT_PLAYER_SWIMMING, ResetGCD)
+    EM:RegisterForEvent(NAME.."_DEAD", EVENT_PLAYER_DEAD, ResetGCD)
+    EM:RegisterForEvent(NAME .."_BLOCK", EVENT_COMBAT_EVENT, CastCanceled)
 
     -- Combat state tracking
     EM:RegisterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, OnPlayerStunned)
@@ -1743,10 +1831,15 @@ local function Initialize()
     EM:RegisterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, ResetGCD)
     EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_SPRINTING)
     EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
-    EM:RegisterForEvent(NAME.."_SlotUpdate", EVENT_ACTION_SLOTS_FULL_UPDATE, UpdateGcdTrackingSlot)
+    
+    EM:RegisterForEvent(NAME.."_SLOTUPDATE", EVENT_ACTION_SLOTS_FULL_UPDATE, UpdateGcdTrackingSlot)
 
-    EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
+    EM:RegisterForEvent(NAME.."_CHECKROLE", EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
 
+    if OW.sv.blockLastMenu or OW.sv.blockLastMenu then
+        EM:RegisterForEvent(NAME.."_COMBATMENUBLOCK", EVENT_PLAYER_COMBAT_STATE, OnPlayerCombatState)
+    end
+        
     if OW.sv.autoEquipWeapons then
         EM:RegisterForEvent(NAME .. "_EquipCombat", EVENT_PLAYER_COMBAT_STATE, EquipWeaponsStateChange)
         EM:RegisterForEvent(NAME .. "_EquipBook", EVENT_HIDE_BOOK, EquipWeaponsStateChange)
@@ -1762,11 +1855,36 @@ local function Initialize()
 
     -- Action system integration
     EM:RegisterForEvent(NAME, EVENT_ACTION_SLOT_ABILITY_USED, AbilityUsed)
-    --ZO_PreHook("ZO_ActionBar_CanUseActionSlots", CanUseActionSlots) -- remove if other style is worked 
+    
+    -- =============================================================================
+    -- == PRE HOOKS INITIALIZATION =================================================
+    -- =============================================================================
+    -- PreHook for ActionSlot
     ZO_PreHook("ZO_ActionBar_CanUseActionSlots", function()
         local slot = GetActionSlot() 
         return CanUseActionSlots(slot)
     end)
+
+    if OW.sv.blockLastMenu then
+        -- PreHook for the Last menu (ALT)
+        ZO_PreHook(MAIN_MENU_KEYBOARD, "ShowLastCategory", function()
+            if inCombatMenuBlockActive and OW.sv.blockLastMenu then
+                SCENE_MANAGER:ShowBaseScene() 
+                return true 
+            end
+        end)
+    end    
+
+    if OW.sv.blockLastMenu then
+        -- PreHook for the Character menu block (c)
+        ZO_PreHook(MAIN_MENU_KEYBOARD, "ToggleCategory", function(_, category)
+            if inCombatMenuBlockActive and OW.sv.blockCharMenu and category == MENU_CATEGORY_CHARACTER then
+                SCENE_MANAGER:ShowBaseScene()
+                return true
+            end
+        end)
+    end
+
     -- Menu system initialization
     OW.BuildMenu(OW.sv, defaults)
    

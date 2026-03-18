@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -266,6 +266,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Desactivar c
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
 
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Listas de bloqueo personalizadas")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Lista de Bloqueo Personalizada")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Añade IDs de hechizos para bloquearlos. También puedes añadir hechizos haciendo clic derecho en la ranura de la barra de acción (requiere recarga)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID de Hechizo")
@@ -366,6 +367,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Elige si la configuración 
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Toda la cuenta")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Por personaje")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "El modo de configuración ha cambiado. ¿Recargar la interfaz para aplicar los cambios?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Bloquear último menú en combate")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Evita abrir el último menú (ALT) mientras estás en combate.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Bloquear menú de personaje en combate")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Evita abrir el menú de personaje (C) mientras estás en combate.")
 
 -- =============================================================================
 -- === END OF SPANISH LOCALIZATION =============================================

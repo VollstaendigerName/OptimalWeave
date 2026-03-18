@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.14.0
+    Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -266,6 +266,7 @@ ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Вимкну
 -- == CUSTOM BLOCK LIST SETTINGS ===============================================
 -- =============================================================================
 
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Користувацькі списки блокування")
 ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Користувацький список блокування")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Додайте ID здібностей, щоб заблокувати їх використання. Ви також можете додати здібності, клацнувши правою кнопкою миші на слоті панелі дій (потрібно перезавантаження інтерфейсу)")
 ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Здібності")
@@ -365,6 +366,15 @@ ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Виберіть, чи бу
 ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Загальний для облікового запису")
 ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Для персонажа")
 ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Режим налаштувань змінено. Перезавантажити інтерфейс, щоб застосувати зміни?")
+
+-- =============================================================================
+-- == IN COMBAT MENU BLOCKING ==================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Блокувати останнє меню в бою")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Запобігає відкриттю останнього меню (ALT) під час бою.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Блокувати меню персонажа в бою")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Запобігає відкриттю меню персонажа (C) під час бою.")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================
