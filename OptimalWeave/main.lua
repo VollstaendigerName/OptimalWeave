@@ -666,7 +666,7 @@ local function checkExecuteReady(id)
     end
     
     -- Calculate health percentage
-    local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+    local percentHealth = (currentHealth / maxHealth) * 100
     DebugPrint("condition", string.format("Execute Check: Health Percentage: %.1f%%, Threshold: %.1f%%", percentHealth, OW.sv.executeThreshold))
     
     -- Check if health is below execute threshold

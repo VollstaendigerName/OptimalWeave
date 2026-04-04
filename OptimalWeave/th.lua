@@ -1,17 +1,17 @@
 -- =============================================================================
--- === OptimalWeave Language File: Thai (th.lua)                              ===
+-- === OptimalWeave Language File: Russian (ru.lua)                          ===
 -- =============================================================================
 --[[
     AddOn Name:         OptimalWeave
-    File:               lang/th.lua
-    Description:        Thai localization using ZO_CreateStringId
+    File:               lang/ru.lua
+    Description:        Russian localization using ZO_CreateStringId
     Version:            1.15.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
 
 -- =============================================================================
--- == PANEL & AUTHOR INFORMATION ===============================================
+-- == PANEL & AUTHOR INFORMATION ==============================================
 -- =============================================================================
 
 ZO_CreateStringId("OW_MENU_PANEL_NAME", "|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r")
@@ -22,183 +22,179 @@ ZO_CreateStringId("OW_MENU_WEBSITE", "https://github.com/VollstaendigerName")
 -- == INFORMATION SECTION ======================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_INFO_HEADER", "ข้อมูล & README")
-ZO_CreateStringId("OW_MENU_INFO_TEXT", "เวลาคูลดาวน์รวม (GCD) คือ 1000 มิลลิวินาที OptimalWeave ช่วยจัดการการจัดคิวความสามารถตามโหมดที่เลือกเพื่อเพิ่มประสิทธิภาพการโจมตีแบบวีฟ ใช้การตั้งค่าด้านล่างเพื่อปรับแต่งการทำงาน")
-ZO_CreateStringId("OW_MENU_MODE_HEADER", "กลไกหลัก")
-ZO_CreateStringId("OW_MENU_CONDITIONS_HEADER", "กฎการเปิดใช้งาน")
-ZO_CreateStringId("OW_MENU_ADVANCED_HEADER", "การควบคุมขั้นสูง")
-ZO_CreateStringId("OW_MENU_PERFORMANCE_HEADER", "การตั้งค่าประสิทธิภาพ")
-ZO_CreateStringId("OW_MENU_MODE_ACTIVE", "ส่วนเสริมทำงาน")
-ZO_CreateStringId("OW_MENU_MODE_INACTIVE", "ส่วนเสริมไม่ทำงาน")
-ZO_CreateStringId("OW_MENU_DISABLED_TOOLTIP", "ตัวเลือกนี้ถูกปิดใช้งานอยู่ในขณะนี้")
-ZO_CreateStringId("OW_MENU_LATENCY_WARNING", "คำเตือน: ค่าความหน่วงสูงอาจทำให้เกิดความล่าช้าในการป้อนข้อมูล!")
+ZO_CreateStringId("OW_MENU_INFO_HEADER", "Информация & Советы")
+ZO_CreateStringId("OW_MENU_INFO_TEXT", "Глобальная перезарядка (GCD) 1000мс. OptimalWeave помогает управлять очередью способностей. Настройте поведение ниже.")
+ZO_CreateStringId("OW_MENU_MODE_HEADER", "Основные Настройки")
+ZO_CreateStringId("OW_MENU_CONDITIONS_HEADER", "Правила Активации")
+ZO_CreateStringId("OW_MENU_ADVANCED_HEADER", "Расширенное Управление")
+ZO_CreateStringId("OW_MENU_PERFORMANCE_HEADER", "Настройки Производительности")
+ZO_CreateStringId("OW_MENU_MODE_ACTIVE", "Аддон активен")
+ZO_CreateStringId("OW_MENU_MODE_INACTIVE", "Аддон неактивен")
+ZO_CreateStringId("OW_MENU_DISABLED_TOOLTIP", "Эта опция отключена")
+ZO_CreateStringId("OW_MENU_LATENCY_WARNING", "Внимание: Высокая задержка может замедлить ввод!")
 
-ZO_CreateStringId("OW_MENU_DISCLAIMER_LABEL", "|cFF0000ข้อจำกัดความรับผิดชอบ|r") 
-ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000ข้อจำกัดความรับผิดชอบ:|r ส่วนเสริมนี้ไม่ได้สร้าง เกี่ยวข้อง หรือได้รับการสนับสนุนโดย ZeniMax Media Inc. The Elder Scrolls® และโลโก้ที่เกี่ยวข้องเป็นเครื่องหมายการค้าจดทะเบียนของ ZeniMax Media Inc. ในสหรัฐอเมริกาและ/หรือประเทศอื่นๆ สงวนลิขสิทธิ์")
-
--- =============================================================================
--- == CORE SETTINGS ============================================================
--- =============================================================================
-
-ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "การตั้งค่าหลัก")
-ZO_CreateStringId("OW_MENU_MODE_LABEL", "โหมดการทำงาน")
-ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Sequential:|r อนุญาตให้ใช้ความสามารถหลังจากทำ Light Attack เท่านั้น\n|cFF0000Strict:|r บล็อกแบบเข้มงวด ไม่มีการจัดคิวสกิลระหว่าง GCD\n|cFFFF00Intelligent:|r บล็อกอัจฉริยะ อนุญาตจัดคิวสกิลก็ต่อเมื่อไม่มี Light Attack ในคิว\n|c00FFFFDisabled:|r ปิดใช้งาน")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Sequential")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Strict")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Intelligent")
-ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Disabled")
-ZO_CreateStringId("OW_MENU_COMBAT_LABEL", "ทำงานเฉพาะในการต่อสู้")
-ZO_CreateStringId("OW_MENU_COMBAT_TOOLTIP", "หากเลือก OptimalWeave จะจัดการการจัดคิวความสามารถเฉพาะในช่วงการต่อสู้เท่านั้น")
-ZO_CreateStringId("OW_MENU_ENEMYTARGET_LABEL", "ทำงานเฉพาะกับเป้าหมายศัตรู")
-ZO_CreateStringId("OW_MENU_ENEMYTARGET_TOOLTIP", "ต้องมีเป้าหมายศัตรูจึงจะจัดการการจัดคิว")
-ZO_CreateStringId("OW_MENU_BLOCKING_LABEL", "ละเว้นขณะบล็อก")
-ZO_CreateStringId("OW_MENU_BLOCKING_TOOLTIP", "ปิดการควบคุมระหว่างการบล็อก")
-ZO_CreateStringId("OW_MENU_GROUNDAOE_LABEL", "บล็อกการกดซ้ำความสามารถพื้นที่")
-ZO_CreateStringId("OW_MENU_GROUNDAOE_TOOLTIP", "ป้องกันการกดซ้ำโดยไม่ได้ตั้งใจของความampuan ที่กำหนดเป้าหมายพื้นที่")
-ZO_CreateStringId("OW_MENU_DISABLE_TANK", "ปิดใช้งานเมื่อเป็น Tank")
-ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "ปิดอัตโนมัติเมื่อบทบาท Tank ทำงาน")
-ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "ปิดใช้งานเมื่อเป็น Healer")
-ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "ปิดอัตโนมัติเมื่อบทบาท Healer ทำงาน")
-
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "ปิดฟีเจอร์บนแถบอาวุธที่สอง")
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "ปิดฟีเจอร์ส่วนใหญ่ของส่วนเสริมบนแถบอาวุธที่สอง")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "ปิดตัวช่วยวีฟบนแถบอาวุธที่สอง")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "ปิดตัวช่วยวีฟ (การจัดการ GCD) บนแถบอาวุธที่สอง")
-
-ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "การปิดใช้งานใน PvP")
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "ปิดฟีเจอร์ใน PvP")
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "ปิดฟีเจอร์ส่วนใหญ่ของส่วนเสริมในพื้นที่ PvP")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "ปิดตัวช่วยวีฟใน PvP")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "ปิดตัวช่วยวีฟ (การจัดการ GCD) ในพื้นที่ PvP")
-
-ZO_CreateStringId("OW_MENU_BLOCKAOEIFNOTARGET_LABEL", "บล็อก AoE เมื่อไม่มีเป้าหมาย")
-ZO_CreateStringId("OW_MENU_BLOCKAOEIFNOTARGET_TOOLTIP", "บล็อกความสามารถที่กำหนดเป้าหมายพื้นที่เมื่อไม่มีเป้าหมายที่เลือก")
+ZO_CreateStringId("OW_MENU_DISCLAIMER_LABEL", "|cFF0000Примечание|r") 
+ZO_CreateStringId("OW_MENU_DISCLAIMER_TOOLTIP",  "|cFF0000Отказ от ответственности:|r Данный аддон не связан с ZeniMax Media Inc. The Elder Scrolls® — зарегистрированная торговая марка ZeniMax Media Inc. Все права защищены.")
 
 -- =============================================================================
--- == BLOCK ID SETTINGS ========================================================
+-- == CORE SETTINGS ===========================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_BLOCKED_HEADER", "ความสามารถที่ถูกบล็อก")
-ZO_CreateStringId("OW_MENU_BLOCKED_ADD_LABEL", "บล็อก ID ใหม่")
-ZO_CreateStringId("OW_MENU_BLOCKED_ADD_TOOLTIP", "ป้อน ID ความสามารถ (เช่น 134160)")
-ZO_CreateStringId("OW_MENU_BLOCKED_LIST_LABEL", "ID ที่ถูกบล็อกอยู่ในขณะนี้")
-ZO_CreateStringId("OW_MENU_BLOCKED_LIST_TOOLTIP", "คลิกเพื่อลบ")
+ZO_CreateStringId("OW_MENU_SETTINGS_HEADER", "Основные Настройки")
+ZO_CreateStringId("OW_MENU_MODE_LABEL", "Режим Работы")
+ZO_CreateStringId("OW_MENU_MODE_TOOLTIP", "|c00FF00Последовательный:|r Позволяет использовать способности только после лёгкой атаки.\n|cFF0000Строгий:|r Полная блокировка.\n|cFFFF00Умный:|r Очередь без легкой атаки.\n|c00FFFFНет:|r Отключено.")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_COND", "Последовательный")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_HARD", "Строгий")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_SOFT", "Умный")
+ZO_CreateStringId("OW_MENU_MODE_CHOICE_NONE", "Нет")
+ZO_CreateStringId("OW_MENU_COMBAT_LABEL", "Только в Бою")
+ZO_CreateStringId("OW_MENU_COMBAT_TOOLTIP", "Активно только во время боя.")
+ZO_CreateStringId("OW_MENU_ENEMYTARGET_LABEL", "Только с Вражеской Целью")
+ZO_CreateStringId("OW_MENU_ENEMYTARGET_TOOLTIP", "Требует выбора вражеской цели.")
+ZO_CreateStringId("OW_MENU_BLOCKING_LABEL", "Игнорировать Блокировку")
+ZO_CreateStringId("OW_MENU_BLOCKING_TOOLTIP", "Отключает управление при блокировке.")
+ZO_CreateStringId("OW_MENU_GROUNDAOE_LABEL", "Блокировать Двойные AoE")
+ZO_CreateStringId("OW_MENU_GROUNDAOE_TOOLTIP", "Предотвращает двойное применение способностей.")
+ZO_CreateStringId("OW_MENU_DISABLE_TANK", "Отключить как Танк")
+ZO_CreateStringId("OW_MENU_DISABLE_TANK_TOOLTIP", "Автоотключение в роли Танка")
+ZO_CreateStringId("OW_MENU_DISABLE_HEAL", "Отключить как Лекарь")
+ZO_CreateStringId("OW_MENU_DISABLE_HEAL_TOOLTIP", "Автоотключение в роли Лекаря")
+
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR", "Отключить функции на второй панели")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_BACKBAR_TOOLTIP", "Отключает большинство функций аддона на второй панели оружия.")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR", "Отключить ассистент плетения на второй панели")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_BACKBAR_TOOLTIP", "Отключает ассистент плетения (управление GCD) на второй панели оружия.")
+
+ZO_CreateStringId("OW_MENU_DEACTIVATE_IN_PVP_HEADER", "Отключение в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP", "Отключить функции в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_IN_PVP_TOOLTIP", "Отключает большинство функций аддона в PvP-зонах")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP", "Отключить помощник плетения в PvP")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_IN_PVP_TOOLTIP", "Отключает помощник плетения (управление GCD) в PvP-зонах")
 
 -- =============================================================================
--- == ADVANCED SETTINGS ========================================================
--- =============================================================================
-ZO_CreateStringId("OW_MENU_CHANNEL_NORMAL", "บัฟเฟอร์คาถาทันที (มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_CHANNEL_NORMAL_TOOLTIP", "ระยะปลอดภัยสำหรับความสามารถทันที (0-100 มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "บัฟเฟอร์ความสามารถแบบช่องทาง (มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "บัฟเฟอร์สำหรับสกิลแบบช่องทาง (0-400 มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_GCD_SLOT", "ช่องติดตาม GCD")
-ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "ช่องแถบปฏิบัติการสำหรับตรวจจับ GCD (3-8)")
-ZO_CreateStringId("OW_MENU_MIN_GCD", "เกณฑ์ GCD ขั้นต่ำ (มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "ระยะเวลา GCD ขั้นต่ำที่จะตรวจจับ (0-20 มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_QUEUE_TIME", "เวลาในคิวพื้นฐาน (มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "หน้าต่างคิวอินพุตเริ่มต้น (100-2000 มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "รีเซ็ตเมื่อสลับแถบอาวุธ")
-ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "รีเซ็ต GCD เมื่อสลับแถบอาวุธ")
-ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "รีเซ็ตเมื่อหลบ")
-ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "รีเซ็ต GCD เมื่อหลบ")
-ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "เวลารีเซ็ต (วินาที)")
-ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "รีเซ็ตการติดตามหลังจากไม่ได้ร่ายอะไรเลยเป็นเวลาหลายวินาทีนี้")
-ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "ช่องติดตาม GCD อัตโนมัติ")
-ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "เลือกช่องติดตาม GCD ที่ดีที่สุดจากช่อง 3-8 โดยอัตโนมัติ")
-ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "ชักอาวุธอัตโนมัติ")
-ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "ชักอาวุธโดยอัตโนมัติเมื่ออยู่ในการต่อสู้")
-ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "รีเซ็ตทั้งหมด")
-ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น")
-
--- =============================================================================
--- == LATENCY COMPENSATION =====================================================
+-- == BLOCK ID SETTINGS =======================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_LATENCY_HEADER", "การชดเชยความหน่วง")
-ZO_CreateStringId("OW_MENU_AUTOLATENCY_LABEL", "ปรับความหน่วงอัตโนมัติ")
-ZO_CreateStringId("OW_MENU_AUTOLATENCY_TOOLTIP", "ปรับเวลาตามความหน่วงปัจจุบันอัตโนมัติ แนะนำสำหรับการเชื่อมต่อที่เสถียร")
-ZO_CreateStringId("OW_MENU_MANUALLATENCY_LABEL", "ป้อนความหน่วงด้วยตนเอง (มิลลิวินาที)")
-ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "ค่าความหน่วงคงที่ (0-200 มิลลิวินาที) ใช้เฉพาะเมื่อปิดโหมดอัตโนมัติ")
+ZO_CreateStringId("OW_MENU_BLOCKED_HEADER", "Заблокированные Способности")
+ZO_CreateStringId("OW_MENU_BLOCKED_ADD_LABEL", "Заблокировать Новый ID")
+ZO_CreateStringId("OW_MENU_BLOCKED_ADD_TOOLTIP", "Введите ID способности (напр. 134160)")
+ZO_CreateStringId("OW_MENU_BLOCKED_LIST_LABEL", "Текущие ID")
+ZO_CreateStringId("OW_MENU_BLOCKED_LIST_TOOLTIP", "Кликните для удаления")
+
+-- =============================================================================
+-- == ADVANCED SETTINGS =======================================================
+-- =============================================================================
+ZO_CreateStringId("OW_MENU_CHANNEL_NORMAL", "Буфер Мгновенных (мс)")
+ZO_CreateStringId("OW_MENU_CHANNEL_NORMAL_TOOLTIP", "Запас для мгновенных способностей (0-100мс)")
+ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED", "Буфер Канальных (мс)")
+ZO_CreateStringId("OW_MENU_CHANNEL_CHANNELED_TOOLTIP", "Запас для канальных способностей (0-400мс)")
+ZO_CreateStringId("OW_MENU_GCD_SLOT", "Слот Отслеживания GCD")
+ZO_CreateStringId("OW_MENU_GCD_SLOT_TOOLTIP", "Слот панели для GCD (1-8)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_LABEL", "Время сброса (секунды)")
+ZO_CreateStringId("OW_MENU_RESET_TIME_TOOLTIP", "Сбрасывает отслеживание, если ничего не применялось в течение этого количества секунд.")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_LABEL", "Автоматический слот отслеживания GCD")
+ZO_CreateStringId("OW_MENU_AUTO_GCD_SLOT_TOOLTIP", "Автоматически выбирает лучший слот для отслеживания GCD из слотов 3-8")
+ZO_CreateStringId("OW_MENU_MIN_GCD", "Минимальный GCD (мс)")
+ZO_CreateStringId("OW_MENU_MIN_GCD_TOOLTIP", "Минимальная длительность GCD (0-20мс)")
+ZO_CreateStringId("OW_MENU_QUEUE_TIME", "Базовое Время Очереди (мс)")
+ZO_CreateStringId("OW_MENU_QUEUE_TIME_TOOLTIP", "Окно очереди по умолчанию (100-2000мс)")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_LABEL", "Сброс при смене оружия")
+ZO_CreateStringId("OW_MENU_RESETONBARSWAP_TOOLTIP", "Сбрасывает GCD при смене оружия")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_LABEL", "Сброс при уклонении")
+ZO_CreateStringId("OW_MENU_RESETONDODGE_TOOLTIP", "Сбрасывает GCD при выполнении переката")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Автоматически доставать оружие")
+ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Автоматически доставать оружие в бою")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Сбросить всё")
+ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Сбросить все настройки к значениям по умолчанию")
+
+-- =============================================================================
+-- == LATENCY COMPENSATION ====================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_LATENCY_HEADER", "Компенсация Задержки")
+ZO_CreateStringId("OW_MENU_AUTOLATENCY_LABEL", "Автонастройка")
+ZO_CreateStringId("OW_MENU_AUTOLATENCY_TOOLTIP", "Автоматическая регулировка задержки.")
+ZO_CreateStringId("OW_MENU_MANUALLATENCY_LABEL", "Ручная Задержка (мс)")
+ZO_CreateStringId("OW_MENU_MANUALLATENCY_TOOLTIP", "Фиксированное значение (0-200мс).")
 
 -- =============================================================================
 -- == (SUB)CLASS SETTINGS ======================================================
 -- =============================================================================
 
--- == Grim Focus SETTINGS ======================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "การตั้งค่าเฉพาะคลาสและกิลด์")
-ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Grim Focus")
+ZO_CreateStringId("OW_MENU_SUBCLASS_HEADER", "Настройки классов и гильдий")
 
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "จำนวน Stack ที่ต้องการ")
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS_TOOLTIP", "จำนวน Stack ที่ต้องมีก่อนที่ Grim Focus จะสามารถเปิดใช้งานได้ (แนะนำ: 10)")
+ZO_CreateStringId("OW_MENU_SUBCLASS_GRIMFOCUS", "Мрачный Фокус")
 
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS", "บล็อก Grim Focus ทุก Morph")
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Relentless Focus:|r ถูกบล็อกเสมอ\n|cFFFF00• Grim Focus และ Merciless Resolve:|r ใช้ได้เฉพาะที่ 10 Stack\n|cAAAAAADisable:|r พฤติกรรมเริ่มต้นสำหรับทุก Morph")
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS", "Необходимые стаки")
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_STACKS_TOOLTIP", "Количество стаков, необходимое для активации Мрачного Фокуса (Рекомендуется: 10)")
 
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "เปิดใช้งาน Stack แบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700เปิดใช้งาน:|r ใช้การตั้งค่า Stack แบบกำหนดเอง \n" ..
-                  "|cAAAAAAปิดใช้งาน:|r บล็อก Grim Focus และ Merciless Resolve เสมอจนถึง 10 Stack และบล็อก Relentless Focus เสมอ\n")
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS", "Блокировать все морфы Мрачного Фокуса")
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_ALL_MORPHS_TOOLTIP", "|cFF5555• Неутомимый Фокус:|r Всегда блокируется\n|cFFFF00• Мрачный Фокус и Безжалостная Решимость:|r Доступен только при 10 стаках\n|cAAAAAAОтключить:|r Поведение по умолчанию для всех морфов")
+
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE", "Активировать пользовательские стаки")
+ZO_CreateStringId("OW_MENU_GRIMFOCUS_GRIMFOCUSSTACKS_TOOGLE_TOOLTIP", "|cFFD700Включено:|r Использует настройку стака \n|cAAAAAAОтключено:|r Всегда блокирует Мрачный Фокус и Безжалостную Решимость до 10 стаков, а также всегда блокирует Неутомимый Фокус\n")
 
 -- == BLOCK GUILDS SETTINGS ===================================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "กิลด์")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "บล็อกสกิล Hunter ของ Fighter's Guild")
-ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "บล็อกทุก Morph ของสกิล Hunter ของ Fighter's Guild (Expert Hunter, Camouflaged Hunter & Evil Hunter)")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "บล็อกสกิล Light ของ Mage's Guild")
-ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "บล็อกทุก Morph ของสกิล Light (Magelight, Inner Light & Radiant Magelight)")   
+ZO_CreateStringId("OW_MENU_SUBCLASS_GUILDS", "Гильдии")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS", "Блокировать навыки охотника Гильдии воинов")
+ZO_CreateStringId("OW_MENU_HUNTER_ALL_MORPHS_TOOLTIP", "Блокирует все морфы навыков охотника Гильдии воинов (Опытный охотник, Замаскированный охотник & Свирепый охотник)")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS", "Блокировать световые навыки Гильдии магов")
+ZO_CreateStringId("OW_MENU_LIGHT_ALL_MORPHS_TOOLTIP", "Блокирует все морфы световых навыков (Волшебный свет, Внутренний свет & Сияющий волшебный свет)")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "ปิดใช้งานใน PvP")
-ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "ปิดการบล็อกความสามารถ Hunter/Light ในพื้นที่ PvP")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS", "Отключить в PvP")
+ZO_CreateStringId("OW_MENU_DEACTIVATEHUNTERLIGHTINPVP_ALL_MORPHS_TOOLTIP", "Отключает блокировку способностей Охотника/Света в PvP-зонах")
 
 -- == BLOCK MOLTEN WHIP SETTINGS ===============================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Molten Whip")
-ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "บล็อกสกิล Molten Whip")
-ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "บล็อกสกิล Molten Whip เพื่อป้องกันการเสียสาม Stack")
+ZO_CreateStringId("OW_MENU_SUBCLASS_MOLTENWHIP", "Лавовый Хлыст")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK", "Блокировать навык Лавовый Хлыст")
+ZO_CreateStringId("OW_MENU_MOLTENWHIP_BLOCK_TOOLTIP", "Блокирует навык Лавовый Хлыст, чтобы не потерять три стака")
 
 -- == BLOCK FATECARVER SETTINGS ================================================
 ZO_CreateStringId("OW_MENU_SUBCLASS_FATECARVER", "Arcanist Fatecarver")
-ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "บล็อกการร่าย Fatecarver")
-ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "ป้องกันการร่าย Fatecarver จนกว่าเงื่อนไขจะสำเร็จ")
-ZO_CreateStringId("OW_MENU_CRUX_STACKS", "จำนวน Crux Stack ที่ต้องการ")
-ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Crux Stack ขั้นต่ำก่อนที่จะร่าย Fatecarver ได้ (แนะนำ: 3)")
-ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "เกณฑ์ HP (%)")
-ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "ปิดการบล็อก Fatecarver เมื่อ HP ต่ำกว่าค่านี้")
-ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "เปิดใช้งานการตรวจสอบ HP สำหรับ Fatecarver")
-ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "ปิดการบล็อก Fatecarver เมื่อพลังชีวิตของคุณต่ำ")
+ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS", "Блокировать Fatecarver")
+ZO_CreateStringId("OW_MENU_FATECARVER_ALL_MORPHS_TOOLTIP", "Блокирует применение Fatecarver до выполнения условий.")
+ZO_CreateStringId("OW_MENU_CRUX_STACKS", "Необходимые стаки Crux")
+ZO_CreateStringId("OW_MENU_CRUX_STACKS_TOOLTIP", "Минимальные стаки Crux для применения Fatecarver (Рекомендуется: 3)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM", "Порог HP (%)")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOLTIP", "Отключить блокировку Fatecarver при HP ниже этого значения")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE", "Включить проверку HP для Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_HP_FOR_BEAM_TOOGLE_TOOLTIP", "Отключает блокировку Fatecarver при низком здоровье")
 
-ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "เกณฑ์ Stamina (%)")
-ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "ปิดการบล็อก Fatecarver เมื่อ Stamina ต่ำ")
-ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "เปิดใช้งานการตรวจสอบ Stamina สำหรับ Fatecarver")
-ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "ปิดการบล็อก Fatecarver เมื่อความอดทนของคุณต่ำ")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM", "Порог Выносливости (%)")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOLTIP", "Отключить блокировку Fatecarver при низкой выносливости")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE", "Включить проверку Выносливости для Fatecarver")
+ZO_CreateStringId("OW_MENU_CHECK_STAMINA_FOR_BEAM_TOOGLE_TOOLTIP", "Отключает блокировку Fatecarver при низкой выносливости")
 
--- == BLOCK CEPHALIARCH'S FLAIL SETTINGS ==========================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "Cephaliarch's Flail")
-ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "บล็อก Cephaliarch's Flail")
-ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "บล็อก Cephaliarch's Flail เมื่อคุณมี Crux 3 Stack")
+-- == BLOCK CEPHALIARCH'S FLAIL SETTINGS =======================================
+ZO_CreateStringId("OW_MENU_SUBCLASS_CEPHALIARCHSFLAIL", "Бич цефалиарха")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL", "Блокировать Бич цефалиарха")
+ZO_CreateStringId("OW_MENU_CEPHALIARCHSFLAIL_TOOLTIP", "Блокирует Бич цефалиарха, когда у вас 3 стака Крукса")
 
 -- == BLOCK TENTACULAR DREAD SETTINGS ==========================================
-ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Tentacular Dread")
-ZO_CreateStringId("OW_MENU_TENTACULAR", "บล็อก Tentacular Dread")
-ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "บล็อกสกิล Tentacular Dread จนกว่าเงื่อนไขจะสำเร็จ")
+ZO_CreateStringId("OW_MENU_SUBCLASS_TENTACULAR", "Ужасное щупальце")
+ZO_CreateStringId("OW_MENU_TENTACULAR", "Блокировать Ужасное щупальце")
+ZO_CreateStringId("OW_MENU_TENTACULAR_TOOLTIP", "Блокирует способность Ужасное щупальце до выполнения условий.")
 
--- == Execute Check Settings ================================================
-ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "การตรวจสอบ Execute")
-ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "เปิดใช้งานการตรวจสอบ Execute")
-ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "เปิดหรือปิดฟีเจอร์การตรวจสอบ Execute")
-ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "เกณฑ์ Execute (%)")
-ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "เปอร์เซ็นต์พลังชีวิตของเป้าหมายที่ต่ำกว่าซึ่งอนุญาตให้ใช้คาถา Execute")
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "คาถา Execute")
+-- == Execute Check Settings ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_HEADER", "Проверка добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE", "Включить проверку добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_ENABLE_TOOLTIP", "Включает или отключает функцию проверки добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD", "Порог добивания (%)")
+ZO_CreateStringId("OW_MENU_EXECUTE_THRESHOLD_TOOLTIP", "Процент здоровья цели, ниже которого разрешены заклинания добивания")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELLS_HEADER", "Заклинания добивания")
 
--- == Grouped Execute Spells ================================================
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Radiant Destruction, Radiant Glory, Radiant Oppression")
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "บล็อก Morph ของ Radiant Destruction จนกว่าเป้าหมายจะอยู่ในช่วง Execute")
+-- == Grouped Execute Spells ==========================================
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS", "Сияющее разрушение, Сияющая слава, Сияющее угнетение")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_RADIANTMORPHS_TOOLTIP", "Блокирует морфы Сияющего разрушения, пока цель не достигнет порога добивания")
 
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Assassin's Blade, Impale, Killer's Blade")
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "บล็อก Morph ของ Assassin's Blade จนกว่าเป้าหมายจะอยู่ในช่วง Execute")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS", "Клинок ассасина, Пронзание, Клинок убийцы")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_ASSASSINSBLADEMORPHS_TOOLTIP", "Блокирует морфы Клинка ассасина, пока цель не достигнет порога добивания")
 
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Mages' Wrath, Mages' Fury, Endless Fury")
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "บล็อก Morph ของ Mages' Fury จนกว่าเป้าหมายจะอยู่ในช่วง Execute")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS", "Гнев магов, Ярость магов, Бесконечная ярость")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_MAGESFURYMORPHS_TOOLTIP", "Блокирует морфы Ярости магов, пока цель не достигнет порога добивания")
 
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Reverse Slash, Reverse Slice, Executioner")
-ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "บล็อก Morph ของ Reverse Slash จนกว่าเป้าหมายจะอยู่ในช่วง Execute")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS", "Обратный разрез, Обратный удар, Палач")
+ZO_CreateStringId("OW_MENU_EXECUTE_SPELL_REVERSESLASHMORPHS_TOOLTIP", "Блокирует морфы Обратного разреза, пока цель не достигнет порога добивания")
 
 -- == Work in progress ================================================
 ZO_CreateStringId("OW_WIP", "WIP")
@@ -207,180 +203,176 @@ ZO_CreateStringId("OW_WIP", "WIP")
 -- == WEAPON SETTINGS ==========================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "ปิดใช้งานตามประเภทอาวุธ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEADER", "Отключение по типу оружия")
 
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "ปิดตัวช่วยวีฟตามประเภทอาวุธ")
-ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "ปิดเฉพาะตัวช่วยวีฟ (การจัดการ GCD) สำหรับประเภทอาวุธที่เลือก")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON", "Отключить ассистент плетения для типа оружия")
+ZO_CreateStringId("OW_MENU_DISABLE_WEAVE_ASSIST_ON_WEAPON_TOOLTIP", "Отключает только ассистент плетения (управление GCD) для выбранных типов оружия")
 
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "ปิดฟีเจอร์ตามประเภทอาวุธ")
-ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "ปิดฟีเจอร์ส่วนใหญ่ของส่วนเสริมสำหรับประเภทอาวุธที่เลือก")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON", "Отключить функции для типа оружия")
+ZO_CreateStringId("OW_MENU_DISABLE_FEATURES_ON_WEAPON_TOOLTIP", "Отключает большинство функций аддона для выбранных типов оружия")
 
--- One-handed weapons
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "ขวาน")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "ปิดใช้งานเมื่อสวมขวาน")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE", "Топор")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_AXE_TOOLTIP", "Отключать при экипировке топора")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "ค้อน")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "ปิดใช้งานเมื่อสวมค้อน")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER", "Молот")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HAMMER_TOOLTIP", "Отключать при экипировке молота")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "ดาบ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "ปิดใช้งานเมื่อสวมดาบ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD", "Меч")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SWORD_TOOLTIP", "Отключать при экипировке меча")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "กริช")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "ปิดใช้งานเมื่อสวมกริช")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER", "Кинжал")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_DAGGER_TOOLTIP", "Отключать при экипировке кинжала")
 
--- Two-handed weapons
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "ดาบสองมือ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "ปิดใช้งานเมื่อสวมดาบสองมือ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD", "Двуручный меч")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_SWORD_TOOLTIP", "Отключать при экипировке двуручного меча")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "ขวานสองมือ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "ปิดใช้งานเมื่อสวมขวานสองมือ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE", "Двуручный топор")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_AXE_TOOLTIP", "Отключать при экипировке двуручного топора")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "ค้อนสองมือ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "ปิดใช้งานเมื่อสวมค้อนสองมือ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER", "Двуручный молот")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_TWOHANDED_HAMMER_TOOLTIP", "Отключать при экипировке двуручного молота")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "ธนู")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "ปิดใช้งานเมื่อสวมธนู")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW", "Лук")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_BOW_TOOLTIP", "Отключать при экипировке лука")
 
--- Staves
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "คฑาไฟ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "ปิดใช้งานเมื่อสวมคฑาไฟ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF", "Огненный посох")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FIRE_STAFF_TOOLTIP", "Отключать при экипировке огненного посоха")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "คฑาน้ำแข็ง")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "ปิดใช้งานเมื่อสวมคฑาน้ำแข็ง")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF", "Ледяной посох")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_FROST_STAFF_TOOLTIP", "Отключать при экипировке ледяного посоха")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "คฑาสายฟ้า")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "ปิดใช้งานเมื่อสวมคฑาสายฟ้า")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF", "Посох молний")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_LIGHTNING_STAFF_TOOLTIP", "Отключать при экипировке посоха молний")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "คฑารักษา")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "ปิดใช้งานเมื่อสวมคฑารักษา")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF", "Целительный посох")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_HEALING_STAFF_TOOLTIP", "Отключать при экипировке целительного посоха")
 
--- Other weapons
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "โล่")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "ปิดใช้งานเมื่อสวมโล่")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD", "Щит")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_SHIELD_TOOLTIP", "Отключать при экипировке щита")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "รูม")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "ปิดใช้งานเมื่อสวมรูม")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE", "Руна")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RUNE_TOOLTIP", "Отключать при экипировке руны")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "ไม่มีอาวุธ")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "ปิดใช้งานเมื่อไม่ได้สวมอาวุธ")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE", "Без оружия")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_NONE_TOOLTIP", "Отключать при отсутствии оружия")
 
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "อาวุธสำรอง")
-ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "ปิดใช้งานเมื่อสวมประเภทอาวุธสำรอง")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED", "Резервное оружие")
+ZO_CreateStringId("OW_MENU_DEACTIVATE_ON_WEAPON_RESERVED_TOOLTIP", "Отключать при экипировке резервного типа оружия")
 
 -- =============================================================================
--- == CUSTOM BLOCK LIST SETTINGS ===============================================
--- =============================================================================
-ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "รายการบล็อกแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "รายการบล็อกแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "เพิ่ม ID คาถาเพื่อบล็อกไม่ให้ใช้ คุณยังสามารถเพิ่มคาถาได้โดยคลิกขวาที่ช่องแถบปฏิบัติการ (ต้องรีโหลด UI)")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID คาถา")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "ป้อน ID คาถาเป็นตัวเลข (เช่น 185805)")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "เพิ่มในรายการบล็อก")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "คาถาที่ถูกบล็อก:")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "เปิดใช้งานรายการบล็อกแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "เปิดหรือปิดฟังก์ชันรายการบล็อกแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "ตรวจสอบไฟล์ SavedVariables ของคุณ:\n customBlockList = {\n   [SpellID] = false/true\n }")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "เปิดใช้งานการตรวจสอบพลังชีวิตสำหรับรายการบล็อก")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "เมื่อเปิดใช้งาน คาถาในรายการบล็อกจะถูกบล็อกก็ต่อเมื่อพลังชีวิตของคุณสูงกว่าเกณฑ์")
-ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "เกณฑ์พลังชีวิตสำหรับรายการบล็อก (%)")
-ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "คาถาในรายการบล็อกจะถูกบล็อกก็ต่อเมื่อพลังชีวิตของคุณสูงกว่าเปอร์เซ็นต์นี้")
-
--- =============================================================================
--- == CUSTOM RECAST BLOCK LIST SETTINGS ========================================
+-- == CUSTOM BLOCK LIST SETTINGS ==============================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "รายการบล็อกการร่ายซ้ำแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "เพิ่ม ID คาถาเพื่อบล็อกไม่ให้ร่ายซ้ำจนกว่าเวลาผลตกค้างจะต่ำกว่าเกณฑ์ คุณยังสามารถเพิ่มคาถาได้โดยคลิกขวาที่ช่องแถบปฏิบัติการ (ต้องรีโหลด UI)")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID คาถา")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "ป้อน ID คาถาเป็นตัวเลข (เช่น 185805)")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "เพิ่มในรายการบล็อกการร่ายซ้ำ")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "คาถาที่ถูกบล็อกการร่ายซ้ำ:")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "เปิดใช้งานรายการบล็อกการร่ายซ้ำแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "เปิดหรือปิดฟังก์ชันรายการบล็อกการร่ายซ้ำแบบกำหนดเอง")
-ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "เวลาบล็อกการร่ายซ้ำ (วินาที)")
-ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "เวลาเป็นวินาทีที่ต่ำกว่าซึ่งคาถาในรายการบล็อกการร่ายซ้ำสามารถร่ายได้อีกครั้ง (1.0 = 1 วินาที)")
-ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "ตรวจสอบไฟล์ SavedVariables ของคุณ:\n customRecastBlockList = {\n   [SpellID] = false/true\n }")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "เปิดใช้งานการตรวจสอบพลังชีวิตสำหรับรายการบล็อกการร่ายซ้ำ")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "เมื่อเปิดใช้งาน คาถาในรายการบล็อกการร่ายซ้ำจะถูกบล็อกก็ต่อเมื่อพลังชีวิตของคุณสูงกว่าเกณฑ์")
-ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "เกณฑ์พลังชีวิตสำหรับรายการบล็อกการร่ายซ้ำ (%)")
-ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "คาถาในรายการบล็อกการร่ายซ้ำจะถูกบล็อกก็ต่อเมื่อพลังชีวิตของคุณสูงกว่าเปอร์เซ็นต์นี้")
+ZO_CreateStringId("OW_MENU_BLOCKLIST_HEADER", "Пользовательские списки блокировки")
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_HEADER", "Пользовательский список блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_DESC", "Добавьте ID способностей, чтобы заблокировать их использование. Вы также можете добавить способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_LABEL", "ID Способности")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SPELLID_TOOLTIP", "Введите числовой ID способности (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_ADD_BUTTON", "Добавить в список блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_LIST_HEADER", "Заблокированные способности:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST", "Включить пользовательский список блокировки")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_TOOLTIP", "Включает или отключает функциональность пользовательского списка блокировки")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_SV_DESC", "Проверьте ваш файл SavedVariables:\n customBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK", "Включить проверку здоровья для списка блокировки")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Если включено, заклинания в списке блокировки будут блокироваться только если ваше здоровье выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT", "Порог здоровья для списка блокировки (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Заклинания из списка блокировки блокируются только когда ваше здоровье выше этого процента.")
+
+-- =============================================================================
+-- == CUSTOM RECAST BLOCK LIST SETTINGS =======================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_CONFIGURABLERECASTBLOCK_HEADER", "Пользовательский список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_DESC", "Добавьте ID способностей, чтобы заблокировать их повторное применение, пока оставшееся время эффекта не станет ниже порога. Вы также можете добавить способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса).")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_LABEL", "ID Способности")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SPELLID_TOOLTIP", "Введите числовой ID способности (напр. 185805)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_ADD_BUTTON", "Добавить в список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_LIST_HEADER", "Способности, заблокированные для повторного применения:")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST", "Включить пользовательский список блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_TOOLTIP", "Включает или отключает функциональность пользовательского списка блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME", "Время блокировки повторного применения (с)")
+ZO_CreateStringId("OW_MENU_RECAST_BLOCK_TIME_TOOLTIP", "Время в секундах, ниже которого способность из списка блокировки повторного применения может быть применена снова (1.0 = 1 секунда)")
+ZO_CreateStringId("OW_MENU_CUSTOMRECASTBLOCK_SV_DESC", "Проверьте ваш файл SavedVariables:\n customRecastBlockList = {\n   [AbilityID] = false/true\n }")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK", "Включить проверку здоровья для списка блокировки повторного применения")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RECAST_BLOCK_LIST_HEALTH_CHECK_TOOLTIP", "Если включено, заклинания в списке блокировки повторного применения будут блокироваться только если ваше здоровье выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT", "Порог здоровья для списка блокировки повторного применения (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_RECAST_BLOCK_LIST_HEALTH_PERCENT_TOOLTIP", "Заклинания из списка блокировки повторного применения блокируются только когда ваше здоровье выше этого процента.")
 
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "เพิ่ม/ลบ ID คาถาแล้ว หากคุณไม่ต้องการเพิ่มคาถาเพิ่มเติม กรุณารีโหลด UI เพื่อให้แสดงคาถาได้")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "รีโหลด UI")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "ทีหลัง")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_MAIN_TEXT", "ID способности был добавлен/удален. Если вы не хотите добавлять или удалять другие способности, пожалуйста, перезагрузите интерфейс, чтобы изменения отобразились.")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_YES", "Перезагрузить интерфейс")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_BUTTON_LATER", "Позже")
 
-ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "ตกลง")
-ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "ข้อผิดพลาด: กรุณาป้อน ID คาถาที่ถูกต้อง")
-ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ไม่มี ID คาถานี้")
-ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID คาถาอยู่ในรายการบล็อกแล้ว")
+ZO_CreateStringId("OW_MENU_DIALOG_BUTTON_OK", "OK")
+ZO_CreateStringId("OW_MENU_INVALID_ID_DIALOG_MAIN_TEXT", "Ошибка: Введите корректный ID способности")
+ZO_CreateStringId("OW_MENU_ID_NOT_EXIST_DIALOG_MAIN_TEXT", "ID способности не существует")
+ZO_CreateStringId("OW_MENU_ID_IS_IN_SV_DIALOG_MAIN_TEXT", "ID способности уже в списке блокировки")
 
 -- =============================================================================
 -- == RESOURCE-BASED BLOCK LIST SETTINGS =======================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "รายการบล็อกตามทรัพยากร")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "เพิ่ม ID คาถาเพื่อบล็อกเมื่อทรัพยากรหลักของคุณ (Magicka หรือ Stamina) ต่ำกว่าเกณฑ์ คุณยังสามารถเพิ่มคาถาได้โดยคลิกขวาที่ช่องแถบปฏิบัติการ (ต้องรีโหลด UI)")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "เปิดใช้งานรายการบล็อกตามทรัพยากร")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "เปิดหรือปิดฟังก์ชันรายการบล็อกตามทรัพยากร")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "เปิดใช้งานการตรวจสอบทรัพยากร")
-ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "เมื่อเปิดใช้งาน คาถาในรายการบล็อกทรัพยากรจะถูกบล็อกก็ต่อเมื่อทรัพยากรหลักของคุณ (Magicka หรือ Stamina) สูงกว่าเกณฑ์")
-ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "เกณฑ์ทรัพยากร (%)")
-ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "คาถาในรายการบล็อกทรัพยากรจะถูกบล็อกก็ต่อเมื่อทรัพยากรหลักของคุณ (Magicka หรือ Stamina) สูงกว่าเปอร์เซ็นต์นี้")
-
-ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "คาถา: ")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "ตรวจสอบ Magicka")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "เปิดใช้งานการบล็อกตาม Magicka สำหรับคาถานี้")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "บล็อกเมื่อ Magicka ต่ำกว่าเกณฑ์")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "บล็อกคาถาเมื่อ Magicka ต่ำกว่าเกณฑ์ (ยกเลิกการเลือกเพื่ออนุญาตเฉพาะเมื่อต่ำกว่า)")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "เกณฑ์ Magicka (%)")
-ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "เกณฑ์เปอร์เซ็นต์ Magicka")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "ตรวจสอบ Stamina")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "เปิดใช้งานการบล็อกตาม Stamina สำหรับคาถานี้")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "บล็อกเมื่อ Stamina ต่ำกว่าเกณฑ์")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "บล็อกคาถาเมื่อ Stamina ต่ำกว่าเกณฑ์ (ยกเลิกการเลือกเพื่ออนุญาตเฉพาะเมื่อต่ำกว่า)")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "เกณฑ์ Stamina (%)")
-ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "เกณฑ์เปอร์เซ็นต์ Stamina")
+ZO_CreateStringId("OW_MENU_CONFIGURABLEBLOCK_RESOURCE_HEADER", "Блок-лист на основе ресурсов")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_RESOURCE_DESC", "Добавьте ID способностей, чтобы блокировать их, когда ваш основной ресурс (Магия или Выносливость) ниже порога. Вы также можете добавлять способности, щелкнув правой кнопкой мыши по слоту панели действий (требуется перезагрузка интерфейса).")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST", "Включить блок-лист на основе ресурсов")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_RESOURCE_BLOCK_LIST_TOOLTIP", "Включить или отключить функциональность блок-листа на основе ресурсов")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK", "Включить проверку ресурса")
+ZO_CreateStringId("OW_MENU_USE_CUSTOM_BLOCK_LIST_RESOURCE_CHECK_TOOLTIP", "Если включено, способности в блок-листе ресурсов будут блокироваться только если ваш основной ресурс (Магия или Выносливость) выше порога.")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT", "Порог ресурса (%)")
+ZO_CreateStringId("OW_MENU_CUSTOM_BLOCK_LIST_RESOURCE_PERCENT_TOOLTIP", "Способности в блок-листе ресурсов блокируются только когда ваш основной ресурс (Магия или Выносливость) выше этого процента.")
+ZO_CreateStringId("OW_MENU_RESOURCE_BLOCK_SPELL", "Способность: ")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK", "Проверка Магии")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_CHECK_TOOLTIP", "Включить блокировку на основе Магии для этой способности")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE", "Блокировать, когда Магия ниже порога")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_BLOCK_MODE_TOOLTIP", "Блокировать способность, когда Магия ниже порога (снимите флажок, чтобы разрешать только когда ниже)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD", "Порог Магии (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_MAGICKA_THRESHOLD_TOOLTIP", "Пороговый процент Магии")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK", "Проверка Выносливости")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_CHECK_TOOLTIP", "Включить блокировку на основе Выносливости для этой способности")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE", "Блокировать, когда Выносливость ниже порога")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_BLOCK_MODE_TOOLTIP", "Блокировать способность, когда Выносливость ниже порога (снимите флажок, чтобы разрешать только когда ниже)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD", "Порог Выносливости (%)")
+ZO_CreateStringId("OW_MENU_RESOURCE_STAMINA_THRESHOLD_TOOLTIP", "Пороговый процент Выносливости")
 
 -- =============================================================================
 -- == KEYBINDINGS LOCALIZATION =================================================
 -- =============================================================================
 
 ZO_CreateStringId("SI_KEYBINDINGS_CATEGORY_OPTIMALWEAVE", "|c6D6D6DOpti|r|c8A8A8AmalWea|r|cC4C4C4ve|r")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "สลับโหมด (Strict/Intelligent/Disabled)")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "สลับรายการบล็อกแบบกำหนดเอง")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "สลับรายการบล็อกการร่ายซ้ำแบบกำหนดเอง")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "สลับการปิดฟีเจอร์บนแถบอาวุธที่สอง")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "สลับการปิดตัวช่วยวีฟบนแถบอาวุธที่สอง")
-ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "สลับการตรวจสอบ Execute")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_MODE", "Переключить режим (Строгий/Умный/Отключено)")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_BLOCK_LIST", "Переключить пользовательский список блокировки")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_CUSTOM_RECAST_BLOCK_LIST", "Переключить пользовательский список блокировки повторного применения")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_FEATURES", "Переключить отключение функций второй панели")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_BACKBAR_WEAVE_ASSIST", "Переключить отключение ассистента плетения на второй панели")
+ZO_CreateStringId("SI_BINDING_NAME_OPTIMALWEAVE_TOGGLE_EXECUTE_CHECK", "Переключить проверку добивания")
 
 -- =============================================================================
 -- == REMOVE BUTTON ============================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "ลบ")
-ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "ลบคาถานี้ออกจากรายการบล็อก (ต้อง /reloadui)")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_BUTTON", "Удалить")
+ZO_CreateStringId("OW_MENU_CUSTOMBLOCK_REMOVE_TOOLTIP", "Удалить это заклинание из списка блокировки (требуется /reloadui)")
 
 -- =============================================================================
 -- == SETTIINGS MODE ===========================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "โหมดการตั้งค่า")
-ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "เลือกว่าการตั้งค่าจะใช้ร่วมกันทุกตัวละครในบัญชีนี้ (ทั้งบัญชี) หรือเก็บแยกสำหรับแต่ละตัวละคร (ต่อตัวละคร)")
-ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "ทั้งบัญชี")
-ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "ต่อตัวละคร")
-ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "เปลี่ยนโหมดการตั้งค่าแล้ว รีโหลด UI เพื่อใช้การเปลี่ยนแปลงหรือไม่?")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_LABEL", "Режим настроек")
+ZO_CreateStringId("OW_MENU_MODE_SELECTION_TOOLTIP", "Выберите, будут ли настройки общими для всех персонажей этой учётной записи (Общий для аккаунта) или сохраняться отдельно для каждого персонажа (Для персонажа).")
+ZO_CreateStringId("OW_MENU_MODE_ACCOUNTWIDE", "Общий для аккаунта")
+ZO_CreateStringId("OW_MENU_MODE_PERCHARACTER", "Для персонажа")
+ZO_CreateStringId("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT", "Режим настроек изменён. Перезагрузить интерфейс, чтобы применить изменения?")
 
 -- =============================================================================
 -- == IN COMBAT MENU BLOCKING ==================================================
 -- =============================================================================
 
-ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "บล็อกเมนูล่าสุดในการต่อสู้")
-ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "ป้องกันการเปิดเมนูล่าสุด (ALT) ขณะอยู่ในการต่อสู้")
-ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "บล็อกเมนูตัวละครในการต่อสู้")
-ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "ป้องกันการเปิดเมนูตัวละคร (C) ขณะอยู่ในการต่อสู้")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Блокировать последнее меню в бою")
+ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Предотвращает открытие последнего меню (ALT) во время боя.")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Блокировать меню персонажа в бою")
+ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Предотвращает открытие меню персонажа (C) во время боя.")
 
 -- =============================================================================
--- === END OF THAI LOCALIZATION ================================================
+-- === END OF RUSSIAN LOCALIZATION ============================================
 -- =============================================================================
