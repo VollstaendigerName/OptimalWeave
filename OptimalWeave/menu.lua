@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.15.0
+-- Version:           1.15.1
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -21,8 +21,9 @@
 
 local OW = OptimalWeave
 local LAM = LibAddonMenu2
-local OWColoredName = " |c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r "
+local OWColoredName = "|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r"
 local valueMode
+
 -- =============================================================================
 -- == COLOR SCHEMA DEFINITION ==================================================
 -- =============================================================================
@@ -687,7 +688,7 @@ end
                 CreateSlider(
                     "OW_MENU_MIN_GCD", 
                     "OW_MENU_MIN_GCD_TOOLTIP", 
-                    0, 20, -- 0-20ms (Default 10)
+                    0, 50, -- 0-50ms (Default 10)
                     function() return sv.minGcdThreshold end,
                     function(value) sv.minGcdThreshold = value end
                 ),

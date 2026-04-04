@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.15.0
+    Version:            1.15.1
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -26,21 +26,13 @@
     Contains:
     - Addon metadata for ESO client recognition
     - Version control using semantic versioning (SemVer)
-    - Localization system placeholder
 --]]
 OptimalWeave = OptimalWeave or {}
 
-OptimalWeave = {
-    -- Internal namespace identifier (must match folder name)
-    name = "OptimalWeave",
-    
-    -- Semantic version (Major=breaking, Minor=features, Patch=fixes)
-    version = "1.15.0",
-    
-    -- Localization proxy (overridden in localization.lua)
-    --L = function() return "" end
-}
-
+-- Global namespace identifier 
+OptimalWeave.name = "OptimalWeave"
+-- Version (Major=breaking, Minor=features, Patch=fixes)
+OptimalWeave.version = "1.15.1"
 
 -- =============================================================================
 -- == LOCALIZED ALIASES & RUNTIME REFERENCES ===================================
@@ -55,7 +47,6 @@ OptimalWeave = {
 
 local OW = OptimalWeave              -- Local namespace alias
 local NAME = OW.name                 -- Immutable addon name
---local OW.sv                           -- Will hold SavedVariables reference
 local EM = EVENT_MANAGER             -- Event system shortcut
 
 -- =============================================================================
@@ -67,7 +58,7 @@ local EM = EVENT_MANAGER             -- Event system shortcut
 
 local LFG_ROLE_TANK = 2
 local LFG_ROLE_HEAL = 4
-local LFG_ROLE_DPS = 1
+-- local LFG_ROLE_DPS = 1 -- future use
 local weaponTypeToKey = {
     [WEAPONTYPE_NONE] = "none",
     [WEAPONTYPE_AXE] = "axe",
@@ -129,13 +120,13 @@ local defaults = {
     useGrimFocusStacks = false, -- Enable stack-based blocking: Block ability when reaching certain stack count
     grimFocusStacks = 10,       -- How many grim focus stacks
 
-    -- Death Stroke ability configuration
+    -- TODO: Death Stroke ability configuration
     deathStrokeMorphs = {
                          -- Death Stroke
         [36514] = false  -- Soul Harvest
                          -- Incapacitating Strike
     },
-    
+    -- TODO:
     incapacitatingStrikeStacks = 120, -- Stack threshold for Incapacitating Strike morph
 
     -- =========================================================================
@@ -199,7 +190,7 @@ local defaults = {
         [40194] = true  -- Evil Hunter
     },
 
-    -- Fighters Guild
+    -- TODO: Fighters Guild
     dawnbreakerMorphs = {
         [35713] = false, -- Dawnbreaker
         [40161] = false, -- Flawless Dawnbreaker
@@ -230,12 +221,12 @@ local defaults = {
     -- =========================================================================
     -- == GCD SETTINGS =========================================================
     -- =========================================================================
-    channelBufferNormal = 50,       -- Standard ability buffer: Extra time (ms) added to non-channeled cast times, Default: 50ms
+    channelBufferNormal = 50,        -- Standard ability buffer: Extra time (ms) added to non-channeled cast times, Default: 50ms
     channelBufferChanneled = 200,   -- Channeled ability buffer: Extra time (ms) added to channeled abilities, Default: 200ms
     gcdTrackingSlot = 3,            -- Default GCD tracking slot: Action bar slot (3-8) used to monitor GCD state, Default: Slot 3
     autoGcdTrackingSlot = false,    -- Automatic slot selection: Dynamically find active ability slot for GCD tracking
     minGcdThreshold = 10,           -- Minimum GCD detection: Smallest cooldown (ms) recognized as a GCD, Default: 10ms
-    baseQueueTime = 1050,           -- Base ability queue window: Time window (ms) for queuing next ability, Default: 1050ms
+    baseQueueTime = 950,           -- Base ability queue window: Time window (ms) for queuing next ability, Default: 1050ms
 
     -- =========================================================================
     -- == ROLE-BASED DEACTIVATION SETTINGS =====================================
@@ -416,19 +407,19 @@ end
 -- == SLASH COMMANDS =============================================================
 -- =============================================================================
 SLASH_COMMANDS["/_ow_debug_block"] = function()
-    DEBUG_MODES.block= not DEBUG_MODES.block
+    DEBUG_MODES.block = not DEBUG_MODES.block
     local stateColor = DEBUG_MODES.block and "|c00FF00ON|r" or "|cFF0000OFF|r"
     d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG block ".. stateColor)
 end
 
 SLASH_COMMANDS["/_ow_debug_condition"] = function()
-    DEBUG_MODES.condition= not DEBUG_MODES.condition
+    DEBUG_MODES.condition = not DEBUG_MODES.condition
     local stateColor = DEBUG_MODES.condition and "|c00FF00ON|r" or "|cFF0000OFF|r"
     d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG condition ".. stateColor)
 end
 
 SLASH_COMMANDS["/_ow_debug_info"] = function()
-    DEBUG_MODES.info= not DEBUG_MODES.info
+    DEBUG_MODES.info = not DEBUG_MODES.info
     local stateColor = DEBUG_MODES.info and "|c00FF00ON|r" or "|cFF0000OFF|r"
     d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r DEBUG info ".. stateColor)
 end
@@ -442,7 +433,7 @@ end
 -- =============================================================================
 -- == KEYBIND FUNCTIONS ========================================================
 -- =============================================================================
-
+local modeNames = {[1] = "Strict", [2] = "Intelligent", [3] = "Disabled", [4] = "Sequential"}
 local function ToggleMode()
     if not OW.sv then return end
     
@@ -456,7 +447,6 @@ local function ToggleMode()
     OW.sv.mode = newMode
     --OW.sv.originalMode = 0
     
-    local modeNames = {[1] = "Strict", [2] = "Intelligent", [3] = "Disabled", [4] = "Sequential"}
     d(string.format("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r: Mode set to |cFFD700%s|r", modeNames[newMode]))
 end
 
@@ -676,11 +666,11 @@ local function checkExecuteReady(id)
     end
     
     -- Calculate health percentage
-    local percentHP = (currentHealth / maxHealth) * 100
-    DebugPrint("condition", string.format("Execute Check: Health Percentage: %.1f%%, Threshold: %.1f%%", percentHP, OW.sv.executeThreshold))
+    local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+    DebugPrint("condition", string.format("Execute Check: Health Percentage: %.1f%%, Threshold: %.1f%%", percentHealth, OW.sv.executeThreshold))
     
     -- Check if health is below execute threshold
-    if percentHP <= OW.sv.executeThreshold then
+    if percentHealth <= OW.sv.executeThreshold then
         active = true  -- Allow ability in execute phase
         DebugPrint("condition", "Execute Check: EXECUTE PHASE ACTIVE - Ability allowed")
     else
@@ -817,6 +807,7 @@ local function checkGrimFocus(id)
         if 61927 == id and OW.sv.grimFocusStackIds[abilityId] then
            if OW.sv.useGrimFocusStacks and stackCount >= stackLimit and not OW.sv.grimFocusSkillIds[61927] then
                 active = false
+                break
             else 
                 active = true
                 break
@@ -825,8 +816,10 @@ local function checkGrimFocus(id)
         elseif OW.sv.grimFocusStackIds[abilityId] then
             if (OW.sv.useGrimFocusStacks or OW.sv.grimFocusSkillIds[id]) and stackCount >= stackLimit then
                 active = false
+                break
             else 
                 active = true
+                break
             end
         end
     end
@@ -865,19 +858,19 @@ local function checkCruxStacks(id)
     DebugPrint("condition", "Check Crux stacks block in checkCruxStacks(")
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
     local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-    local pecentHealth = currentHealth / effHealth * 100
-    DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, pecentHealth))
+    local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+    DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, percentHealth))
 
     local currentStam, maxStam, effStam = GetUnitPower('player', POWERTYPE_STAMINA)
-    local pecentStam = currentStam / effStam * 100
-    DebugPrint("info", string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, pecentStam))
+    local percentStam   = (effStam > 0) and (currentStam   / effStam   * 100) or 0
+    DebugPrint("info", string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, percentStam))
 
-    if (OW.sv.checkHpForArcaBeam and pecentHealth <= OW.sv.deactivateArcaBeamBlockAtHpUnder) or (OW.sv.checkStamForArcaBeam and pecentStam <= OW.sv.deactivateArcaBeamBlockAtStamUnder) then
+    if (OW.sv.checkHpForArcaBeam and percentHealth <= OW.sv.deactivateArcaBeamBlockAtHpUnder) or (OW.sv.checkStamForArcaBeam and percentStam <= OW.sv.deactivateArcaBeamBlockAtStamUnder) then
         active = false
         DebugPrint("condition", "active = false")
     else    
         for buffIndex = 1, GetNumBuffs('player') do
-            local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+            local _, _, _, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
             DebugPrint("condition", "Buff"..abilityId)
             if OW.sv.cruxId == abilityId then
                 DebugPrint("condition", "Check Crux stacks block in OW.sv.cruxId == abilityId")
@@ -929,7 +922,7 @@ local function checkCruxStacksCephaliarch(id)
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
-        local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+        local _, _, _, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
         DebugPrint("condition", "Buff "..abilityId)
         if OW.sv.cruxId == abilityId then
             DebugPrint("condition", "Check Crux stacks block in OW.sv.cruxId == abilityId")
@@ -974,13 +967,13 @@ Function: checkCruxStacksTentacular
 -- Input Validation Master Function
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
-local function checkcruxStacksTentacular(id)
+local function checkCruxStacksTentacular(id)
     local active = true 
     DebugPrint("condition", "Check Crux stacks block in checkcruxStacks(")
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
-        local _, _, timeEnding, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+        local _, _, _, _, stackCount, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
         DebugPrint("condition", "Buff"..abilityId)
         if OW.sv.cruxId == abilityId then
             DebugPrint("condition", "Check Crux stacks block in OW.sv.cruxId == abilityId")
@@ -1058,52 +1051,31 @@ local timeSinceLastCast = 0  -- Time of last cast in milliseconds
     - Memory clearing
 --]]
 
-local function ResetGCDOnDodge()
-    if OW.sv.resetOnDodge  then
-        GCD_STAGE = 0
-        CHANNEL = 0
-        LAST_ABILITY = 0
-        timeSinceLastCast = 0
-        DebugPrint("block", "Reset because of Dodge")
-    end   
-end
-
-local function ResetGCDOnBarswap()
-    if OW.sv.resetOnBarswap  then
-        GCD_STAGE = 0
-        CHANNEL = 0
-        LAST_ABILITY = 0
-        timeSinceLastCast = 0
-        DebugPrint("block", "Reset because of Barswap")
-    end   
-end
-
-local function ResetGCD()
+local function ResetGCD(reason)
     GCD_STAGE = 0
     CHANNEL = 0
     LAST_ABILITY = 0
     timeSinceLastCast = 0
-    DebugPrint("block", "Reset because everything else")
+    DebugPrint("block", "Reset: " .. (reason or "unknown"))
+end
+
+local function ResetGCDOnDodge()
+    if OW.sv.resetOnDodge then ResetGCD("Dodge") end
+end
+
+local function ResetGCDOnBarswap()
+    if OW.sv.resetOnBarswap then ResetGCD("Barswap") end
 end
 
 local function OnPlayerStunned()
-    GCD_STAGE = 0    -- Reset state machine
-    CHANNEL = 0      -- Cancel active channels
-    LAST_ABILITY = 0 -- Clear ability memory
-    timeSinceLastCast = 0
-    DebugPrint("block", "Stunned/Silenced etc.")
+    ResetGCD("Stunned/Silenced etc.")
 end
 
-local function CastCanceled() -- Check if 
-    if IsBlockActive() then
-        DebugPrint("block", "Block")
-        GCD_STAGE = 0    -- Reset state machine
-        CHANNEL = 0      -- Cancel active channels
-        LAST_ABILITY = 0 -- Clear ability memory
-        timeSinceLastCast = 0
-    end
+local function CastCanceled()
+    if IsBlockActive() then ResetGCD("Canceled") end
 end    
 
+-- TODO:
 -- local function BarswapSound()
 --     PlaySound(SOUNDS.EMPEROR_CORONATION_IMPERIAL)
 -- end
@@ -1249,7 +1221,7 @@ end
 -- @return: Boolean input permission
 --------------------------------------------------------------------------------
 
-local function CanUseActionSlots(ReadOutslot)
+local function CanUseActionSlots(slot)
 
     -- check for inactivity
     if timeSinceLastCast > 0 and (timeSinceLastCast + (OW.sv.resetAfterSeconds * 1000)) < GetGameTimeMilliseconds() then
@@ -1263,7 +1235,6 @@ local function CanUseActionSlots(ReadOutslot)
                 (OW.sv.checkTarget and not IsUnitAttackable('reticleover'))
     
     -- Extract action details
-    local slot = ReadOutslot --GetActionSlot()
     local id = GetSlotBoundId(slot)
     local isGround = CheckGroundAbility(id)
     -- local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
@@ -1276,6 +1247,7 @@ local function CanUseActionSlots(ReadOutslot)
         return false
     end
 
+    -- TODO:
     -- if OW.sv.blockAoEIfNoTarget and isGround and not DoesUnitExist('reticleover') then -- Dosen´t work!, will fix it later (Wish from kalitva) =================================================== 
     --     DebugPrint("condition", "Target check for AoE, Block AoE") 
     --     return true -- Block
@@ -1294,10 +1266,10 @@ local function CanUseActionSlots(ReadOutslot)
         -- Health check for Custom Block List
         if OW.sv.useCustomBlockListHealthCheck then
             local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-            local pecentHealth = currentHealth / effHealth * 100
-            DebugPrint("condition", string.format("Custom Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", pecentHealth, OW.sv.useCustomBlockListHealthPercent))
+            local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+            DebugPrint("condition", string.format("Custom Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", percentHealth, OW.sv.useCustomBlockListHealthPercent))
             
-            if pecentHealth <= OW.sv.useCustomBlockListHealthPercent then
+            if percentHealth <= OW.sv.useCustomBlockListHealthPercent then
                 DebugPrint("condition", "Custom Block List: Health below threshold, NOT blocking")
                 return false
             end
@@ -1315,10 +1287,10 @@ local function CanUseActionSlots(ReadOutslot)
         -- Health check for Custom Recast Block List
         if OW.sv.useCustomRecastBlockListHealthCheck then
             local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-            local pecentHealth = currentHealth / effHealth * 100
-            DebugPrint("condition", string.format("Custom Recast Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", pecentHealth, OW.sv.useCustomRecastBlockListHealthPercent))
+            local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+            DebugPrint("condition", string.format("Custom Recast Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", percentHealth, OW.sv.useCustomRecastBlockListHealthPercent))
             
-            if pecentHealth <= OW.sv.useCustomRecastBlockListHealthPercent then
+            if percentHealth <= OW.sv.useCustomRecastBlockListHealthPercent then
                 DebugPrint("condition", "Custom Recast Block List: Health below threshold, NOT blocking")
                 return false
             end
@@ -1367,7 +1339,7 @@ local function CanUseActionSlots(ReadOutslot)
     end
 
     -- Tentacular Dread
-    if OW.sv.tentacularDread[id] and OW.sv.usecruxStacksTentacular and checkcruxStacksTentacular(id) then
+    if OW.sv.tentacularDread[id] and OW.sv.usecruxStacksTentacular and checkCruxStacksTentacular(id) then
         DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
         return true
     end 
@@ -1399,7 +1371,7 @@ local function CanUseActionSlots(ReadOutslot)
         return true
     end
     
-    if OW.sv.mode == 4 and GCD_STAGE > 0 and not(GCD_STAGE == 3) and slot >= 3 and slot <= 8 then
+    if OW.sv.mode == 4 and GCD_STAGE > 0 and GCD_STAGE ~= 3 and slot >= 3 and slot <= 8 then
         DebugPrint("condition", "GCD_STAGE block")
         return true
     end    
@@ -1456,6 +1428,7 @@ local function ShowGcdOnBar()
         GCDOnBarShown = false
     end    
 end
+
 
 -- =============================================================================
 -- == ABILITY USAGE HANDLER ====================================================
@@ -1530,12 +1503,14 @@ end
 -- @param abilityId: The ID of the ability to add
 -- @param abilityName: The name of the ability (for display)
 --------------------------------------------------------------------------------
+
+local OWColoredName = '|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r'
 local function AddToBlockList(abilityId, abilityName)
     if not OW.sv then return end
     
     OW.sv.customBlockList[abilityId] = true
     d(string.format(
-        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
+        OWColoredName .. ' |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
         abilityId, 
         abilityName
     ))
@@ -1551,7 +1526,7 @@ local function AddToRecastBlockList(abilityId, abilityName)
     
     OW.sv.customRecastBlockList[abilityId] = true
     d(string.format(
-        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
+        OWColoredName .. ' |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
         abilityId, 
         abilityName
     ))
@@ -1568,7 +1543,7 @@ local function AddToResourceBlockList(abilityId, abilityName)
     -- Check if spell already exists in resource block list
     if OW.sv.customResourceBlockList[abilityId] ~= nil then
         d(string.format(
-            '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFSpell already in Resource Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
+            OWColoredName .. ' |cFFFFFFSpell already in Resource Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
             abilityId, 
             abilityName
         ))
@@ -1587,7 +1562,7 @@ local function AddToResourceBlockList(abilityId, abilityName)
     }
     
     d(string.format(
-        '|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAdded to Resource Block List: |c00FF00%d|r|cFFFFFF - %s (configure resource checks in settings then "/reloadui")|r', 
+        OWColoredName .. ' |cFFFFFFAdded to Resource Block List: |c00FF00%d|r|cFFFFFF - %s (configure resource checks in settings then "/reloadui")|r', 
         abilityId, 
         abilityName
     ))
@@ -1635,7 +1610,7 @@ local function HookActionBarRightClick()
                             label = "Show Ability ID",
                             callback = function()
                                 d(string.format(
-                                    "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                                    OWColoredName .. ' |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r', 
                                     abilityId, 
                                     abilityName
                                 ))
@@ -1661,7 +1636,7 @@ local function HookActionBarRightClick()
                         }
                     }
                     
-                    AddCustomSubMenuItem("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r", entries)
+                    AddCustomSubMenuItem(OWColoredName, entries)
                     --AddCustomMenuTooltip("A sub-menu with ability options")
                     
                     ShowMenu(abilitySlot)
@@ -1699,7 +1674,7 @@ local function HookAssignableSkillsMenu()
                     label = "Show Ability ID",
                     callback = function()
                         d(string.format(
-                            "|c6D6D6D[Op|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve]|r |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r", 
+                            OWColoredName .. ' |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r', 
                             abilityId, 
                             abilityName
                         ))
@@ -1725,7 +1700,7 @@ local function HookAssignableSkillsMenu()
                 }
             }
             
-            AddCustomSubMenuItem("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r", entries)
+            AddCustomSubMenuItem(OWColoredName, entries)
             --AddCustomMenuTooltip("A sub-menu with ability options")
             
             ShowMenu(self.button)
@@ -1776,7 +1751,6 @@ local function Initialize()
 
     -- Identify active containers
     OW.sv = (mode == "accountwide") and OW.accSV or OW.charSV
------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     OW.TEMP_SPELL_ID = OW.TEMP_SPELL_ID or ""
     OW.TEMP_RECAST_SPELL_ID = OW.TEMP_RECAST_SPELL_ID or ""
@@ -1836,7 +1810,7 @@ local function Initialize()
 
     EM:RegisterForEvent(NAME.."_CHECKROLE", EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
 
-    if OW.sv.blockLastMenu or OW.sv.blockLastMenu then
+    if OW.sv.blockLastMenu or OW.sv.blockCharMenu then
         EM:RegisterForEvent(NAME.."_COMBATMENUBLOCK", EVENT_PLAYER_COMBAT_STATE, OnPlayerCombatState)
     end
         
@@ -1875,7 +1849,7 @@ local function Initialize()
         end)
     end    
 
-    if OW.sv.blockLastMenu then
+    if OW.sv.blockCharMenu then
         -- PreHook for the Character menu block (c)
         ZO_PreHook(MAIN_MENU_KEYBOARD, "ToggleCategory", function(_, category)
             if inCombatMenuBlockActive and OW.sv.blockCharMenu and category == MENU_CATEGORY_CHARACTER then
