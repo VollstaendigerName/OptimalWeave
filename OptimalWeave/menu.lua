@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.15.1
+-- Version:           1.15.3
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================

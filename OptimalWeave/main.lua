@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.15.1
+    Version:            1.15.3
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -32,7 +32,7 @@ OptimalWeave = OptimalWeave or {}
 -- Global namespace identifier 
 OptimalWeave.name = "OptimalWeave"
 -- Version (Major=breaking, Minor=features, Patch=fixes)
-OptimalWeave.version = "1.15.1"
+OptimalWeave.version = "1.15.3"
 
 -- =============================================================================
 -- == LOCALIZED ALIASES & RUNTIME REFERENCES ===================================
@@ -1371,15 +1371,16 @@ local function CanUseActionSlots(slot)
         return true
     end
     
-    if OW.sv.mode == 4 and GCD_STAGE > 0 and GCD_STAGE ~= 3 and slot >= 3 and slot <= 8 then
-        DebugPrint("condition", "GCD_STAGE block")
-        return true
-    end    
-
+    
     -- Special case blocking
     if (ignore and not isGround) or IsBlockedNeverAbilityID(id) then
         return false
     end
+
+    if OW.sv.mode == 4 and GCD_STAGE > 0 and GCD_STAGE ~= 3 and slot >= 3 and slot <= 8 then
+        DebugPrint("condition", "GCD_STAGE block")
+        return true
+    end    
 
     -- Latency calculations
     local cd, duration, global, globalSlotType = GetSlotCooldownInfo(OW.sv.gcdTrackingSlot)
@@ -1393,7 +1394,7 @@ local function CanUseActionSlots(slot)
     elseif cd > 0 and GCD_STAGE == 0 then
         GCD_STAGE = 1
     end
-
+        
     -- Final decision matrix
     local allow = GCD_STAGE > 0 and 
                 slot >= 3 and slot <= 8 and 
@@ -1405,6 +1406,7 @@ local function CanUseActionSlots(slot)
     if not allow and cd > 0 and (OW.sv.mode == 1 or OW.sv.mode == 4) then
         GCD_STAGE = 4
     end
+
     
     return allow
 
