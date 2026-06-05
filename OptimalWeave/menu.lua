@@ -4,19 +4,9 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.15.3
+-- Version:           1.16.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
--- =============================================================================
--- === OPTIMALWEAVE CONFIGURATION MENU (menu.lua) =============================
--- =============================================================================
---[[
-    Features:
-    - Gold-themed color scheme
-    - Flat information section
-    - Divider-based layout
-    - Simplified dropdown structure
---]]
 -- =============================================================================
 
 local OW = OptimalWeave
@@ -28,7 +18,6 @@ local valueMode
 -- == COLOR SCHEMA DEFINITION ==================================================
 -- =============================================================================
 --[[
-    Purpose: Centralized color management for UI consistency
     Color Codes:
     - PRIMARY: Main text (Light Gray |cD4D4D4)
     - SECONDARY: Secondary text (Medium Gray |cA6A6A6)
@@ -50,23 +39,15 @@ local COLOR = {
 -- == UI COMPONENT FACTORIES ===================================================
 -- =============================================================================
 --[[
-    Purpose: Reusable component generators for menu consistency
-    Features:
-    - Standardized styling across all controls
-    - Automatic color application
-    - Localization integration
-    - Dynamic enable/disable states
+    Purpose: Reusable checkbox
+    Param: 
+        nameKey: Localization key for display name
+        tooltipKey: Localization key for tooltip text
+        OWgetFunc: Function to retrieve current value
+        OWsetFunc: Function to set new value
+        disabledFunc: Optional function to determine disabled state
+    return: Configured checkbox table    
 --]]
-
---------------------------------------------------------------------------------
--- Checkbox Control Factory
--- @param nameKey: Localization key for display name
--- @param tooltipKey: Localization key for tooltip text
--- @param OWgetFunc: Function to retrieve current value
--- @param OWsetFunc: Function to set new value
--- @param disabledFunc: Optional function to determine disabled state
--- @return: Fully configured checkbox table
---------------------------------------------------------------------------------
 local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disabledFunc, reloadUICheck)
     return {
         type = "checkbox",
@@ -85,15 +66,15 @@ local function CreateCheckbox(nameKey, tooltipKey, OWgetFunc, OWsetFunc, disable
     }
 end
 
---------------------------------------------------------------------------------
--- Dropdown Control Factory
--- @param nameKey: Localization key for display name
--- @param tooltipKey: Localization key for tooltip text
--- @param choicesKeys: Table of localization keys for dropdown options
--- @param OWgetFunc: Function to retrieve current value
--- @param OWsetFunc: Function to set new value
--- @return: Fully configured dropdown table
---------------------------------------------------------------------------------
+--[[
+    Purpose: Reusable Dropdown
+    Param: 
+        nameKey: Localization key for display name
+        tooltipKey: Localization key for tooltip text
+        OWgetFunc: Function to retrieve current value
+        OWsetFunc: Function to set new value
+    return: Configured dropdown table    
+--]]
 local function CreateDropdown(nameKey, tooltipKey, choicesKeys, OWgetFunc, OWsetFunc)
     local choices = {}
     for _, key in ipairs(choicesKeys) do
@@ -113,17 +94,18 @@ local function CreateDropdown(nameKey, tooltipKey, choicesKeys, OWgetFunc, OWset
     }
 end
 
---------------------------------------------------------------------------------
--- Slider Control Factory
--- @param nameKey: Localization key for display name
--- @param tooltipKey: Localization key for tooltip text
--- @param min: Minimum slider value
--- @param max: Maximum slider value
--- @param OWgetFunc: Function to retrieve current value
--- @param OWsetFunc: Function to set new value
--- @param disabledFunc: Optional function to determine disabled state
--- @return: Fully configured slider table
---------------------------------------------------------------------------------
+--[[
+    Purpose: Reusable slider
+    Param: 
+        nameKey: Localization key for display name
+        tooltipKey: Localization key for tooltip text
+        min: Minimum slider value
+        max: Maximum slider value
+        OWgetFunc: Function to retrieve current value
+        OWsetFunc: Function to set new value
+        disabledFunc: Optional function to determine disabled state
+    return: Configured slider table    
+--]]
 local function CreateSlider(nameKey, tooltipKey, min, max, OWgetFunc, OWsetFunc, disabledFunc)
     return {
         type = "slider",
@@ -145,24 +127,13 @@ end
 -- =============================================================================
 --[[
     Purpose: Visual organization elements for menu layout
-    Features:
-    - Consistent section headers
-    - Themed dividers
-    - Proper spacing and alignment
+    return: Section header
 --]]
 
---------------------------------------------------------------------------------
--- Section Header Generator
--- @param text: Display text for section header
--- @return: Divider and description control pair
---------------------------------------------------------------------------------
-local function CreateSectionHeader(text)
+local function CreateSectionHeader()
     return {
-    --     type = "divider",
-    --     alpha = 0.2
-    -- }, {
+
         type = "description",
-        --text = COLOR.ACCENT..text,
         fontSize = "medium"
     }
 end
@@ -170,18 +141,11 @@ end
 -- =============================================================================
 -- == CREATE RELOAD CONFIRMATION DIALOG ========================================
 -- =============================================================================
--- Create Reload Confirmation Dialog
--- Purpose: Registers a standardized UI dialog for requesting player confirmation
---          before performing a UI reload after settings changes.
--- Features:
--- - Reusable dialog system for consistent UX
--- - Localization support for all text elements
--- - Queue-aware to prevent dialog stacking
--- Architecture:
--- - Checks if dialog already registered to avoid duplicates
--- - Uses addon's color scheme for visual consistency
--- - Provides clear Yes/No options with appropriate callbacks
---------------------------------------------------------------------------------
+--[[
+Purpose: Registers a standardized UI dialog for requesting player confirmation
+        before performing a UI reload after settings changes.
+--]]
+
 ZO_Dialogs_RegisterCustomDialog("OW_RELOAD_DIALOG", {
     canQueue = true,
     title = {
@@ -208,22 +172,11 @@ ZO_Dialogs_RegisterCustomDialog("OW_RELOAD_DIALOG", {
 -- =============================================================================
 -- == CREATE SETTINGS MODE RELOAD DIALOG =======================================
 -- =============================================================================
--- Create Reload Confirmation Dialog for Settings Mode Change
--- Purpose: Registers a standardized UI dialog for requesting player confirmation
---          before performing a UI reload after changing the settings mode
---          (account-wide vs. per character).
--- Features:
--- - Reusable dialog system for consistent UX
--- - Localization support for all text elements
--- - Queue-aware to prevent dialog stacking
--- - Uses addon's color scheme for visual consistency
--- - Provides clear Yes/No options with appropriate callbacks
--- Architecture:
--- - The dialog is registered under the unique name "OW_RELOAD_DIALOG_SETTINGS"
--- - The main text is retrieved via OW.L("OW_MENU_RELOAD_DIALOG_SETTINGS_MAIN_TEXT")
--- - The Yes button triggers ReloadUI() to apply the new settings mode
--- - The Later button simply closes the dialog, keeping the old mode active until next reload
---------------------------------------------------------------------------------
+--[[
+Purpose: Registers a standardized UI dialog for requesting player confirmation
+        before performing a UI reload after changing the settings mode
+        (account-wide vs. per character).
+--]]
 ZO_Dialogs_RegisterCustomDialog("OW_RELOAD_DIALOG_SETTINGS", {
     canQueue = true,
     title = {
@@ -250,8 +203,6 @@ ZO_Dialogs_RegisterCustomDialog("OW_RELOAD_DIALOG_SETTINGS", {
 -- =============================================================================
 -- == CREATE ERROR CONFIRMATION DIALOG =========================================
 -- =============================================================================
-
-
 ZO_Dialogs_RegisterCustomDialog("OW_INVALID_ID_DIALOG", {
     canQueue = true,
     title = {
@@ -307,21 +258,17 @@ ZO_Dialogs_RegisterCustomDialog("OW_ID_IS_IN_SV_DIALOG", {
 -- == MAIN MENU CONSTRUCTION ===================================================
 -- =============================================================================
 --[[
-    Function: OW.BuildMenu
     Purpose: Construct complete configuration interface
-    Process Flow:
-    1. Create main panel definition
-    2. Register panel with LibAddonMenu
-    3. Build hierarchical options structure
-    4. Register all control elements
-    
-    Architecture:
-    - Flat information section
-    - Core mechanics submenu
-    - Activation conditions submenu
-    - Advanced controls submenu
-    - Subclass-specific settings submenu
-    - Performance settings submenu
+   
+    Structure of the Menu:
+    - Information section with core mechanics
+    - Core mechanics
+    - Activation conditions 
+    - Advanced controls 
+    - (Sub)class-specific settings 
+    - Weapon type deactivation 
+    - Performance settings 
+    - User-configurable block lists
     - Legal disclaimer
 --]]
 -- Main panel definition
@@ -342,12 +289,7 @@ local function BuildMenu(sv, defaults)
     -- == BLOCK LIST MENU ==========================================================
     -- =============================================================================
     --[[
-        Function: AddSpellToBlockList
         Purpose: Adds a spell to the block list.
-        Features:
-        - Checks whether spell exists
-        - Prevents duplicates.
-        - Saves directly to sv.customBlockList.
     --]]
     local function AddSpellToBlockList()
         --local spellId = tonumber(_G["OW_TEMP_SPELL_ID"])
@@ -386,12 +328,7 @@ local function BuildMenu(sv, defaults)
     -- == RECAST BLOCK LIST MENU ===================================================
     -- =============================================================================
     --[[
-        Function: AddSpellToRecastBlockList
         Purpose: Adds a spell to the recast block list.
-        Features:
-        - Checks whether spell exists
-        - Prevents duplicates
-        - Saves directly to sv.customRecastBlockList
     --]]
     local function AddSpellToRecastBlockList()
         --local spellId = tonumber(_G["OW_TEMP_RECAST_SPELL_ID"])
@@ -429,12 +366,7 @@ local function BuildMenu(sv, defaults)
     -- == RESOURCE BLOCK LIST MENU =================================================
     -- =============================================================================
     --[[
-        Function: AddSpellToResourceBlockList
         Purpose: Adds a spell to the block list.
-        Features:
-        - Checks whether spell exists
-        - Prevents duplicates.
-        - Saves directly to sv.customResourceBlockList.
     --]]
 local function AddSpellToResourceBlockList()
     local spellId = tonumber(OW.TEMP_RESOURCE_SPELL_ID) 
@@ -492,7 +424,7 @@ end
         -- ====================================================================================================================================================
         -- Core Mechanics Submenu =============================================================================================================================
         -- ====================================================================================================================================================
-        -- {
+        -- { -- Removed for better visibility
         --     type = "submenu",            
         --     name = COLOR.ACCENT..OW.L("OW_MENU_MODE_HEADER"),
         --     controls = {

@@ -1,18 +1,25 @@
 ## Title: |c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r
-## Version: 1.15.3
-## APIVersion: 101049
-## AddOnVersion: 1153
+## Version: 1.16.0
+## APIVersion: 101049 101050
+## AddOnVersion: 1160
 ## Author: |c8A2BE2Orollas|r & |cEBD03CVollständigerName|r
+## Description: Optimal Weave is a Weave helper that makes timing between Light Attacks and abilities more reliable. It uses a skill block system to stop abilities from firing when a Light Attack is still missing, which helps prevent early or repeated casts.
 ## SavedVariables: OptimalWeaveSV
-## DependsOn: LibAddonMenu-2.0>=41 LibCustomMenu>=730
+## PCDependsOn: LibAddonMenu-2.0>=43 LibCustomMenu>=730
+;## ConsoleDependsOn: LibAddonMenu-2.0>=43
 
+;PC/main.lua
 main.lua
+;Console/main.lua
 lang/en.lua
 lang/$(language).lua
 localization.lua
 menu.lua
+;PC/menu.lua
+;Console/menu.lua
 Bindings.xml
 
-## Notes: This add-on is not created by, affiliated with, or supported by ZeniMax Media Inc. 
-##        The Elder Scrolls® and related logos are registered trademarks or trademarks 
-##        of ZeniMax Media Inc. in the United States and/or other countries. All rights reserved.
+; Notes: This add-on is not created by, affiliated with, or supported by ZeniMax Media Inc. 
+;        The Elder Scrolls® and related logos are registered trademarks or trademarks 
+;        of ZeniMax Media Inc. in the United States and/or other countries. All rights reserved.
+; 	 You can read the full terms at https://account.elderscrollsonline.com/add-on-terms

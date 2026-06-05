@@ -4,46 +4,27 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.15.3
+    Version:            1.16.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
--- =============================================================================
---[[
-    SYSTEM ARCHITECTURE:
-    - GCD State Machine Manager
-    - Input Validation Engine
-    - Combat Rhythm Controller
-    - Multi-Layer Safety System
---]]
--- =============================================================================
 
 -- =============================================================================
 -- == GLOBAL ADDON DEFINITION & VERSION CONTROL ================================
 -- =============================================================================
 --[[
-    Purpose: Establishes fundamental addon identity and version tracking
-    Contains:
-    - Addon metadata for ESO client recognition
-    - Version control using semantic versioning (SemVer)
+    Purpose: Addon identity and version tracking
 --]]
 OptimalWeave = OptimalWeave or {}
 
 -- Global namespace identifier 
 OptimalWeave.name = "OptimalWeave"
 -- Version (Major=breaking, Minor=features, Patch=fixes)
-OptimalWeave.version = "1.15.3"
+OptimalWeave.version = "1.16.0"
 
 -- =============================================================================
 -- == LOCALIZED ALIASES & RUNTIME REFERENCES ===================================
 -- =============================================================================
---[[
-    Purpose: Optimize frequent access patterns
-    Contains:
-    - Localized addon namespace reference
-    - Cached event manager reference
-    - SavedVariables placeholder initialization
---]]
 
 local OW = OptimalWeave              -- Local namespace alias
 local NAME = OW.name                 -- Immutable addon name
@@ -52,10 +33,6 @@ local EM = EVENT_MANAGER             -- Event system shortcut
 -- =============================================================================
 -- == LOCAL VARIABLES ==========================================================
 -- =============================================================================
---[[
-    Purpose: User-configurable block list
---]]
-
 local LFG_ROLE_TANK = 2
 local LFG_ROLE_HEAL = 4
 -- local LFG_ROLE_DPS = 1 -- future use
@@ -77,28 +54,24 @@ local weaponTypeToKey = {
     [WEAPONTYPE_LIGHTNING_STAFF] = "lightningStaff"
 }
 local GCDOnBarShown = false
+
 -- =============================================================================
 -- == DEFAULT CONFIGURATION SETTINGS ===========================================
 -- =============================================================================
 --[[
-    Purpose: Fallback settings for first-time users
-    Structure:
-    - Mode: 1=Strict, 2=Intelligent, 3=Disabled, 4=Sequential
-    - Technical: Latency compensation values
-    - Safety: Input blocking conditions
-    - Lists: Custom ability management
+    Purpose: Default saved variables
 --]]
 
 local defaults = {
-    modeSelection = "accountwide",   -- "accountwide" or "percharacter"  
-    mode = 4,                        -- Operating mode selector
+    modeSelection = "accountwide",   -- "accountwide" or "character"  
+    mode = 1,                        -- Weave mode
     autoLag = true,                  -- Dynamic latency detection toggle
     inputLag = 50,                   -- Manual latency override (ms)
     block = true,                    -- Global input blocking enabled
-    combat = true,                   -- Combat-only restriction
-    blockGroundAbilities = true,     -- Ground AOE protection
-    checkTarget = true,              -- Target requirement
-    neverBlockedAbilityIDs = {},     -- Abilities that should never be blocked under any circumstances
+    combat = true,                   -- Only activate in combat
+    blockGroundAbilities = true,     -- Ground AOE double cast protection
+    checkTarget = true,              -- Target requirement for weave
+    neverBlockedAbilityIDs = {},     -- TODO: Abilities that should never be blocked under any circumstances
 
     -- =========================================================================
     -- == NIGHTBLADE CLASS SETTINGS ============================================
@@ -110,7 +83,7 @@ local defaults = {
         [61902] = false  -- Grim
     },
 
-    -- -- Buff IDs that indicate Grim Focus stacks are active
+    -- Buff IDs that indicate Grim Focus stacks are active
     grimFocusStackIds = {
         [122586] = true, -- Merciless
         [122585] = true, -- Grim
@@ -120,14 +93,14 @@ local defaults = {
     useGrimFocusStacks = false, -- Enable stack-based blocking: Block ability when reaching certain stack count
     grimFocusStacks = 10,       -- How many grim focus stacks
 
-    -- TODO: Death Stroke ability configuration
-    deathStrokeMorphs = {
-                         -- Death Stroke
-        [36514] = false  -- Soul Harvest
-                         -- Incapacitating Strike
-    },
-    -- TODO:
-    incapacitatingStrikeStacks = 120, -- Stack threshold for Incapacitating Strike morph
+    -- -- TODO: Death Stroke ability configuration
+    -- deathStrokeMorphs = {
+    --                      -- Death Stroke
+    --     [36514] = false  -- Soul Harvest
+    --                      -- Incapacitating Strike
+    -- },
+    -- -- TODO:
+    -- incapacitatingStrikeStacks = 120, -- Stack threshold for Incapacitating Strike morph
 
     -- =========================================================================
     -- == ARCANIST CLASS SETTINGS ==============================================
@@ -221,12 +194,12 @@ local defaults = {
     -- =========================================================================
     -- == GCD SETTINGS =========================================================
     -- =========================================================================
-    channelBufferNormal = 50,        -- Standard ability buffer: Extra time (ms) added to non-channeled cast times, Default: 50ms
+    channelBufferNormal = 50,       -- Standard ability buffer: Extra time (ms) added to non-channeled cast times, Default: 50ms
     channelBufferChanneled = 200,   -- Channeled ability buffer: Extra time (ms) added to channeled abilities, Default: 200ms
     gcdTrackingSlot = 3,            -- Default GCD tracking slot: Action bar slot (3-8) used to monitor GCD state, Default: Slot 3
     autoGcdTrackingSlot = false,    -- Automatic slot selection: Dynamically find active ability slot for GCD tracking
     minGcdThreshold = 10,           -- Minimum GCD detection: Smallest cooldown (ms) recognized as a GCD, Default: 10ms
-    baseQueueTime = 950,           -- Base ability queue window: Time window (ms) for queuing next ability, Default: 1050ms
+    baseQueueTime = 950,            -- Base ability queue window: Time window (ms) for queuing next ability, Default: 1050ms
 
     -- =========================================================================
     -- == ROLE-BASED DEACTIVATION SETTINGS =====================================
@@ -363,7 +336,7 @@ local defaults = {
     -- =========================================================================
     blockAoEIfNoTarget = false, -- Experimental: Block ground AoEs when no target is selected
     showGCD = false,            -- Shows the internal GCD monitor 
-    --useNewStyleBlocklist = true,
+    -- useNewStyleBlocklist = true,
 
 }
 
@@ -375,6 +348,7 @@ local inCombatMenuBlockActive = false
 local function OnPlayerCombatState(_, inCombat)
     inCombatMenuBlockActive = inCombat
 end
+
 -- =============================================================================
 -- == DEBUG SYSTEM =============================================================
 -- =============================================================================
@@ -383,6 +357,9 @@ end
     - "block": GCD blocking decisions
     - "condition": Ability condition checks  
     - "info": General state information
+    Param:
+    - mode: Debug category ("block", "condition", "info")
+    - Messages to print
 --]]
 
 local DEBUG_MODES = {
@@ -391,12 +368,6 @@ local DEBUG_MODES = {
     info = false       -- General state information
 }
 
-
---------------------------------------------------------------------------------
--- Debug Print Function
--- @param mode: Debug category ("block", "condition", "info")
--- @param ...: Messages to print
---------------------------------------------------------------------------------
 local function DebugPrint(mode, ...)
     if DEBUG_MODES[mode] then
         d(...)
@@ -404,7 +375,7 @@ local function DebugPrint(mode, ...)
 end
 
 -- =============================================================================
--- == SLASH COMMANDS =============================================================
+-- == SLASH COMMANDS ===========================================================
 -- =============================================================================
 SLASH_COMMANDS["/_ow_debug_block"] = function()
     DEBUG_MODES.block = not DEBUG_MODES.block
@@ -429,6 +400,10 @@ SLASH_COMMANDS["/owgcd"] = function()
     local stateColor = OW.sv.showGCD and "|c00FF00ON|r" or "|cFF0000OFF|r"
     d("|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r GCD ".. stateColor)
 end
+
+ if GetDisplayName() == "@VollständigerName" then
+   SLASH_COMMANDS['/console'] = function()  local newVal = IsConsoleUI()and "0" or "1" SetCVar("ForceConsoleFlow.2",newVal) end
+ end
    
 -- =============================================================================
 -- == KEYBIND FUNCTIONS ========================================================
@@ -437,7 +412,7 @@ local modeNames = {[1] = "Strict", [2] = "Intelligent", [3] = "Disabled", [4] = 
 local function ToggleMode()
     if not OW.sv then return end
     
-    -- Cycle through modes: 1->2->3->1
+    -- Cycle through modes: 1->2->3->4->1
     local currentMode = OW.sv.mode or 1
     local newMode = currentMode + 1
     if newMode > 4 then
@@ -505,17 +480,10 @@ OptimalWeave.ToggleExecuteCheck = ToggleExecuteCheck
 -- == AUTOMATIC GCD TRACKING SLOT SELECTION ====================================
 -- =============================================================================
 --[[
-Function: AutoSelectGcdTrackingSlot
     Purpose:
       Automatically selects the best GCD tracking slot by checking slots 3-8
       for active cooldowns. Cycles through slots until one with valid cooldown
       data is found.
-
-    Process Flow:
-      1. Start from current slot + 1 (or 3 if at the end)
-      2. Check each slot in sequence (3-8)
-      3. If a slot has valid cooldown data (cd and duration not 0/nil), use it
-      4. If no valid slot found after full cycle, default to slot 3
 --]]
 
 local function AutoSelectGcdTrackingSlot()
@@ -554,12 +522,34 @@ local function UpdateGcdTrackingSlot()
 end
 
 -- =============================================================================
+-- == GET UNIT PLAYER POWERTYPE ================================================
+-- =============================================================================
+--[[
+    Purpose: Returns the player's power types as a percentage
+    Returns: percentHealth, percentStamina, percentMagicka
+--]]
+
+local function GetUnitPlayerPowertype()
+    local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
+    local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
+    DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, percentHealth))
+
+    local currentStamina, maxStamina, effStamina = GetUnitPower('player', POWERTYPE_STAMINA)
+    local percentStamina   = (effStamina > 0) and (currentStamina  / effStamina   * 100) or 0
+    DebugPrint("info", string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStamina, maxStamina, effStamina, percentStamina))
+
+    local currentMagicka, maxMagicka, effMagicka = GetUnitPower('player', POWERTYPE_MAGICKA)
+    local percentMagicka   = (effMagicka > 0) and (currentMagicka   / effMagicka   * 100) or 0
+    DebugPrint("info", string.format("Magicka: current: %d / max.: %d / eff. max. %d / Percent %d ", currentMagicka, maxMagicka, effMagicka, percentMagicka))
+
+    return percentHealth, percentStamina, percentMagicka
+end
+
+-- =============================================================================
 -- == AUTOMATIC WEAPON EQUIPPING ===============================================
 -- =============================================================================
 --[[
-    Function: EquipWeaponsStateChange
     Purpose: Automatically unsheathe weapons when leaving various UI states
-    Events: Combat, crafting, chatting, shopping, etc.
 --]]
 
 local function EquipWeaponsStateChange()
@@ -575,30 +565,10 @@ end
 -- == DEACTIVATE BASED ON WEAPON ===============================================
 -- =============================================================================
 --[[
-Function: deactivateBasedOnWeapon
-    Purpose:
-      Determines whether addon features should be deactivated based on the currently
-      equipped weapon types. Checks both main hand and off-hand weapons (or backup
-      weapons) against the user's configured weapon type blocklist.
-
-    Process Flow:
-      1. Identify active weapon pair (main bar or backbar)
-      2. Select corresponding equipment slots for checking
-      3. Iterate through each weapon slot in the active pair
-      4. Retrieve weapon type and map to configuration key
-      5. Check if weapon type is in user's deactivation list
-      6. Return true if any weapon matches deactivation criteria
-
-    Weapon Handling:
-      - Main Bar: EQUIP_SLOT_MAIN_HAND, EQUIP_SLOT_OFF_HAND
-      - Backbar: EQUIP_SLOT_BACKUP_MAIN, EQUIP_SLOT_BACKUP_OFF
-      - Uses weaponTypeToKey mapping table for configuration lookup
+    Purpose: Weapon-Based Deactivation Check
+    return: Boolean indicating if features should be deactivated for current weapons      
 --]]
 
---------------------------------------------------------------------------------
--- Weapon-Based Deactivation Check
--- @return: Boolean indicating if features should be deactivated for current weapons
---------------------------------------------------------------------------------
 local function deactivateBasedOnWeapon()
     local ActiveWeaponPair, _ = GetActiveWeaponPairInfo()
     local slots
@@ -626,27 +596,14 @@ end
 -- == EXECUTE CHECK SYSTEM =====================================================
 -- =============================================================================
 --[[
-Function: checkExecuteReady
+
     Purpose:
       Evaluates the current target health to determine whether
-      an ability should remain active or be blocked. Specifically, if the target health
-      is below the specified threshold (OW.sv.executeThreshold),
-      the ability is allowed (active = true).
+      an ability should remain active or be blocked.
 
-    Process Flow:
-      1. Check if target exists and is not dead
-      2. Get current and maximum health of target
-      3. Calculate health percentage
-      4. Check if health percentage is below threshold
-      5. Return true if ability should be allowed, false if blocked
+    return: Boolean indicating if ability should be allowed      
 --]]
-
---------------------------------------------------------------------------------
--- Execute Check Function
--- @param id: Ability ID being checked
--- @return: Boolean indicating if ability should be allowed
---------------------------------------------------------------------------------
-local function checkExecuteReady(id)
+local function checkExecuteReady() -- id)
     local active = false  -- Default: block the ability
     
     -- Check if target exists and is not dead
@@ -684,20 +641,10 @@ end
 -- == ABILITY VALIDATION SUBSYSTEM =============================================
 -- =============================================================================
 --[[
-    Function: IsBlockedNeverAbilityID
-    Purpose: Check against hardcoded blocklist
-    Logic:
-    1. Iterate through BlockedAbilityIDs table
-    2. Return true on first match
-    3. Fallback to false if no match
-    - Bypasses all configuration settings
+    Purpose: Check against if in never block list
+    return: Boolean blocking status
 --]]
 
---------------------------------------------------------------------------------
--- Hardcoded Ability Blocklist Check
--- @param id: AbilityID to validate
--- @return: Boolean blocking status
---------------------------------------------------------------------------------
 local function IsBlockedNeverAbilityID(id)
     return OW.sv.neverBlockedAbilityIDs and OW.sv.neverBlockedAbilityIDs[id] or false
 end
@@ -706,29 +653,12 @@ end
 -- == ROLE VALIDATION SUBSYSTEM ================================================
 -- =============================================================================
 --[[
-Function: CheckRoleOverride
     Purpose:
       Manages automatic mode switching based on the player's selected role.
       Disables the addon for Tank and Healer roles when configured, while
       preserving the original mode for DPS roles.
-
-    Process Flow:
-      1. Retrieve the player's currently selected LFG role
-      2. Check if role is Tank/Healer with corresponding disable setting active:
-            - If conditions met, save current mode and set addon to disabled (mode 3)
-      3. For DPS roles or when restrictions are inactive:
-            - Restore the previously saved mode if available
-      4. Maintains state tracking to seamlessly transition between role changes
-
-    State Management:
-      - originalMode: Stores the previous mode when switching to Tank/Healer
-      - mode: Current operational mode (1=Hard, 2=Soft, 3=Disabled)
 --]]
 
---------------------------------------------------------------------------------
--- Role-Based Mode Management
--- @return: None (modifies OW.sv state directly)
---------------------------------------------------------------------------------
 local function CheckRoleOverride()
     local role = GetSelectedLFGRole()
 
@@ -755,45 +685,14 @@ OW.CheckRoleOverride = CheckRoleOverride
 -- == CHECK IF GRIM FOCUS STATUS ===============================================
 -- =============================================================================
 --[[
-     Function: checkGrimFocus
     Purpose:
       Determines whether an ability should be blocked based on the current Grim Focus
-      stacks. Specifically:
-        - For "Relentless Focus": completely blocks the ability when conditions are met.
-        - For "Merciless" and "Grim": blocks the ability once the defined number of Grim Focus
-          stacks has been reached.
-          
-    Process Flow:
-      1. Initialization:
-         - Sets the default 'active' value to false, meaning the ability is blocked by default.
-         - Establishes the stack limit (stackLimit) from configuration; if Grim Focus stacks are not in use,
-           it falls back to a default value of 10.
-          
-      2. Iteration Through Buffs:
-         - Loops over all active buffs on the player.
-         - Retrieves key parameters for each buff (e.g., end time, stack count, abilityId) for evaluation.
-          
-      3. Buff Condition Evaluation:
-         A. For the buff corresponding to the Grim Focus skill at index 2 (used for a specific Grim Focus morph)
-            and identified as a relevant Grim Focus stack:
-               - If using Grim Focus stacks and the current stack count is equal to or exceeds the stack limit,
-                 while ensuring that buff ID 61927 is not active, then the ability remains blocked (active = false).
-               - Otherwise, the block is lifted (active = true) and the loop exits.
-               
-         B. For buffs matching the other Grim Focus morphs (grimFocusSkillIds at index 1 or 3) and qualifying as
-            a Grim Focus stack:
-               - If either Grim Focus stacking is enabled or the respective skill is active, and the stack count 
-                 meets or exceeds the threshold, then the ability is blocked (active = false).
-               - Otherwise, the block is not applied (active = true).
-          
-      4. Return:
-         - Returns the 'active' state which indicates whether the ability should be allowed (true) or blocked (false).
+      stacks.
+
+    Param: Ability Id     
+    return: Boolean input permission
 --]]
 
---------------------------------------------------------------------------------
--- Input Validation Master Function
--- @return: Boolean input permission
---------------------------------------------------------------------------------
 local function checkGrimFocus(id)
     local active = false -- Initialization of default for block of grim focus
     local stackLimit = OW.sv.grimFocusStacks
@@ -833,39 +732,18 @@ end
 Function: checkCruxStacks
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
-      an ability should remain active or be blocked. Specifically, if the number of
-      Crux stacks reaches or exceeds the specified threshold (OW.sv.cruxStacks),
-      the ability is blocked (active = false).
+      an ability should remain active or be blocked. 
 
-    Process Flow:
-      1. Iterate through all active buffs on the player.
-      2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OW.sv.cruxId.
-      3. Check the stack count of the identified Crux buff:
-            - If the stack count is equal to or greater than the defined threshold (OW.sv.cruxStacks),
-              set 'active' to false (i.e., block the ability) and exit the loop.
-            - Otherwise, set 'active' to true and exit the loop.
-      4. Return the final status, where 'true' indicates the ability is allowed and 'false'
-         indicates it is blocked.
+    Param: Health and stanina in percent
+    return: Boolean input permission
 --]]
 
---------------------------------------------------------------------------------
--- Input Validation Master Function
--- @return: Boolean input permission
---------------------------------------------------------------------------------
-local function checkCruxStacks(id)
+local function checkCruxStacks(percentHealth, percentStamina)
     local active = true 
     DebugPrint("condition", "Check Crux stacks block in checkCruxStacks(")
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
-    local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-    local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
-    DebugPrint("info", string.format("HP: current: %d / max.: %d / eff. max. %d / Percent %d ", currentHealth, maxHealth, effHealth, percentHealth))
 
-    local currentStam, maxStam, effStam = GetUnitPower('player', POWERTYPE_STAMINA)
-    local percentStam   = (effStam > 0) and (currentStam   / effStam   * 100) or 0
-    DebugPrint("info", string.format("Stamina: current: %d / max.: %d / eff. max. %d / Percent %d ", currentStam, maxStam, effStam, percentStam))
-
-    if (OW.sv.checkHpForArcaBeam and percentHealth <= OW.sv.deactivateArcaBeamBlockAtHpUnder) or (OW.sv.checkStamForArcaBeam and percentStam <= OW.sv.deactivateArcaBeamBlockAtStamUnder) then
+    if (OW.sv.checkHpForArcaBeam and percentHealth <= OW.sv.deactivateArcaBeamBlockAtHpUnder) or (OW.sv.checkStamForArcaBeam and percentStamina <= OW.sv.deactivateArcaBeamBlockAtStamUnder) then
         active = false
         DebugPrint("condition", "active = false")
     else    
@@ -893,30 +771,14 @@ end
 -- == CHECK CRUX STACK STATUS FOR CEPHALIARCH'S FLAIL ==========================
 -- =============================================================================
 --[[
-Function: checkCruxStacksCephaliarch
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
-      Cephaliarch's Flail should be allowed or blocked. Specifically, if the number of
-      Crux stacks reaches or exceeds 3, the ability is allowed (active = true).
+      Cephaliarch's Flail should be allowed or blocked. 
 
-    Process Flow:
-      1. Iterate through all active buffs on the player.
-      2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OW.sv.cruxId.
-      3. Check the stack count of the identified Crux buff:
-            - If the stack count is equal to or greater than 3,
-              set 'active' to true (i.e., allow the ability) and exit the loop.
-            - Otherwise, set 'active' to false and exit the loop.
-      4. Return the final status, where 'true' indicates the ability is allowed and 'false'
-         indicates it is blocked.
+    return: Boolean indicating if ability should be allowed
 --]]
 
---------------------------------------------------------------------------------
--- Crux Stack Validation for Cephaliarch's Flail
--- @param id: Ability ID being checked
--- @return: Boolean indicating if ability should be allowed
---------------------------------------------------------------------------------
-local function checkCruxStacksCephaliarch(id)
+local function checkCruxStacksCephaliarch()
     local active = false 
     DebugPrint("condition", "Check Crux stacks block in checkCruxStacksCephaliarch")
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
@@ -944,32 +806,14 @@ end
 -- == CHECK CRUX STACK STATUS FOR TENTACULAR DREAD =============================
 -- =============================================================================
 --[[
-Function: checkCruxStacksTentacular
     Purpose:
       Evaluates the current Crux buff status on the player to determine whether
-      an ability should remain active or be blocked. Specifically, if the number of
-      Crux stacks reaches or exceeds the specified threshold (OW.sv.cruxStacks),
-      the ability is blocked (active = false).
-
-    Process Flow:
-      1. Iterate through all active buffs on the player.
-      2. Identify the buff that matches the Crux ability by comparing the buff's abilityId
-         with the configured OW.sv.cruxId.
-      3. Check the stack count of the identified Crux buff:
-            - If the stack count is equal to or greater than the defined threshold (OW.sv.cruxStacks),
-              set 'active' to false (i.e., block the ability) and exit the loop.
-            - Otherwise, set 'active' to true and exit the loop.
-      4. Return the final status, where 'true' indicates the ability is allowed and 'false'
-         indicates it is blocked.
+      an ability should remain active or be blocked.
+    return: Boolean input permission
 --]]
-
---------------------------------------------------------------------------------
--- Input Validation Master Function
--- @return: Boolean input permission
---------------------------------------------------------------------------------
-local function checkCruxStacksTentacular(id)
+local function checkCruxStacksTentacular()
     local active = true 
-    DebugPrint("condition", "Check Crux stacks block in checkcruxStacks(")
+    DebugPrint("condition", "Check Crux stacks block in checkcruxStacksTentacular")
     DebugPrint("condition", "OW.sv.cruxId ".. tostring(OW.sv.cruxId))
     
     for buffIndex = 1, GetNumBuffs('player') do
@@ -996,23 +840,15 @@ end
 -- == GROUND ABILITY DETECTION SYSTEM ==========================================
 -- =============================================================================
 --[[
-    Function: CheckGroundAbility
     Purpose: Identify ground-targeted abilities with caching
-    Features:
-    - Uses ESO's localized string comparison
-    - Implements memoization pattern
-    - Auto-detects ground AOEs dynamically
+    Param: AbilityID
+    return: Boolean ground-target status
 --]]
 
 -- Cache localized ground target description
 local groundString = GetString(SI_ABILITY_TOOLTIP_TARGET_TYPE_GROUND)
-local groundAbilities = {}  -- AbilityID:isGround cache
+local groundAbilities = {}  -- Cach
 
---------------------------------------------------------------------------------
--- Ground Ability Detection with Memoization
--- @param id: AbilityID to check
--- @return: Boolean ground-target status
---------------------------------------------------------------------------------
 local function CheckGroundAbility(id)
     -- Cache miss handling
     if groundAbilities[id] == nil then
@@ -1036,25 +872,20 @@ end
 
 local GCD_STAGE = 0  -- Current state machine position
 local CHANNEL = 0    -- Channel expiration timestamp
-local LAST_ABILITY = 0  -- Last used ability ID tracker
+--local LAST_ABILITY = 0  -- Last used ability ID tracker. Not currently in used, maybe needed for the blocking feature from Kalitva
 local timeSinceLastCast = 0  -- Time of last cast in milliseconds
 
 -- =============================================================================
 -- == RESET GCD ================================================================
 -- =============================================================================
 --[[
-    Function: ResetGCDOnDodge / ResetGCDOnBarswap / ResetGCD / OnPlayerStunned
-    Purpose: Reset state 
-    Features:
-    - Full state reset on stun
-    - Channel cancellation
-    - Memory clearing
+    Purpose: Reset states 
 --]]
 
 local function ResetGCD(reason)
     GCD_STAGE = 0
     CHANNEL = 0
-    LAST_ABILITY = 0
+    -- LAST_ABILITY = 0
     timeSinceLastCast = 0
     DebugPrint("block", "Reset: " .. (reason or "unknown"))
 end
@@ -1081,10 +912,22 @@ end
 -- end
 
 -- =============================================================================
+-- == PVP WORLD CHECK ==========================================================
+-- =============================================================================
+--[[
+    Purpose: Sets IsInPvpWorld on true if player is in pvp
+--]]
+
+local IsInPvpWorld = false
+
+local function PvpWorldCheck()
+    IsInPvpWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground() 
+end
+
+-- =============================================================================
 -- == RESOURCE-BASED BLOCK LIST CHECK ==========================================
 -- =============================================================================
 --[[
-Function: CheckResourceBlockList
     Purpose:
       Evaluates all conditions for a spell in the customResourceBlockList
       and determines if it should be blocked.
@@ -1101,17 +944,10 @@ Function: CheckResourceBlockList
           recastBlock = false,       -- Recast Block is used
           recastTime = 0             -- Recast Block time in seconds
       }
-    
-    Process Flow:
-      1. Check if spell is completely blocked
-      2. Check Magicka conditions if enabled
-      3. Check Stamina conditions if enabled
-      4. Check Recast conditions if enabled
-      5. Return true if any condition triggers blocking, false otherwise
 --]]
 
-local function CheckResourceBlockList(spellId)
-   
+local function CheckResourceBlockList(spellId, percentStamina, percentMagicka)
+    
     -- Get spell data
     local spellData = OW.sv.customResourceBlockList[spellId]
     if not spellData then
@@ -1128,12 +964,10 @@ local function CheckResourceBlockList(spellId)
     
     -- 2. Magicka check
     if spellData.magickaCheck then
-        local currentMagicka, maxMagicka, effMagicka = GetUnitPower('player', POWERTYPE_MAGICKA)
-        local percentMagicka = (effMagicka > 0) and (currentMagicka / effMagicka * 100) or 0
         
         DebugPrint("condition", string.format("Magicka Check: Current: %.1f%%, Threshold: %.1f%%, Mode: %s", 
-            percentMagicka, spellData.magickaPercent, 
-            spellData.magickaBlock and "Block when below" or "Allow only when below"))
+        percentMagicka, spellData.magickaPercent, 
+        spellData.magickaBlock and "Block when below" or "Allow only when below"))
         
         if spellData.magickaBlock then
             -- Block when magicka is below threshold
@@ -1152,12 +986,10 @@ local function CheckResourceBlockList(spellId)
     
     -- 3. Stamina check
     if spellData.staminaCheck then
-        local currentStamina, maxStamina, effStamina = GetUnitPower('player', POWERTYPE_STAMINA)
-        local percentStamina = (effStamina > 0) and (currentStamina / effStamina * 100) or 0
         
         DebugPrint("condition", string.format("Stamina Check: Current: %.1f%%, Threshold: %.1f%%, Mode: %s", 
-            percentStamina, spellData.staminaPercent, 
-            spellData.staminaBlock and "Block when below" or "Allow only when below"))
+        percentStamina, spellData.staminaPercent, 
+        spellData.staminaBlock and "Block when below" or "Allow only when below"))
         
         if spellData.staminaBlock then
             -- Block when stamina is below threshold
@@ -1183,21 +1015,12 @@ end
 -- == ACTION SLOT PROCESSING ===================================================
 -- =============================================================================
 --[[
-    Function: GetActionSlot
     Purpose: Extract slot from debug stack
-    Methodology:
-    - Parses debug.traceback() output
-    - Matches ACTION_BUTTON_X pattern
-    - Converts to numeric slot ID
+    return: Action slot number (0-8)
 --]]
 
---------------------------------------------------------------------------------
--- Debug-Based Slot Detection
--- @return: Action slot number (0-8)
---------------------------------------------------------------------------------
-
 local function GetActionSlot()
-    -- Extract slot from call stack trace
+    -- Extract slot from trace, TODO: cleaner way
     --d('ActionButton Traceback'..debug.traceback():match('keybind = \".*ACTION_BUTTON_(%d)'))
     return tonumber(debug.traceback():match('keybind = \".*ACTION_BUTTON_(%d)')) or 0
 end
@@ -1206,23 +1029,14 @@ end
 -- == CORE INPUT VALIDATION LOGIC ==============================================
 -- =============================================================================
 --[[
-    Function: CanUseActionSlots
     Purpose: Main decision gatekeeper
-    Process Flow:
-    1. Check global blocking conditions
-    2. Validate ability type
-    3. Calculate latency compensationr
-    4. Update state machine
-    5. Make final allow/block decision
+    Param: Actionslot
+    return: Boolean input permission
 --]]
-
---------------------------------------------------------------------------------
--- Input Validation Master Function
--- @return: Boolean input permission
---------------------------------------------------------------------------------
 
 local function CanUseActionSlots(slot)
 
+    local percentHealth, percentStamina, percentMagicka = GetUnitPlayerPowertype()
     -- check for inactivity
     if timeSinceLastCast > 0 and (timeSinceLastCast + (OW.sv.resetAfterSeconds * 1000)) < GetGameTimeMilliseconds() then
         ResetGCD()
@@ -1230,20 +1044,20 @@ local function CanUseActionSlots(slot)
     end
 
     -- Global block conditions
-    local ignore = (OW.sv.block and IsBlockActive()) or 
+    local shouldBlock = (OW.sv.block and IsBlockActive()) or 
                 (OW.sv.combat and not IsUnitInCombat('player')) or 
                 (OW.sv.checkTarget and not IsUnitAttackable('reticleover'))
     
     -- Extract action details
     local id = GetSlotBoundId(slot)
     local isGround = CheckGroundAbility(id)
-    -- local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+    local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
     
-    -- DebugPrint("info", "Buff"..abilityId)
+    DebugPrint("info", "Buff"..abilityId)
     DebugPrint("info", "id "..id)
 
     -- Hard block exit
-    if ignore and not OW.sv.blockGroundAbilities then
+    if shouldBlock and not OW.sv.blockGroundAbilities then
         return false
     end
 
@@ -1254,7 +1068,7 @@ local function CanUseActionSlots(slot)
     -- end
 
     -- Resource-Based Block List Check
-    if OW.sv.useCustomResourceBlockList and CheckResourceBlockList(id) then
+    if OW.sv.useCustomResourceBlockList and CheckResourceBlockList(id, percentStamina, percentMagicka) then
         DebugPrint("condition", "Spell blocked by resource block list")
         return true
     end
@@ -1265,8 +1079,6 @@ local function CanUseActionSlots(slot)
         
         -- Health check for Custom Block List
         if OW.sv.useCustomBlockListHealthCheck then
-            local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-            local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
             DebugPrint("condition", string.format("Custom Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", percentHealth, OW.sv.useCustomBlockListHealthPercent))
             
             if percentHealth <= OW.sv.useCustomBlockListHealthPercent then
@@ -1286,8 +1098,6 @@ local function CanUseActionSlots(slot)
         
         -- Health check for Custom Recast Block List
         if OW.sv.useCustomRecastBlockListHealthCheck then
-            local currentHealth, maxHealth, effHealth = GetUnitPower('player', POWERTYPE_HEALTH)
-            local percentHealth = (effHealth > 0) and (currentHealth / effHealth * 100) or 0
             DebugPrint("condition", string.format("Custom Recast Block List Health Check: HP Percent = %.1f%%, Threshold = %d%%", percentHealth, OW.sv.useCustomRecastBlockListHealthPercent))
             
             if percentHealth <= OW.sv.useCustomRecastBlockListHealthPercent then
@@ -1305,8 +1115,7 @@ local function CanUseActionSlots(slot)
     end
 
     -- PvP Deactivation Check
-    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
-    if OW.sv.deactivateInPvP.features and inPvPWorld then
+    if OW.sv.deactivateInPvP.features and IsInPvpWorld then
         DebugPrint("block", "disable features in PvP")
         return false
     end
@@ -1327,19 +1136,19 @@ local function CanUseActionSlots(slot)
     -- Arca Beam
     -- d(OW.sv.arcaBeamSkillIds[id] )
     -- Check Crux stacks
-    if OW.sv.arcaBeamSkillIds[id] and OW.sv.useCruxStacks and checkCruxStacks(id) then
+    if OW.sv.arcaBeamSkillIds[id] and OW.sv.useCruxStacks and checkCruxStacks(percentHealth, percentStamina) then
         DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
         return true
     end 
 
     -- Cephaliarch's Flail
-    if OW.sv.cephaliarchsFlail[id] and OW.sv.useCruxStacksCephaliarch and checkCruxStacksCephaliarch(id) then
+    if OW.sv.cephaliarchsFlail[id] and OW.sv.useCruxStacksCephaliarch and checkCruxStacksCephaliarch() then
         DebugPrint("condition", "Cephaliarch's Flail block in CanUseActionSlots")
         return true
     end
 
     -- Tentacular Dread
-    if OW.sv.tentacularDread[id] and OW.sv.usecruxStacksTentacular and checkCruxStacksTentacular(id) then
+    if OW.sv.tentacularDread[id] and OW.sv.usecruxStacksTentacular and checkCruxStacksTentacular() then
         DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
         return true
     end 
@@ -1347,7 +1156,7 @@ local function CanUseActionSlots(slot)
     -- Execute Check: Block spell until execute phase is reached
     if OW.sv.useExecuteCheck and OW.sv.executeCheckSpells[id] then
         DebugPrint("condition", string.format("Execute Check: Checking spell ID %d", id))
-        if checkExecuteReady(id) then
+        if checkExecuteReady() then
             DebugPrint("condition", "Execute Check: Spell blocked by Execute Check")
             return false
         else
@@ -1357,7 +1166,7 @@ local function CanUseActionSlots(slot)
     end
 
     -- Light Morphs & Hunter Morphs block in non-PvP areas
-    if not (OW.sv.deactivateHunterLightInPvP and inPvPWorld) then
+    if not (OW.sv.deactivateHunterLightInPvP and IsInPvpWorld) then
         -- Mages Guild Light morphs block
         if OW.sv.lightMorphs[id] or OW.sv.hunterMorphs[id] then
             DebugPrint("condition", "Light/Hunter block")
@@ -1370,10 +1179,9 @@ local function CanUseActionSlots(slot)
         DebugPrint("condition", "MoltenWhip block")
         return true
     end
-    
-    
-    -- Special case blocking
-    if (ignore and not isGround) or IsBlockedNeverAbilityID(id) then
+
+    -- Special case blocking 
+    if (shouldBlock and not isGround) or IsBlockedNeverAbilityID(id) then
         return false
     end
 
@@ -1401,15 +1209,12 @@ local function CanUseActionSlots(slot)
                 (isGround or (not IsBlockedNeverAbilityID(id))) and 
                 (GCD_STAGE >= 3 or OW.sv.mode == 1 or isGround)
     
-
     -- Hard mode queuing
     if not allow and cd > 0 and (OW.sv.mode == 1 or OW.sv.mode == 4) then
         GCD_STAGE = 4
     end
 
-    
     return allow
-
 end
 
 -- =============================================================================
@@ -1436,19 +1241,9 @@ end
 -- == ABILITY USAGE HANDLER ====================================================
 -- =============================================================================
 --[[
-    Function: AbilityUsed
     Purpose: Track ability activations
-    Features:
-    - Light Attack detection
-    - Channel time calculation
-    - Ability queuing states
+    param slot: Activated action slot
 --]]
-
---------------------------------------------------------------------------------
--- Ability Activation Handler
--- @param _: Unused event parameter
--- @param slot: Activated action slot
---------------------------------------------------------------------------------
 local function AbilityUsed(_, slot)
     ShowGcdOnBar()
     if OW.sv.mode == 3 then 
@@ -1456,8 +1251,7 @@ local function AbilityUsed(_, slot)
     end
 
     -- PvP Deactivation Check
-    local inPvPWorld = IsPlayerInAvAWorld() or IsActiveWorldBattleground()
-    if OW.sv.deactivateInPvP.weaveAssist and inPvPWorld then
+    if OW.sv.deactivateInPvP.weaveAssist and IsInPvpWorld then
         DebugPrint("block", "disable Weave Assist in PvP")
         return
     end
@@ -1491,21 +1285,19 @@ local function AbilityUsed(_, slot)
             CHANNEL = 0  -- No channel time
         end
         
-        LAST_ABILITY = id  -- Update ability memory
+        --LAST_ABILITY = id  -- Update ability memory
     end
     timeSinceLastCast = GetGameTimeMilliseconds()
 end
 
 -- =============================================================================
--- == ABILITY ADDITION TO LISTS FUNCTIONS ======================================
+-- == ABILITY ADDITION TO BLOCK LISTS FUNCTIONS ================================
 -- =============================================================================
-
---------------------------------------------------------------------------------
--- Add Ability to Block List
--- @param abilityId: The ID of the ability to add
--- @param abilityName: The name of the ability (for display)
---------------------------------------------------------------------------------
-
+--[[
+    Purpose: Add Ability to the Block Lists
+    Param abilityId: The ID of the ability to add
+    param abilityName: The name of the ability 
+--]]
 local OWColoredName = '|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r'
 local function AddToBlockList(abilityId, abilityName)
     if not OW.sv then return end
@@ -1518,11 +1310,6 @@ local function AddToBlockList(abilityId, abilityName)
     ))
 end
 
---------------------------------------------------------------------------------
--- Add Ability to Recast Block List
--- @param abilityId: The ID of the ability to add
--- @param abilityName: The name of the ability (for display)
---------------------------------------------------------------------------------
 local function AddToRecastBlockList(abilityId, abilityName)
     if not OW.sv then return end
     
@@ -1534,11 +1321,6 @@ local function AddToRecastBlockList(abilityId, abilityName)
     ))
 end
 
---------------------------------------------------------------------------------
--- Add Ability to Resource Block List
--- @param abilityId: The ID of the ability to add
--- @param abilityName: The name of the ability (for display)
---------------------------------------------------------------------------------
 local function AddToResourceBlockList(abilityId, abilityName)
     if not OW.sv then return end
     
@@ -1574,24 +1356,10 @@ end
 -- == ABILITY ID DISPLAY HOOKS =================================================
 -- =============================================================================
 --[[
-    Function: SetupAbilityIDHooks
+    Lib only for PC, LibCustomMenu doesnt exist official for console 
     Purpose:  Provides right-click context menu on action bar and assignable skill
               slots to display the underlying ability ID for debugging and configuration.
-    Features: - Action bar slot right-click detection
-              - Assignable skill slot menu integration
-              - Formatted debug output with addon branding
-              - Ability to add skills to block lists
 --]]
-
---------------------------------------------------------------------------------
--- Action Bar Right-Click Hook
--- @description: Intercepts right-click events on action bar slots to display
---               ability ID in a context menu for debugging purposes
--- @features:   - Validates slot type and usage state
---              - Creates formatted debug output with colored addon name
---              - Integrates with ESO's custom menu system
---              - Allows adding abilities to block lists
---------------------------------------------------------------------------------
 local function HookActionBarRightClick()
     ZO_PreHook("ZO_AbilitySlot_OnSlotClicked", function(abilitySlot, buttonId)
         if buttonId == MOUSE_BUTTON_INDEX_RIGHT then
@@ -1650,15 +1418,6 @@ local function HookActionBarRightClick()
     end)
 end
 
---------------------------------------------------------------------------------
--- Assignable Skills Menu Hook
--- @description: Extends assignable skill slot context menus with ability ID
---               display functionality
--- @features:   - Integrates with ESO's skill assignment system
---              - Validates slot data existence and non-empty state
---              - Maintains original menu functionality while adding ID display
---              - Allows adding abilities to block lists
---------------------------------------------------------------------------------
 local function HookAssignableSkillsMenu()
     ZO_PreHook(ZO_KeyboardAssignableActionBarButton, "ShowActionMenu", function(self)
         local hotbar = ACTION_BAR_ASSIGNMENT_MANAGER:GetCurrentHotbar()
@@ -1713,39 +1472,31 @@ local function HookAssignableSkillsMenu()
     end)
 end
 
---------------------------------------------------------------------------------
--- Ability ID Display System Initialization
--- @function: SetupAbilityIDHooks
--- @description: Activates both action bar and assignable skill hooks
---               for unified ability ID debugging functionality
--- @calls:      HookActionBarRightClick(), HookAssignableSkillsMenu()
---------------------------------------------------------------------------------
 local function SetupAbilityIDHooks()
     HookActionBarRightClick()
     HookAssignableSkillsMenu()
 end
 
 -- =============================================================================
--- == SYSTEM INITIALIZATION ====================================================
+-- == ADDON INITIALIZATION =====================================================
 -- =============================================================================
 --[[
-    Function: Initialize
-    Purpose: Addon bootstrap process
-    Execution Flow:
-    1. Load SavedVariables
-    2. Register event handlers
-    3. Hook into action system
-    4. Build configuration menu
+    Purpose: Addon initialize
 --]]
-
---------------------------------------------------------------------------------
--- Addon Initialization Routine
---------------------------------------------------------------------------------
 local function Initialize()
+
     -- Load persistent settings
-    --OW.sv = ZO_SavedVars:NewAccountWide('OptimalWeaveSV', 1, nil, defaults) 
-    -- Load persistent settings
-    OW.accSV = ZO_SavedVars:NewAccountWide("OptimalWeaveSV", 1, nil, defaults)
+    if OptimalWeaveSV and (OptimalWeaveSV["Default"]) then -- For Beartram: Yeah, yeah, I'll build a proper migration sooner or later,
+    --but just for now it works for new user. But I didn't want to make a hard cut for people who already have the addon installed
+    -- And no, I didn't start out by memorizing best practices, at first, I just copied what I saw in other addons
+    -- And I was hoping they'd get it right. Well, I guess not, but you learn from your mistakes, and in my other addons,
+    -- it's already implemented the way it should be, just not here yet. :)
+    -- Learned by doing even white mistakes. But thanks for the reviewing :D
+        OW.accSV = ZO_SavedVars:NewAccountWide("OptimalWeaveSV", 1, nil, defaults)
+    else
+        OW.accSV = ZO_SavedVars:NewAccountWide("OptimalWeaveSV", 1, nil, defaults, GetWorldName())
+    end
+
     OW.charSV = ZO_SavedVars:NewCharacterIdSettings("OptimalWeaveSV", 1, nil, defaults, GetWorldName())
 
     -- Read mode from SV
@@ -1765,52 +1516,62 @@ local function Initialize()
     -- =============================================================================
     -- Reset tracking
 	EM:RegisterForEvent(NAME.."_BARSWAP", EVENT_ACTIVE_WEAPON_PAIR_CHANGED, ResetGCDOnBarswap) 
-    --EM:RegisterForEvent(NAME.."_BARSWASOUND", EVENT_ACTIVE_WEAPON_PAIR_CHANGED, BarswapSound) 
-
-    EM:RegisterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, ResetGCDOnDodge)
-    EM:AddFilterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
-    EM:AddFilterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549) -- https://esoitem.uesp.net/viewSkillCoef.php
 
     EM:RegisterForEvent(NAME.."_SWIMMING", EVENT_PLAYER_SWIMMING, ResetGCD)
     EM:RegisterForEvent(NAME.."_DEAD", EVENT_PLAYER_DEAD, ResetGCD)
+
     EM:RegisterForEvent(NAME .."_BLOCK", EVENT_COMBAT_EVENT, CastCanceled)
+
+    EM:RegisterForEvent(NAME.."_DODGE", EVENT_COMBAT_EVENT, ResetGCDOnDodge)
+    EM:AddFilterForEvent(NAME.. "_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_SOURCE_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME.. "_DODGE", EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, 28549) -- https://esoitem.uesp.net/viewSkillCoef.php
 
     -- Combat state tracking
     EM:RegisterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_INTERRUPT)
-    EM:AddFilterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_INTERRUPT", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_STUNNED)
-    EM:AddFilterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_STUNNED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_FEARED)
-    EM:AddFilterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_FEARED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_SILENCED)
-    EM:AddFilterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_SILENCED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_KNOCKBACK)
-    EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_KNOCKBACK", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_OFFBALANCE)
-    EM:AddFilterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_OFFBALANCE", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, OnPlayerStunned)
     EM:AddFilterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_CHARMED)
-    EM:AddFilterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_CHARMED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_DISORIENTED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_DISORIENTED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_DISORIENTED)
+    EM:AddFilterForEvent(NAME .. "_DISORIENTED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
+
+    EM:RegisterForEvent(NAME .. "_STAGGERED", EVENT_COMBAT_EVENT, OnPlayerStunned)
+    EM:AddFilterForEvent(NAME .. "_STAGGERED", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_STAGGERED)
+    EM:AddFilterForEvent(NAME .. "_STAGGERED", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
 
     EM:RegisterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, ResetGCD)
     EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_COMBAT_RESULT, ACTION_RESULT_SPRINTING)
-    EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TAG, COMBAT_UNIT_TYPE_PLAYER)
+    EM:AddFilterForEvent(NAME .. "_SPRINTING", EVENT_COMBAT_EVENT, REGISTER_FILTER_TARGET_COMBAT_UNIT_TYPE, COMBAT_UNIT_TYPE_PLAYER)
     
     EM:RegisterForEvent(NAME.."_SLOTUPDATE", EVENT_ACTION_SLOTS_FULL_UPDATE, UpdateGcdTrackingSlot)
 
     EM:RegisterForEvent(NAME.."_CHECKROLE", EVENT_PLAYER_ACTIVATED, CheckRoleOverride)
+
+    EM:RegisterForEvent(NAME.."_ZONECHANGE", EVENT_PLAYER_ACTIVATED, PvpWorldCheck) -- for whatever reason, EVENT_ZONE_UPDATE does not change immediately
 
     if OW.sv.blockLastMenu or OW.sv.blockCharMenu then
         EM:RegisterForEvent(NAME.."_COMBATMENUBLOCK", EVENT_PLAYER_COMBAT_STATE, OnPlayerCombatState)
@@ -1841,6 +1602,7 @@ local function Initialize()
         return CanUseActionSlots(slot)
     end)
 
+
     if OW.sv.blockLastMenu then
         -- PreHook for the Last menu (ALT)
         ZO_PreHook(MAIN_MENU_KEYBOARD, "ShowLastCategory", function()
@@ -1863,24 +1625,15 @@ local function Initialize()
 
     -- Menu system initialization
     OW.BuildMenu(OW.sv, defaults)
-   
 end
 
 -- =============================================================================
--- == EVENT REGISTRATION & BOOTSTRAPPING =======================================
+-- == EVENT REGISTRATION =======================================================
 -- =============================================================================
---[[
-    Event: EVENT_ADD_ON_LOADED
-    Purpose: Safe addon initialization
-    Features:
-    - Self-unregistering after load
-    - Namespace validation
---]]
 EM:RegisterForEvent(NAME, EVENT_ADD_ON_LOADED, function(event, addonName)
-    -- Validate addon load
     if addonName == NAME then
         EM:UnregisterForEvent(NAME, EVENT_ADD_ON_LOADED)
-        Initialize()  -- Start addon
+        Initialize()
     end
 end)
 
