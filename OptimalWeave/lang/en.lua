@@ -392,5 +392,12 @@ ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Show Global Cooldown (GCD)")
 ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Displays the GCD indicator (provided by ZOS) above the action bar.")
 
 -- =============================================================================
+-- == BLOCKLIST COMBAT ONLY ====================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_LABEL", "Blocklists only in Combat")
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_TOOLTIP", "All custom block lists are only active while you are in combat. Outside of combat, all block lists are disabled.")
+
+-- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================
 -- =============================================================================

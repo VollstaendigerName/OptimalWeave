@@ -385,5 +385,12 @@ ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Pokaż globalny czas odnowienia (GC
 ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Wyświetla wskaźnik GCD (dostarczony przez ZOS) nad paskiem akcji.")
 
 -- =============================================================================
+-- == BLOCKLIST COMBAT ONLY ====================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_LABEL", "Listy blokad tylko w walce")
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_TOOLTIP", "Wszystkie niestandardowe listy blokad są aktywne tylko podczas walki. Poza walką wszystkie listy blokad są wyłączone.")
+
+-- =============================================================================
 -- === END OF POLISH LOCALIZATION ==============================================
 -- =============================================================================

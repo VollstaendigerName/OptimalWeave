@@ -337,7 +337,7 @@ local defaults = {
     blockAoEIfNoTarget = false, -- Experimental: Block ground AoEs when no target is selected
     showGCD = false,            -- Shows the internal GCD monitor 
     -- useNewStyleBlocklist = true,
-
+    blockListsCombatOnly = false,                   -- Blocklists only active while in combat
 }
 
 -- =========================================================================
@@ -1071,14 +1071,16 @@ local function ShouldBlockSlot(slot)
     --     return true -- Block
     -- end
 
+    local blockListsActive = not OW.sv.blockListsCombatOnly or (OW.sv.blockListsCombatOnly and IsUnitInCombat('player'))
+
     -- Resource-Based Block List Check
-    if OW.sv.useCustomResourceBlockList and CheckResourceBlockList(id, percentStamina, percentMagicka) then
+    if blockListsActive and OW.sv.useCustomResourceBlockList and CheckResourceBlockList(id, percentStamina, percentMagicka) then
         DebugPrint("condition", "Spell blocked by resource block list")
         return true
     end
 
     -- Custom Block List Check
-    if OW.sv.useCustomBlockList and OW.sv.customBlockList[id] then
+    if blockListsActive and OW.sv.useCustomBlockList and OW.sv.customBlockList[id] then
         DebugPrint("condition", "Custom Block List: Spell found in custom block list")
         
         -- Health check for Custom Block List
@@ -1097,7 +1099,7 @@ local function ShouldBlockSlot(slot)
 
 
     -- Custom Recast Block List Check
-    if OW.sv.useCustomRecastBlockList and OW.sv.customRecastBlockList[id] then
+    if blockListsActive and OW.sv.useCustomRecastBlockList and OW.sv.customRecastBlockList[id] then
         DebugPrint("condition", "Custom Recast Block List: Spell found in custom recast block list")
         
         -- Health check for Custom Recast Block List

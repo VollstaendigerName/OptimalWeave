@@ -381,5 +381,12 @@ ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Mostra il tempo di ricarica globale
 ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Mostra l'indicatore GCD (fornito da ZOS) sopra la barra delle azioni.")
 
 -- =============================================================================
+-- == BLOCKLIST COMBAT ONLY ====================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_LABEL", "Liste di blocco solo in combattimento")
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_TOOLTIP", "Tutte le liste di blocco personalizzate sono attive solo durante il combattimento. Fuori dal combattimento, tutte le liste di blocco sono disabilitate.")
+
+-- =============================================================================
 -- === END OF ITALIAN LOCALIZATION ============================================
 -- =============================================================================

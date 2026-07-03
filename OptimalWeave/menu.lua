@@ -511,6 +511,13 @@ end
                     function(value) sv.block = value end
                 ),
 
+                CreateCheckbox(
+                    "OW_MENU_BLOCKLISTS_COMBAT_ONLY_LABEL",
+                    "OW_MENU_BLOCKLISTS_COMBAT_ONLY_TOOLTIP",
+                    function() return sv.blockListsCombatOnly end,
+                    function(value) sv.blockListsCombatOnly = value end
+                ),
+
                 { type = "divider", alpha = 0.2 }, -- =====================================================================================
 
                 CreateCheckbox(

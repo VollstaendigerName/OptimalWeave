@@ -385,5 +385,12 @@ ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Küresel Bekleme Süresini (GCD) G�
 ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Eylem çubuğunun üzerinde GCD göstergesini (ZOS tarafından sağlanır) görüntüler.")
 
 -- =============================================================================
+-- == BLOCKLIST COMBAT ONLY ====================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_LABEL", "Engel listeleri yalnızca savaşta")
+ZO_CreateStringId("OW_MENU_BLOCKLISTS_COMBAT_ONLY_TOOLTIP", "Tüm özel engel listeleri yalnızca savaş halindeyken aktiftir. Savaş dışında, tüm engel listeleri devre dışıdır.")
+
+-- =============================================================================
 -- === END OF TURKISH LOCALIZATION =============================================
 -- =============================================================================
