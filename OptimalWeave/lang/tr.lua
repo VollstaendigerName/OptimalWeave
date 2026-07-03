@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/tr.lua
     Description:        Turkish localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -376,6 +376,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Savaşta Son Menüyü Engelle")
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Savaş sırasında son menünün (ALT) açılmasını engeller.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Savaşta Karakter Menüsünü Engelle")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Savaş sırasında karakter menüsünün (C) açılmasını engeller.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Küresel Bekleme Süresini (GCD) Göster")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Eylem çubuğunun üzerinde GCD göstergesini (ZOS tarafından sağlanır) görüntüler.")
 
 -- =============================================================================
 -- === END OF TURKISH LOCALIZATION =============================================

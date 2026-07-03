@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/es.lua
     Description:        Spanish localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -376,6 +376,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Bloquear último menú en combate"
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Evita abrir el último menú (ALT) mientras estás en combate.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Bloquear menú de personaje en combate")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Evita abrir el menú de personaje (C) mientras estás en combate.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Mostrar tiempo de reutilización global (GCD)")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Muestra el indicador GCD (proporcionado por ZOS) sobre la barra de acciones.")
 
 -- =============================================================================
 -- === END OF SPANISH LOCALIZATION =============================================

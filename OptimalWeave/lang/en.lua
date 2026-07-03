@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/en.lua
     Description:        English localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -109,6 +109,8 @@ ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Auto-Draw Weapon")
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Automatically draw weapons when in combat")
 ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Reset All")
 ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Reset all settings to default values")
+ZO_CreateStringId("OW_MENU_DYNAMIC_QUEUE_TIME_LABEL", "Dynamic Queue Time (GCD)")
+ZO_CreateStringId("OW_MENU_DYNAMIC_QUEUE_TIME_TOOLTIP", "Uses the current GCD (1000 ms) instead of the fixed value.")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -381,6 +383,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Block Last Menu in combat")
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Prevents opening the last menu (ALT) while in combat.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Block Character Menu in combat")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Prevents opening the character menu (c) while in combat.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Show Global Cooldown (GCD)")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Displays the GCD indicator (provided by ZOS) above the action bar.")
 
 -- =============================================================================
 -- === END OF ENGLISH LOCALIZATION =============================================

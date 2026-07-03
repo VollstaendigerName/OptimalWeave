@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/br.lua
     Description:        Brazilian Portuguese localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -378,6 +378,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Bloquear último menu em combate")
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Impede a abertura do último menu (ALT) durante o combate.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Bloquear menu de personagem em combate")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Impede a abertura do menu de personagem (C) durante o combate.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Mostrar tempo de recarga global (GCD)")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Exibe o indicador GCD (fornecido pela ZOS) acima da barra de ações.")
 
 -- =============================================================================
 -- === END OF BRAZILIAN PORTUGUESE LOCALIZATION ===============================

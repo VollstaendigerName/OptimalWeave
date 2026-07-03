@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/zh.lua
     Description:        Chinese localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -378,5 +378,12 @@ ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "战斗中屏蔽角色菜单")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "防止在战斗中打开角色菜单 (C)。")
 
 -- =============================================================================
--- === END OF CHINESE LOCALIZATION ============================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "显示全局冷却时间 (GCD)")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "在动作条上方显示 GCD 指示器（由 ZOS 提供）。")
+
+-- =============================================================================
+-- === END OF CHINESE LOCALIZATION =============================================
 -- =============================================================================

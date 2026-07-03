@@ -4,7 +4,7 @@
 --[[
     AddOn Name:         OptimalWeave
     Description:        Advanced GCD management system for perfect light attack weaving
-    Version:            1.16.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
     Dependencies:       LibAddonMenu-2.0
 --]]
@@ -20,7 +20,7 @@ OptimalWeave = OptimalWeave or {}
 -- Global namespace identifier 
 OptimalWeave.name = "OptimalWeave"
 -- Version (Major=breaking, Minor=features, Patch=fixes)
-OptimalWeave.version = "1.16.0"
+OptimalWeave.version = "1.17.0"
 
 -- =============================================================================
 -- == LOCALIZED ALIASES & RUNTIME REFERENCES ===================================
@@ -848,10 +848,14 @@ end
 -- Cache localized ground target description
 local groundString = GetString(SI_ABILITY_TOOLTIP_TARGET_TYPE_GROUND)
 local groundAbilities = {}  -- Cach
+local GROUND_CACHE_LIMIT = 50 -- 50 is my best guess
 
 local function CheckGroundAbility(id)
     -- Cache miss handling
     if groundAbilities[id] == nil then
+         if #groundAbilities > GROUND_CACHE_LIMIT then
+            groundAbilities = {}
+        end
         -- Execute string comparison once per ability
         groundAbilities[id] = (GetAbilityTargetDescription(id) == groundString)
     end
@@ -1034,7 +1038,7 @@ end
     return: Boolean input permission
 --]]
 
-local function CanUseActionSlots(slot)
+local function ShouldBlockSlot(slot)
 
     local percentHealth, percentStamina, percentMagicka = GetUnitPlayerPowertype()
     -- check for inactivity
@@ -1051,9 +1055,9 @@ local function CanUseActionSlots(slot)
     -- Extract action details
     local id = GetSlotBoundId(slot)
     local isGround = CheckGroundAbility(id)
-    local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
+    -- local _, _, _, _, _, _, _, _, _, _, abilityId = GetUnitBuffInfo('player', buffIndex)
     
-    DebugPrint("info", "Buff"..abilityId)
+    -- DebugPrint("info", "Buff"..abilityId)
     DebugPrint("info", "id "..id)
 
     -- Hard block exit
@@ -1129,7 +1133,7 @@ local function CanUseActionSlots(slot)
 
     -- Grim Focus block
     if (OW.sv.grimFocusSkillIds[id] or OW.sv.useGrimFocusStacks) and checkGrimFocus(id) then
-        DebugPrint("condition", "Grim Focus block in CanUseActionSlots")
+        DebugPrint("condition", "Grim Focus block in ShouldBlockSlot")
         return true
     end 
 
@@ -1137,19 +1141,19 @@ local function CanUseActionSlots(slot)
     -- d(OW.sv.arcaBeamSkillIds[id] )
     -- Check Crux stacks
     if OW.sv.arcaBeamSkillIds[id] and OW.sv.useCruxStacks and checkCruxStacks(percentHealth, percentStamina) then
-        DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
+        DebugPrint("condition", "Check Crux stacks block in ShouldBlockSlot")
         return true
     end 
 
     -- Cephaliarch's Flail
     if OW.sv.cephaliarchsFlail[id] and OW.sv.useCruxStacksCephaliarch and checkCruxStacksCephaliarch() then
-        DebugPrint("condition", "Cephaliarch's Flail block in CanUseActionSlots")
+        DebugPrint("condition", "Cephaliarch's Flail block in ShouldBlockSlot")
         return true
     end
 
     -- Tentacular Dread
     if OW.sv.tentacularDread[id] and OW.sv.usecruxStacksTentacular and checkCruxStacksTentacular() then
-        DebugPrint("condition", "Check Crux stacks block in CanUseActionSlots")
+        DebugPrint("condition", "Check Crux stacks block in ShouldBlockSlot")
         return true
     end 
 
@@ -1301,24 +1305,46 @@ end
 local OWColoredName = '|c6D6D6DOp|r|c8A8A8Atim|r|cA7A7A7al |r|cC4C4C4Wea|r|c6D6D6Dve|r'
 local function AddToBlockList(abilityId, abilityName)
     if not OW.sv then return end
+
+    if OW.sv.customBlockList[abilityId] ~= nil then
+        -- d(string.format(
+        --     OWColoredName .. ' |cFFFFFFSpell already in Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
+        --     abilityId, 
+        --     abilityName
+        -- ))
+        ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
+        return
+    end
     
     OW.sv.customBlockList[abilityId] = true
-    d(string.format(
-        OWColoredName .. ' |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
-        abilityId, 
-        abilityName
-    ))
+    -- d(string.format(
+    --     OWColoredName .. ' |cFFFFFFAdded to Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
+    --     abilityId, 
+    --     abilityName
+    -- ))
+    ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
 end
 
 local function AddToRecastBlockList(abilityId, abilityName)
     if not OW.sv then return end
+
+    if OW.sv.customRecastBlockList[abilityId] ~= nil then
+        -- d(string.format(
+        --     OWColoredName .. ' |cFFFFFFSpell already in Recast Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
+        --     abilityId, 
+        --     abilityName
+        -- ))
+        ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
+        return
+    end
     
     OW.sv.customRecastBlockList[abilityId] = true
-    d(string.format(
-        OWColoredName .. ' |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
-        abilityId, 
-        abilityName
-    ))
+    -- d(string.format(
+    --     OWColoredName .. ' |cFFFFFFAdded to Recast Block List: |c00FF00%d|r|cFFFFFF - %s ("/reloadui" is required)|r', 
+    --     abilityId, 
+    --     abilityName
+    -- ))
+    ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
 end
 
 local function AddToResourceBlockList(abilityId, abilityName)
@@ -1326,11 +1352,12 @@ local function AddToResourceBlockList(abilityId, abilityName)
     
     -- Check if spell already exists in resource block list
     if OW.sv.customResourceBlockList[abilityId] ~= nil then
-        d(string.format(
-            OWColoredName .. ' |cFFFFFFSpell already in Resource Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
-            abilityId, 
-            abilityName
-        ))
+        -- d(string.format(
+        --     OWColoredName .. ' |cFFFFFFSpell already in Resource Block List: |c00FF00%d|r|cFFFFFF - %s|r', 
+        --     abilityId, 
+        --     abilityName
+        -- ))
+        ZO_Dialogs_ShowDialog("OW_ID_IS_IN_SV_DIALOG")
         return
     end
     
@@ -1345,11 +1372,12 @@ local function AddToResourceBlockList(abilityId, abilityName)
         staminaPercent = 0,        -- Stamina percentage threshold
     }
     
-    d(string.format(
-        OWColoredName .. ' |cFFFFFFAdded to Resource Block List: |c00FF00%d|r|cFFFFFF - %s (configure resource checks in settings then "/reloadui")|r', 
-        abilityId, 
-        abilityName
-    ))
+    -- d(string.format(
+    --     OWColoredName .. ' |cFFFFFFAdded to Resource Block List: |c00FF00%d|r|cFFFFFF - %s (configure resource checks in settings then "/reloadui")|r', 
+    --     abilityId, 
+    --     abilityName
+    -- ))
+    ZO_Dialogs_ShowDialog("OW_RELOAD_DIALOG")
 end
 
 -- =============================================================================
@@ -1360,117 +1388,98 @@ end
     Purpose:  Provides right-click context menu on action bar and assignable skill
               slots to display the underlying ability ID for debugging and configuration.
 --]]
+local function OnShowMenu(control)
+    if control and control._customMenuData then
+        local data = control._customMenuData
+        control._customMenuData = nil 
+
+        local abilityId = data.abilityId
+        local abilityName = data.abilityName
+
+        -- Submenu items
+        local entries = {
+            {
+                label = "Show Ability ID",
+                callback = function()
+                    d(string.format(
+                        OWColoredName .. ' |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r',
+                        abilityId,
+                        abilityName
+                    ))
+                end
+            },
+            {
+                label = "Add to Block List",
+                callback = function()
+                    AddToBlockList(abilityId, abilityName)
+                end
+            },
+            {
+                label = "Add to Recast Block List",
+                callback = function()
+                    AddToRecastBlockList(abilityId, abilityName)
+                end
+            },
+            {
+                label = "Add to Resource Block List",
+                callback = function()
+                    AddToResourceBlockList(abilityId, abilityName)
+                end
+            }
+        }
+
+        AddCustomSubMenuItem(OWColoredName, entries)
+    end
+end
+
+ZO_PreHook("ShowMenu", OnShowMenu)
+
+
 local function HookActionBarRightClick()
     ZO_PreHook("ZO_AbilitySlot_OnSlotClicked", function(abilitySlot, buttonId)
         if buttonId == MOUSE_BUTTON_INDEX_RIGHT then
             local button = ZO_ActionBar_GetButton(abilitySlot.slotNum)
             if button then
                 local slotNum = button:GetSlot()
-                if GetSlotType(slotNum) == ACTION_TYPE_ABILITY and 
-                   IsSlotUsed(slotNum) and 
+                if GetSlotType(slotNum) == ACTION_TYPE_ABILITY and
+                   IsSlotUsed(slotNum) and
                    not IsSlotLocked(slotNum) then
-                    
+
                     local abilityId = GetSlotBoundId(slotNum)
                     local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
-                    
-                    ClearMenu()
-                    
-                    local entries = {
-                        {
-                            label = "Show Ability ID",
-                            callback = function()
-                                d(string.format(
-                                    OWColoredName .. ' |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r', 
-                                    abilityId, 
-                                    abilityName
-                                ))
-                            end
-                        },
-                        {
-                            label = "Add to Block List",
-                            callback = function()
-                                AddToBlockList(abilityId, abilityName)
-                            end
-                        },
-                        {
-                            label = "Add to Recast Block List",
-                            callback = function()
-                                AddToRecastBlockList(abilityId, abilityName)
-                            end
-                        },
-                        {
-                            label = "Add to Resource Block List",
-                            callback = function()
-                                AddToResourceBlockList(abilityId, abilityName)
-                            end
-                        }
+
+                    --  Set the flag for the ShowMenu hook
+                    abilitySlot._customMenuData = {
+                        abilityId = abilityId,
+                        abilityName = abilityName
                     }
-                    
-                    AddCustomSubMenuItem(OWColoredName, entries)
-                    --AddCustomMenuTooltip("A sub-menu with ability options")
-                    
-                    ShowMenu(abilitySlot)
-                    
-                    return true
                 end
             end
         end
+        return false
     end)
 end
+
 
 local function HookAssignableSkillsMenu()
     ZO_PreHook(ZO_KeyboardAssignableActionBarButton, "ShowActionMenu", function(self)
         local hotbar = ACTION_BAR_ASSIGNMENT_MANAGER:GetCurrentHotbar()
         local slotData = hotbar:GetSlotData(self.slotId)
-        
+
         if slotData and not slotData:IsEmpty() then
             local abilityId = GetSlotBoundId(self.slotId)
             local abilityName = zo_strformat("<<1>>", GetAbilityName(abilityId))
-            
-            ClearMenu()
-            
-            -- To Submenu
-            local entries = {
-                {
-                    label = "Show Ability ID",
-                    callback = function()
-                        d(string.format(
-                            OWColoredName .. ' |cFFFFFFAbility ID: |c00FF00%d|r|cFFFFFF - %s|r', 
-                            abilityId, 
-                            abilityName
-                        ))
-                    end
-                },
-                {
-                    label = "Add to Block List",
-                    callback = function()
-                        AddToBlockList(abilityId, abilityName)
-                    end
-                },
-                {
-                    label = "Add to Recast Block List",
-                    callback = function()
-                        AddToRecastBlockList(abilityId, abilityName)
-                    end
-                },
-                {
-                    label = "Add to Resource Block List",
-                    callback = function()
-                        AddToResourceBlockList(abilityId, abilityName)
-                    end
-                }
+
+            -- Set the flag for the ShowMenu hook
+            self.button._customMenuData = {
+                abilityId = abilityId,
+                abilityName = abilityName
             }
-            
-            AddCustomSubMenuItem(OWColoredName, entries)
-            --AddCustomMenuTooltip("A sub-menu with ability options")
-            
-            ShowMenu(self.button)
-            
-            return true
         end
         return false
     end)
 end
+
 
 local function SetupAbilityIDHooks()
     HookActionBarRightClick()
@@ -1599,9 +1608,8 @@ local function Initialize()
     -- PreHook for ActionSlot
     ZO_PreHook("ZO_ActionBar_CanUseActionSlots", function()
         local slot = GetActionSlot() 
-        return CanUseActionSlots(slot)
+        return ShouldBlockSlot(slot)
     end)
-
 
     if OW.sv.blockLastMenu then
         -- PreHook for the Last menu (ALT)

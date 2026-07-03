@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ko.lua
     Description:        Korean localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -374,6 +374,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "전투 중 마지막 메뉴 차단
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "전투 중 마지막 메뉴 (ALT)가 열리는 것을 방지합니다.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "전투 중 캐릭터 메뉴 차단")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "전투 중 캐릭터 메뉴 (C)가 열리는 것을 방지합니다.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "전역 재사용 대기시간(GCD) 표시")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "액션 바 위에 GCD 표시기(ZOS 제공)를 표시합니다.")
 
 -- =============================================================================
 -- === END OF KOREAN LOCALIZATION ==============================================

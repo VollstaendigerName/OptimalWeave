@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/de.lua
     Description:        German localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -108,6 +108,8 @@ ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_LABEL", "Waffe automatisch ziehen"
 ZO_CreateStringId("OW_MENU_AUTO_EQUIP_WEAPONS_TOOLTIP", "Waffen automatisch ziehen, wenn im Kampf")
 ZO_CreateStringId("OW_MENU_RESET_SETTINGS_LABEL", "Alles zurücksetzen")
 ZO_CreateStringId("OW_MENU_RESET_SETTINGS_TOOLTIP", "Alle Einstellungen auf Standardwerte zurücksetzen")
+ZO_CreateStringId("OW_MENU_DYNAMIC_QUEUE_TIME_LABEL", "Dynamische Queue-Zeit (GCD)")
+ZO_CreateStringId("OW_MENU_DYNAMIC_QUEUE_TIME_TOOLTIP", "Verwendet den aktuellen GCD (1000 ms) anstelle des festen Werts.")
 
 -- =============================================================================
 -- == LATENCY COMPENSATION =====================================================
@@ -382,6 +384,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Letztes Menü im Kampf blockieren"
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Verhindert das Öffnen des letzten Menüs (ALT) während des Kampfes.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Charaktermenü im Kampf blockieren")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Verhindert das Öffnen des Charaktermenüs (C) während des Kampfes.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Globalen Cooldown (GCD) anzeigen")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Zeigt den GCD-Indikator (von ZOS bereitgestellt) über der Aktionsleiste an.")
 
 -- =============================================================================
 -- === END OF GERMAN LOCALIZATION ==============================================

@@ -5,7 +5,7 @@
     AddOn Name:         OptimalWeave
     File:               lang/ua.lua
     Description:        Ukrainian localization using ZO_CreateStringId
-    Version:            1.15.0
+    Version:            1.17.0
     Author:             Orollas & VollständigerName
 --]]
 -- =============================================================================
@@ -375,6 +375,13 @@ ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU", "Блокувати останнє 
 ZO_CreateStringId("OW_MENU_BLOCK_LAST_MENU_TOOLTIP", "Запобігає відкриттю останнього меню (ALT) під час бою.")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU", "Блокувати меню персонажа в бою")
 ZO_CreateStringId("OW_MENU_BLOCK_CHAR_MENU_TOOLTIP", "Запобігає відкриттю меню персонажа (C) під час бою.")
+
+-- =============================================================================
+-- == GCD DISPLAY ==============================================================
+-- =============================================================================
+
+ZO_CreateStringId("OW_MENU_SHOW_GCD_LABEL", "Показувати глобальний час відновлення (GCD)")
+ZO_CreateStringId("OW_MENU_SHOW_GCD_TOOLTIP", "Відображає індикатор GCD (наданий ZOS) над панеллю дій.")
 
 -- =============================================================================
 -- === END OF UKRAINIAN LOCALIZATION ===========================================

@@ -4,7 +4,7 @@
 -- AddOn Name:        OptimalWeave
 -- Description:       Advanced configuration menu system for OptimalWeave AddOn
 -- Authors:           Orollas & VollständigerName
--- Version:           1.16.0
+-- Version:           1.17.0
 -- Dependencies:      LibAddonMenu-2.0
 -- =============================================================================
 -- =============================================================================
@@ -654,6 +654,15 @@ end
                     1, 60, -- Min: 1 seconds, Max: 60 seconds
                     function() return sv.resetAfterSeconds end,
                     function(value) sv.resetAfterSeconds = value end
+                ),
+
+                 CreateCheckbox(
+                    "OW_MENU_SHOW_GCD_LABEL",
+                    "OW_MENU_SHOW_GCD_TOOLTIP",
+                    function() return sv.showGCD end,
+                    function(value) sv.showGCD = value end,
+                    nil,
+                    false
                 ),
 
                 { type = "divider", alpha = 0.2 }, -- =====================================================================================
